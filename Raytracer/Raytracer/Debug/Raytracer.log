@@ -1,0 +1,3 @@
+﻿  Raytracer.cpp
+C:\Users\alhaj\source\repos\Raytracer\Raytracer\Raytracer.cpp(22,17): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Raytracer.vcxproj -> C:\Users\alhaj\source\repos\Raytracer\Debug\Raytracer.exe
