@@ -1,0 +1,4 @@
+﻿  Raytracer.cpp
+C:\Users\alhaj\source\repos\Raytracer\Raytracer\vec3.h(61,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\Raytracer\Raytracer\Raytracer.cpp(24,17): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Raytracer.vcxproj -> C:\Users\alhaj\source\repos\Raytracer\Debug\Raytracer.exe
