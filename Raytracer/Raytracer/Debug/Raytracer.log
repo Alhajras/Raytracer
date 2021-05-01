@@ -1,6 +1,7 @@
 ﻿  Raytracer.cpp
 C:\Users\alhaj\source\repos\Raytracer\Raytracer\vec3.h(61,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\alhaj\source\repos\Raytracer\Raytracer\Raytracer.cpp(12,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\alhaj\source\repos\Raytracer\Raytracer\Raytracer.cpp(13,14): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\alhaj\source\repos\Raytracer\Raytracer\Raytracer.cpp(13,65): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\alhaj\source\repos\Raytracer\Raytracer\Raytracer.cpp(13,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\Raytracer\Raytracer\Raytracer.cpp(23,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\Raytracer\Raytracer\Raytracer.cpp(24,14): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\Raytracer\Raytracer\Raytracer.cpp(24,65): warning C4305: 'argument': truncation from 'double' to 'float'
   Raytracer.vcxproj -> C:\Users\alhaj\source\repos\Raytracer\Debug\Raytracer.exe

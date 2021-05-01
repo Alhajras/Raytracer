@@ -7,7 +7,18 @@
 
 using namespace std;
 
+bool hit_sphere(const vec3& center, float radius, const ray& r) {
+	vec3 oc = r.origin() - center;
+	float a = dot(r.direction(), r.direction());
+	float b = 2.0 * dot(oc, r.direction());
+	float c = dot(oc, oc) - radius * radius;
+	float discrimnant = b * b - 4 * a * c;
+	return (discrimnant > 0);
+}
+
 vec3 color(const ray& r) {
+	if (hit_sphere(vec3(0, 0, -1), 0.5, r))
+		return vec3(1, 0, 0);
 	vec3 unit_direction = unit_vector(r.direction());
 	float t = 0.5 * (unit_direction.y() + 1.0);
 	return (1.0 - t) * vec3(1.0, 1.0, 1.0) + t * vec3(0.5, 0.7, 1.0);
@@ -18,8 +29,8 @@ int main()
 	ofstream myfile;
 	myfile.open("image.ppm");
 
-	int nx = 200; // number of columns width
-	int ny = 100; // number of rows hight
+	int nx = 600; // number of columns width
+	int ny = 300; // number of rows hight
 	myfile << "P3\n" << nx << " " << ny << "\n255\n";
 	vec3 lower_left_corner(-2.0, -1.0, -1.0);
 	vec3 horizontal(4.0, 0.0, 0.0);
