@@ -95,6 +95,13 @@ inline float dot(const vec3& v1, const vec3& v2) {
 		+ v1.e[1] * v2.e[1]
 		+ v1.e[2] * v2.e[2];
 }
+vec3 negative(vec3 v) {
+	return vec3(-v.e[0], -v.e[1], -v.e[2]);
+}
+inline vec3 normalize(vec3 v) {
+	double magnitude = sqrt((v.e[0] * v.e[0]) + (v.e[1] * v.e[1]) + (v.e[2] * v.e[2]));
+	return vec3(v.e[0] / magnitude, v.e[1] / magnitude, v.e[2] / magnitude);
+}
 
 inline vec3 cross(const vec3& v1, const vec3& v2) {
 	return vec3(v1.e[1] * v2.e[2] - v1.e[2] * v2.e[1],
