@@ -167,9 +167,8 @@ vec3 color(Triangle& tri, const ray& r) {
 
 int main()
 {
-	camera cam;
 	ofstream myfile;
-	for (int image = 0; image <= 1; image++){
+	for (int image = -10; image <= 10; image++){
 	myfile.open("scene" + std::to_string(image) + ".ppm" );
 
 	int nx = 800; // number of columns width
@@ -177,10 +176,13 @@ int main()
 	myfile << "P3\n" << nx << " " << ny << "\n255\n";
 
 	Triangle tri(vec3(-0.001, 0, 0), vec3(0, 0.1, 0), vec3(0, 0, -0.001));
+	//float c = float(image) / float(10);
+	camera cam(vec3(-2, 2, 5), vec3(0, 0, -1), vec3(0, 1, 0), 90, float(nx) / float(ny));
 
 
 	for (int j = ny - 1; j >= 0; j--) {
 		for (int i = 0; i < nx; i++) {
+
 			float u = float(i) / float(nx);
 			float v = float(j) / float(ny);
 
