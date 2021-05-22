@@ -6,6 +6,8 @@
 #include <fstream>
 #include "ray.h"
 #include "Triangle.h"
+#include "camera.h"
+
 using namespace std;
 constexpr float kEpsilon = 1e-8;
 
@@ -165,17 +167,15 @@ vec3 color(Triangle& tri, const ray& r) {
 
 int main()
 {
+	camera cam;
 	ofstream myfile;
-	for (int image = -10; image <= 10; image++){
+	for (int image = 0; image <= 1; image++){
 	myfile.open("scene" + std::to_string(image) + ".ppm" );
 
-	int nx = 600; // number of columns width
-	int ny = 300; // number of rows hight
+	int nx = 800; // number of columns width
+	int ny = 400; // number of rows hight
 	myfile << "P3\n" << nx << " " << ny << "\n255\n";
-	vec3 lower_left_corner(-1.0, -0.5, -0.5);
-	vec3 horizontal(2.0, 0.0, 0.0);
-	vec3 vertical(0.0, 1.0, 0.0);
-	vec3 origin(image, 2.0, 5);
+
 	Triangle tri(vec3(-0.001, 0, 0), vec3(0, 0.1, 0), vec3(0, 0, -0.001));
 
 
@@ -184,7 +184,8 @@ int main()
 			float u = float(i) / float(nx);
 			float v = float(j) / float(ny);
 
-			ray r(origin, lower_left_corner + u * horizontal + v * vertical);
+			ray r = cam.get_ray(u,v);
+			//vec3 p = r.point_at_parameter(2.0);
 			vec3 col = color(tri, r);
 
 			int ir = int(255.99 * col[0]);
