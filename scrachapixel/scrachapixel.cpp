@@ -38,8 +38,8 @@
 #include <cmath>
 #include <limits>
 #include <random>
-
 #include "geometry.h"
+
 #define M_PI 3.141592653589793
 constexpr float kEpsilon = 1e-8;
 
@@ -55,18 +55,27 @@ float clamp(const float& lo, const float& hi, const float& v)
 	return std::max(lo, std::min(hi, v));
 }
 
+
+
 class Triangle
 {
 public:
 	Vec3f v0;                           /// position of the sphere
 	Vec3f v1;                           /// position of the sphere
 	Vec3f v2;                           /// position of the sphere
+	Vec3f surfaceColor, emissionColor;      /// surface color and emission (light)
+	float transparency, reflection;         /// surface transparency and reflectivity
 
 	Triangle(
 		const Vec3f& v_0,
 		const Vec3f& v_1,
-		const Vec3f& v_2) :
-		v0(v_0), v1(v_1), v2(v_2)
+		const Vec3f& v_2,
+		const Vec3f& sc,
+		const float& refl = 0,
+		const float& transp = 0,
+		const Vec3f& ec = 0) :
+		v0(v_0), v1(v_1), v2(v_2), surfaceColor(sc), emissionColor(ec),
+		transparency(transp), reflection(refl)
 	{ /* empty */
 	}
 	//[comment]
@@ -74,8 +83,10 @@ public:
 	//[/comment]
 	bool rayTriangleIntersect(
 		const Vec3f& orig, const Vec3f& dir,
-		float& t, float& u, float& v)
+		float& t) const
 	{
+		float u;
+		float v;
 #ifdef MOLLER_TRUMBORE
 		Vec3f v0v1 = v1 - v0;
 		Vec3f v0v2 = v2 - v0;
@@ -199,67 +210,167 @@ public:
 // when you compile.
 // [/comment]
 
-
-int main(int argc, char** argv)
+Vec3f trace(
+	const Vec3f& rayorig,
+	const Vec3f& raydir,
+	const std::vector<Sphere>& spheres,
+	const int& depth)
 {
-	Vec3f v0(-1, -1, -5);
-	Vec3f v1(1, -1, -5);
-	Vec3f v2(0, 1, -5);
-	Triangle triangle = Triangle(v0, v1,v2);
 
-	Sphere ground = Sphere(Vec3f( 0.0,      -10.3, -1), 10, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
-	Sphere sphere = Sphere(Vec3f(0.0, 0, -20), 4, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
+	//Vec3f v0(-1, -1, -20);
+	//Vec3f v1(1, -1, -20);
+	//Vec3f v2(0, 1, -20);
 
-	const uint32_t width = 640;
-	const uint32_t height = 480;
-	Vec3f cols[3] = { {0.6, 0.4, 0.1}, {0.1, 0.5, 0.3}, {0.1, 0.3, 0.7} };
-	Vec3f* framebuffer = new Vec3f[width * height];
-	Vec3f* pix = framebuffer;
-	float fov = 51.52;
-	float scale = tan(deg2rad(fov * 0.5));
-	float imageAspectRatio = width / (float)height;
-	Vec3f orig(0);
-	for (uint32_t j = 0; j < height; ++j) {
-		for (uint32_t i = 0; i < width; ++i) {
-			// compute primary ray
-			float x = (2 * (i + 0.5) / (float)width - 1) * imageAspectRatio * scale;
-			float y = (1 - 2 * (j + 0.5) / (float)height) * scale;
-			Vec3f dir(x, y, -1);
-			dir.normalize();
-			float t, u, v;
-			//if (triangle.rayTriangleIntersect(orig, dir,t, u, v)) {
-			//	// [comment]
-			//	// Interpolate colors using the barycentric coordinates
-			//	// [/comment]
-			//	*pix = u * cols[0] + v * cols[1] + (1 - u - v) * cols[2];
-			//	// uncomment this line if you want to visualize the row barycentric coordinates
-			//	//*pix = Vec3f(u, v, 1 - u - v);
-			//}
-			float t0 = INFINITY, t1 = INFINITY;
+	Vec3f v0(-1, -1, 1-20);
+	Vec3f v1(-1, -2, -1-20);
+	Vec3f v2(-3, 1, -1-20);
+	Triangle triangle(v0, v1, v2, Vec3f(0.65, 0.77, 0.97), 0, 0.0);
+	Vec3f color(0, 0, 0);
+	//if (raydir.length() != 1) std::cerr << "Error " << raydir << std::endl;
+	float tnear = INFINITY;
+	const Sphere* sphere = NULL;
+	Triangle* triangle_hit = NULL;
+	float t0, t1;
+	int type = 0;
+	t0 = INFINITY;
+	if (triangle.rayTriangleIntersect(rayorig, raydir, t0)) {
+		if (t0 < tnear) {
+			tnear = t0;
+			type = 1;
+			Triangle triangle_hit(v0, v1, v2, Vec3f(0.20, 0.20, 0.20), 0, 0.0);;
+			color = Vec3f(0.65, 0.77, 0.97);
+		}
 
-			if (ground.raySphereIntersect(orig, dir, t0, t1)) {
-				*pix = Vec3f(0.9, 0.9, 0.9);
+	}
+	//find intersection of this ray with the sphere in the scene
+	for (unsigned i = 0; i < spheres.size(); ++i) {
+		t0 = INFINITY, t1 = INFINITY;
+		if (spheres[i].raySphereIntersect(rayorig, raydir, t0, t1)) {
+			if (t0 < 0) t0 = t1;
+			if (t0 < tnear) {
+				tnear = t0;
+				sphere = &spheres[i];
 			}
-			if (sphere.raySphereIntersect(orig, dir, t0, t1)) {
-				*pix = Vec3f(0.5, 0.5, 0.5);
+		}
+	}
+
+	t0 = 500;
+
+	// if there's no intersection return black or background color
+	if (!type && !sphere) return Vec3f(2);
+	Vec3f surfaceColor = 0; // color of the ray/surfaceof the object intersected by the ray
+	Vec3f phit = rayorig + raydir * tnear; // point of intersection
+	Vec3f nhit = NULL;
+	if (type) {
+		nhit = phit - 2;
+		// normal at the intersection point
+	}
+	if (!type) {
+		nhit = phit - sphere->center;
+	}
+	nhit.normalize(); // normalize normal direction
+	// If the normal and the view direction are not opposite to each other
+	// reverse the normal direction. That also means we are inside the sphere so set
+	// the inside bool to true. Finally reverse the sign of IdotN which we want
+	// positive.
+	float bias = 1e-4; // add some bias to the point from which we will be tracing
+	bool inside = false;
+	if (raydir.dotProduct(nhit) > 0) nhit = -nhit, inside = true;
+	// it's a diffuse object, no need to raytrace any further
+	for (unsigned i = 0; i < spheres.size(); ++i) {
+
+		if (spheres[i].emissionColor.x > 0) {
+
+
+			// this is a light
+			Vec3f transmission = 1;
+			Vec3f lightDirection = Vec3f(0.0, 20, -30) - phit;
+			lightDirection.normalize();
+			for (unsigned j = 0; j < spheres.size(); ++j) {
+				if (i != j) {
+					float t0, t1;
+					if (triangle.rayTriangleIntersect(phit + nhit * bias, lightDirection, t0)) {
+						transmission = 0;
+						break;
+					}
+					if (spheres[j].raySphereIntersect(phit + nhit * bias, lightDirection, t0, t1)) {
+						transmission = 0;
+						break;
+					}
+				}
 			}
-			pix++;
+			if (sphere) {
+				surfaceColor += sphere->surfaceColor * transmission *
+					std::max(float(0), nhit.dotProduct(lightDirection)) * spheres[i].emissionColor;
+			}
+			else
+			{
+				surfaceColor += triangle.surfaceColor * transmission *
+					std::max(float(0), nhit.dotProduct(lightDirection)) * spheres[i].emissionColor;
+
+			}
+
+		}
+	}
+
+
+	if (type) {
+		return surfaceColor + triangle.emissionColor;
+	}
+	return surfaceColor + sphere->emissionColor;
+
+	//	return Vec3f(1, 1, 1);
+}
+
+void render(const std::vector<Sphere>& spheres)
+{
+	unsigned width = 640, height = 480;
+	Vec3f* image = new Vec3f[width * height], * pixel = image;
+	float invWidth = 1 / float(width), invHeight = 1 / float(height);
+	float fov = 30, aspectratio = width / float(height);
+	float angle = tan(M_PI * 0.5 * fov / 180.);
+	// Trace rays
+	for (unsigned y = 0; y < height; ++y) {
+		for (unsigned x = 0; x < width; ++x, ++pixel) {
+			float xx = (2 * ((x + 0.5) * invWidth) - 1) * angle * aspectratio;
+			float yy = (1 - 2 * ((y + 0.5) * invHeight)) * angle;
+			Vec3f raydir(xx, yy, -1);
+			raydir.normalize();
+			*pixel = trace(Vec3f(0), raydir, spheres, 0);
 		}
 	}
 
 	// Save result to a PPM image (keep these flags if you compile under Windows)
 	std::ofstream ofs("./out.ppm", std::ios::out | std::ios::binary);
 	ofs << "P6\n" << width << " " << height << "\n255\n";
-	for (uint32_t i = 0; i < height * width; ++i) {
-		char r = (char)(255 * clamp(0, 1, framebuffer[i].x));
-		char g = (char)(255 * clamp(0, 1, framebuffer[i].y));
-		char b = (char)(255 * clamp(0, 1, framebuffer[i].z));
-		ofs << r << g << b;
+	for (unsigned i = 0; i < width * height; ++i) {
+		ofs << (unsigned char)(std::min(float(1), image[i].x) * 255) <<
+			(unsigned char)(std::min(float(1), image[i].y) * 255) <<
+			(unsigned char)(std::min(float(1), image[i].z) * 255);
 	}
-
 	ofs.close();
 
-	delete[] framebuffer;
+	delete[] image;
+}
 
+int main(int argc, char** argv)
+{
+
+	std::vector<Sphere> spheres;
+
+	//Sphere ground = Sphere(Vec3f( 0.0,-10.3, -1), 10, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
+	//Sphere sphere = Sphere(Vec3f(0.0, 0, -20), 4, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
+	Sphere light = Sphere(Vec3f(0.0, 0, -100), 1, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3));
+	spheres.push_back(Sphere(Vec3f(0.0, -10004, -20), 10000, Vec3f(0.20, 0.20, 0.20), 0, 0.0)); // ground
+	//spheres.push_back(Sphere(Vec3f(0.0, 0, -24), 4, Vec3f(0.65, 0.77, 0.97), 1, 0.5)); //red center
+	spheres.push_back(Sphere(Vec3f(5.0, -1, -60), 2, Vec3f(0.90, 0.76, 0.46), 1, 0.0)); //yellow right
+	//spheres.push_back(Sphere(Vec3f(5.0, 0, -29), 3, Vec3f(0.65, 0.77, 0.97), 1, 0.0)); // blue behind
+	//spheres.push_back(Sphere(Vec3f(-5.5, 0, -19), 3, Vec3f(0.90, 0.90, 0.90), 1, 0.0)); //gray left
+	//spheres.push_back(ground);
+	//spheres.push_back(sphere);
+	spheres.push_back(light);
+
+
+	render(spheres);
 	return 0;
 }
