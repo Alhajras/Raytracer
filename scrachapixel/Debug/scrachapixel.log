@@ -1,0 +1,36 @@
+﻿  scrachapixel.cpp
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(44,32): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(49,20): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,51): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,51): warning C4305:         with
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,51): warning C4305:         [
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,51): warning C4305:             T=float
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,51): warning C4305:         ]
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,80): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,80): warning C4305:         with
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,80): warning C4305:         [
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,80): warning C4305:             T=float
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(191,80): warning C4305:         ]
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(192,70): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(192,70): warning C4305:         with
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(192,70): warning C4305:         [
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(192,70): warning C4305:             T=float
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(192,70): warning C4305:         ]
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(196,70): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(196,70): warning C4305:         with
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(196,70): warning C4305:         [
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(196,70): warning C4305:             T=float
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(196,70): warning C4305:         ]
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(199,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(200,32): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(206,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(207,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(224,31): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(224,31): warning C4305:         with
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(224,31): warning C4305:         [
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(224,31): warning C4305:             T=float
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(224,31): warning C4305:         ]
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(210,16): warning C4101: 'v': unreferenced local variable
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(210,10): warning C4101: 't': unreferenced local variable
+C:\Users\alhaj\source\repos\scrachapixel\scrachapixel\scrachapixel.cpp(210,13): warning C4101: 'u': unreferenced local variable
+  scrachapixel.vcxproj -> C:\Users\alhaj\source\repos\scrachapixel\Debug\scrachapixel.exe
