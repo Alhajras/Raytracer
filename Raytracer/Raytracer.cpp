@@ -270,7 +270,7 @@ Vec3f trace(
 	//Vec3f v0(-1, -1, -20);
 	//Vec3f v1(1, -1, -20);
 	//Vec3f v2(0, 1, -20);
-
+	Vec3f  hitColor = Vec3f(0.6, 0.8, 1);
 	Vec3f v0(-1, -1, 1-20);
 	Vec3f v1(-1, -2, -1-20);
 	Vec3f v2(-3, 1, -1-20);
@@ -287,8 +287,8 @@ Vec3f trace(
 		if (t0 < tnear) {
 			tnear = t0;
 			type = 1;
-			Triangle triangle_hit(v0, v1, v2, Vec3f(0.20, 0.20, 0.20), 0, 0.0);;
-			color = Vec3f(0.65, 0.77, 0.97);
+			Triangle triangle_hit(v0, v1, v2, Vec3f(0.90, 0.76, 0.46), 0, 0.0);;
+			hitColor = Vec3f(0.65, 0.77, 0.97);
 		}
 
 	}
@@ -300,6 +300,7 @@ Vec3f trace(
 			if (t0 < tnear) {
 				tnear = t0;
 				sphere = &spheres[i];
+				hitColor = sphere->surfaceColor;
 			}
 		}
 	}
@@ -307,7 +308,7 @@ Vec3f trace(
 	t0 = 500;
 
 	// if there's no intersection return black or background color
-	if (!type && !sphere) return Vec3f(0.6,0.8,1);
+	if (!type && !sphere) return hitColor;
 	Vec3f surfaceColor = 0; // color of the ray/surfaceof the object intersected by the ray
 	Vec3f phit = rayorig + raydir * tnear; // point of intersection
 	Vec3f nhit = NULL;
@@ -374,7 +375,7 @@ Vec3f trace(
 				Vec2f st(0.2);
 				//std::cout << lightAmt * spheres[i].evalDiffuseColor(st) * 0.8 + specularColor * 0.2 << "\n";
 
-				return lightAmt * spheres[i].evalDiffuseColor(st) * 0.8 + specularColor * 0.2;
+				hitColor= lightAmt * spheres[i].evalDiffuseColor(st) * 0.8 + specularColor * 0.2;
 
 
 
@@ -410,11 +411,11 @@ Vec3f trace(
 
 
 	if (type) {
-		return surfaceColor + triangle.emissionColor;
+		return (hitColor + triangle.surfaceColor);
 	}
-	return surfaceColor + sphere->emissionColor;
+	return (hitColor + sphere->surfaceColor);
 
-	//	return Vec3f(1, 1, 1);
+	//return Vec3f(1, 1, 1);
 }
 
 void render(std::vector<Sphere>& spheres)
@@ -455,7 +456,7 @@ int main(int argc, char** argv)
 
 	//Sphere ground = Sphere(Vec3f( 0.0,-10.3, -1), 10, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
 	//Sphere sphere = Sphere(Vec3f(0.0, 0, -20), 4, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
-	Sphere light = Sphere(Vec3f(0, 12, -50), 4, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(10));
+	Sphere light = Sphere(Vec3f(0, 14, -50), 4, Vec3f(1, 1, 1), 0, 0.0, Vec3f(10));
 	spheres.push_back(Sphere(Vec3f(0.0, -10004, -100), 3, Vec3f(0.20, 0.20, 0.20), 0, 0.0)); // ground
 	//spheres.push_back(Sphere(Vec3f(0.0, 0, -24), 4, Vec3f(0.65, 0.77, 0.97), 1, 0.5)); //red center
 	spheres.push_back(Sphere(Vec3f(0, 0, -20), 2, Vec3f(0.90, 0.76, 0.46), 1, 0.0)); //yellow right
