@@ -39,6 +39,7 @@
 #include <limits>
 #include <random>
 #include "geometry.h"
+#include <string>
 
 const float kInfinity = std::numeric_limits<float>::max();
 
@@ -234,7 +235,7 @@ bool trace_more(
 	float& tNear, uint32_t& index, Vec2f& uv, Sphere* hitObject)
 {
 
-	bool hit = false; 
+	bool hit = false;
 	for (uint32_t k = 0; k < spheres.size(); ++k) {
 		float tNearK = kInfinity;
 		uint32_t indexK;
@@ -248,7 +249,7 @@ bool trace_more(
 			uv = uvK;
 		}
 	}
-	return hit; 
+	return hit;
 	//return (*hitObject != nullptr);
 }
 
@@ -261,7 +262,7 @@ bool trace_more(
 Vec3f trace(
 	const Vec3f& rayorig,
 	const Vec3f& raydir,
-	std::vector<Sphere>& spheres,
+	std::vector<Sphere>& spheres, std::vector<Triangle> triangles,
 	const int& depth)
 {
 	Vec2f uv;
@@ -271,10 +272,7 @@ Vec3f trace(
 	//Vec3f v1(1, -1, -20);
 	//Vec3f v2(0, 1, -20);
 	Vec3f  hitColor = Vec3f(0.6, 0.8, 1);
-	Vec3f v0(-1, -1, 1-20);
-	Vec3f v1(-1, -2, -1-20);
-	Vec3f v2(-3, 1, -1-20);
-	Triangle triangle(v0, v1, v2, Vec3f(0.90, 0.76, 0.46), 1, 0.0);
+
 	Vec3f color(0, 0, 0);
 	//if (raydir.length() != 1) std::cerr << "Error " << raydir << std::endl;
 	float tnear = INFINITY;
@@ -283,15 +281,20 @@ Vec3f trace(
 	float t0, t1;
 	int type = 0;
 	t0 = INFINITY;
-	if (triangle.rayTriangleIntersect(rayorig, raydir, t0)) {
-		if (t0 < tnear) {
-			tnear = t0;
-			type = 1;
-			Triangle triangle_hit(v0, v1, v2, Vec3f(0.90, 0.76, 0.46), 0, 0.0);;
-			hitColor = Vec3f(0.65, 0.77, 0.97);
-		}
 
+	//find intersection of this ray with the sphere in the scene
+	for (unsigned i = 0; i < triangles.size(); ++i) {
+		t0 = INFINITY, t1 = INFINITY;
+		if (triangles[i].rayTriangleIntersect(rayorig, raydir, t0)) {
+			if (t0 < tnear) {
+				tnear = t0;
+				type = 1;
+				triangle_hit = &triangles[i];
+				hitColor = triangle_hit->surfaceColor;
+			}
+		}
 	}
+
 	//find intersection of this ray with the sphere in the scene
 	for (unsigned i = 0; i < spheres.size(); ++i) {
 		t0 = INFINITY, t1 = INFINITY;
@@ -317,8 +320,8 @@ Vec3f trace(
 		//center.x = (v0.x + v1.x + v2.x) / 3;
 		//center.y = (v0.y + v1.y + v2.y) / 3;
 		//center.z = (v0.z + v1.z + v2.z) / 3;
-		Vec3f v0v1 = v1 - v0;
-		Vec3f v0v2 = v2 - v0;
+		Vec3f v0v1 = triangle_hit->v1 - triangle_hit->v0;
+		Vec3f v0v2 = triangle_hit->v2 - triangle_hit->v0;
 		// no need to normalize
 		Vec3f N = v0v1.crossProduct(v0v2); // N
 
@@ -350,7 +353,7 @@ Vec3f trace(
 			// this is a light
 			float bias = 0.00001;
 			Vec3f lightAmt = 0, specularColor = 0;
-			Vec3f shadowPointOrig = (raydir.dotProduct( N) < 0) ?
+			Vec3f shadowPointOrig = (raydir.dotProduct(N) < 0) ?
 				hitPoint + N * bias :
 				hitPoint - N * bias;
 			// [comment]
@@ -358,26 +361,22 @@ Vec3f trace(
 			// We also apply the lambert cosine law here though we haven't explained yet what this means.
 			// [/comment]
 			//for (uint32_t i = 0; i < lights.size(); ++i) {
-				Vec3f lightDir = spheres[i].center - hitPoint;
-				// square of the distance between hitPoint and the light
-				float lightDistance2 = lightDir.dotProduct(lightDir);
-				lightDir = lightDir.normalize();
-				float LdotN = std::max(0.f, lightDir.dotProduct(N));
-				Sphere* shadowHitObject = nullptr;
-				float tNearShadow = kInfinity;
-				// is the point in shadow, and is the nearest occluding object closer to the object than the light itself?
-				bool inShadow = trace_more(shadowPointOrig, lightDir, spheres, tNearShadow, index, uv, shadowHitObject) &&
-					tNearShadow * tNearShadow < lightDistance2;
-				lightAmt += (1 - inShadow) * spheres[i].emissionColor * LdotN;
-				Vec3f reflectionDirection = reflect(-lightDir, N);
-				specularColor += powf(std::max(0.f, -reflectionDirection.dotProduct(raydir)), 25) * spheres[i].emissionColor;
+			Vec3f lightDir = spheres[i].center - hitPoint;
+			// square of the distance between hitPoint and the light
+			float lightDistance2 = lightDir.dotProduct(lightDir);
+			lightDir = lightDir.normalize();
+			float LdotN = std::max(0.f, lightDir.dotProduct(N));
+			Sphere* shadowHitObject = nullptr;
+			float tNearShadow = kInfinity;
+			// is the point in shadow, and is the nearest occluding object closer to the object than the light itself?
+			bool inShadow = trace_more(shadowPointOrig, lightDir, spheres, tNearShadow, index, uv, shadowHitObject) &&
+				tNearShadow * tNearShadow < lightDistance2;
+			lightAmt += (1 - inShadow) * spheres[i].emissionColor * LdotN;
+			Vec3f reflectionDirection = reflect(-lightDir, N);
+			specularColor += powf(std::max(0.f, -reflectionDirection.dotProduct(raydir)), 25) * spheres[i].emissionColor;
 			//}
-				Vec2f st(0.2);
-				//std::cout << lightAmt * spheres[i].evalDiffuseColor(st) * 0.8 + specularColor * 0.2 << "\n";
-
-				hitColor= lightAmt * spheres[i].evalDiffuseColor(st) * 0.8 + specularColor * 0.2;
-
-
+			Vec2f st(0.2);
+			hitColor = lightAmt * spheres[i].evalDiffuseColor(st) * 0.8 + specularColor * 0.1;
 
 			/*Vec3f transmission = 1;
 			Vec3f lightDirection = Vec3f(0.0, 20, -30) - phit;
@@ -411,14 +410,14 @@ Vec3f trace(
 
 
 	if (type) {
-		return (hitColor + triangle.surfaceColor);
+		return (hitColor + triangle_hit->surfaceColor);
 	}
 	return (hitColor + sphere->surfaceColor);
 
 	//return Vec3f(1, 1, 1);
 }
 
-void render(std::vector<Sphere>& spheres)
+void render(std::vector<Sphere>& spheres, std::vector<Triangle> triangles, int frame)
 {
 	unsigned width = 640, height = 480;
 	Vec3f* image = new Vec3f[width * height], * pixel = image;
@@ -432,12 +431,12 @@ void render(std::vector<Sphere>& spheres)
 			float yy = (1 - 2 * ((y + 0.5) * invHeight)) * angle;
 			Vec3f raydir(xx, yy, -1);
 			raydir.normalize();
-			*pixel = trace(Vec3f(0), raydir, spheres, 0);
+			*pixel = trace(Vec3f(0), raydir, spheres, triangles, 0);
 		}
 	}
 
 	// Save result to a PPM image (keep these flags if you compile under Windows)
-	std::ofstream ofs("./out.ppm", std::ios::out | std::ios::binary);
+	std::ofstream ofs("./" + std::to_string(frame) + "out.ppm", std::ios::out | std::ios::binary);
 	ofs << "P6\n" << width << " " << height << "\n255\n";
 	for (unsigned i = 0; i < width * height; ++i) {
 		ofs << (unsigned char)(std::min(float(1), image[i].x) * 255) <<
@@ -452,14 +451,42 @@ void render(std::vector<Sphere>& spheres)
 int main(int argc, char** argv)
 {
 
+	for (int frame = 15; frame >=14; frame-- ){
+	int shift = 20;
+	int sh_y = 4;
 	std::vector<Sphere> spheres;
+	std::vector<Triangle> triangles;
+
+
+	// This is a cube
+	triangles.push_back(Triangle(Vec3f(-1, -1 - sh_y, 1 - shift), Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, 1 - shift), Vec3f(0.1, 0.3, 0.46), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(-1, -1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, 1 - shift), Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(0.90, 0.1, 0.46), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(1, -1 - sh_y, -1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(1, 1 - sh_y, 1 - shift), Vec3f(0.1, 0.3, 0.46), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, -1 - shift), Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(-1, 1 - sh_y, -1 - shift), Vec3f(0.90, 1, 0.46), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, -1 - shift), Vec3f(-1, 1 - sh_y, -1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(-1, -1 - sh_y, 1 - shift), Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(0.1, 0.3, 0.46), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(-1, 1 - sh_y, -1 - shift), Vec3f(0.90, 0.1, 0.46), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(-1, 1 - sh_y, -1 - shift), Vec3f(0.1, 0.3, 0.46), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(1, -1 - sh_y, -1 - shift), Vec3f(0.90, 0.1, 0.46), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(-1, -1 - sh_y, 1 - shift), Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
+
+
+	// This is a tetrahidron
+	triangles.push_back(Triangle(Vec3f(-1.0 - sh_y, 1.0, -1.0 + 2 - shift), Vec3f(1.0 - sh_y, -1.0, -1.0 + 2 - shift), Vec3f(-1.0 - sh_y, -1.0, 1.0 + 2 - shift), Vec3f(0.2, 0.3, 0.1), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(1.0 - sh_y, 1.0, 1.0 + 2 - shift), Vec3f(-1.0 - sh_y, -1.0, 1.0 + 2 - shift), Vec3f(1.0 - sh_y, -1.0, -1.0 + 2 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(1.0 - sh_y, 1.0 , 1.0 + 2 - shift), Vec3f(-1.0 - sh_y, 1.0, -1.0 + 2 - shift), Vec3f(-1.0 - sh_y, -1.0, 1.0 + 2 - shift), Vec3f(0.90, 0.3, 0.6), 1, 0.0));
+	triangles.push_back(Triangle(Vec3f(1.0 - sh_y, 1.0, 1.0 + 2 - shift), Vec3f(1.0 - sh_y, -1.0, -1.0 + 2 - shift), Vec3f(-1.0 - sh_y, 1.0, -1.0 + 2 - shift), Vec3f(0.90, 0.7, 0.1), 1, 0.0));
+
 
 	//Sphere ground = Sphere(Vec3f( 0.0,-10.3, -1), 10, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
 	//Sphere sphere = Sphere(Vec3f(0.0, 0, -20), 4, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
-	Sphere light = Sphere(Vec3f(0, 14, -50), 4, Vec3f(1, 1, 1), 0, 0.0, Vec3f(10));
-	spheres.push_back(Sphere(Vec3f(0.0, -10004, -100), 3, Vec3f(0.20, 0.20, 0.20), 0, 0.0)); // ground
+	Sphere light = Sphere(Vec3f(0, frame, -50), 4, Vec3f(1, 1, 1), 0, 0.0, Vec3f(80));
+
+	spheres.push_back(Sphere(Vec3f(0.0, -100, -20), 98, Vec3f(0.20, 0.20, 0.20), 0, 0.0)); // ground
 	//spheres.push_back(Sphere(Vec3f(0.0, 0, -24), 4, Vec3f(0.65, 0.77, 0.97), 1, 0.5)); //red center
-	spheres.push_back(Sphere(Vec3f(0, 0, -20), 2, Vec3f(0.90, 0.76, 0.46), 1, 0.0)); //yellow right
+	spheres.push_back(Sphere(Vec3f(5, 0, -20), 2, Vec3f(0.1, 0.77, 0.97), 1, 0.0)); //yellow right
 	//spheres.push_back(Sphere(Vec3f(5.0, -1, -40), 2, Vec3f(0.90, 0.76, 0.46), 1, 0.0)); //yellow right
 
 	//spheres.push_back(Sphere(Vec3f(5.0, 0, -29), 3, Vec3f(0.65, 0.77, 0.97), 1, 0.0)); // blue behind
@@ -469,6 +496,7 @@ int main(int argc, char** argv)
 	spheres.push_back(light);
 
 
-	render(spheres);
+	render(spheres, triangles,frame);
+	}
 	return 0;
 }
