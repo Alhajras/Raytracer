@@ -379,18 +379,18 @@ Vec3f castRay(
 		switch (sphere->materialType) {
 		case REFLECTION_AND_REFRACTION:
 		{
-			//Vec3f reflectionDirection = reflect(raydir, N).normalize();
-			Vec3f refractionDirection = refract(raydir, N, 1.5).normalize();
-			//Vec3f reflectionRayOrig = (reflectionDirection.dotProduct(N) < 0) ?
-			//	hitPoint - N * bias :
-			//	hitPoint + N * bias;
+			Vec3f reflectionDirection = reflect(raydir, N).normalize();
+			Vec3f refractionDirection = refract(raydir, N, 3).normalize();
+			Vec3f reflectionRayOrig = (reflectionDirection.dotProduct(N) < 0) ?
+				hitPoint - N * bias :
+				hitPoint + N * bias;
 			Vec3f refractionRayOrig = (refractionDirection.dotProduct(N) < 0) ?
 				hitPoint - N * bias :
 				hitPoint + N * bias;
-			//Vec3f reflectionColor = castRay(reflectionRayOrig, reflectionDirection, spheres, depth + 1);
+			Vec3f reflectionColor = castRay(reflectionRayOrig, reflectionDirection, spheres, lights, depth + 1);
 			Vec3f refractionColor = castRay(refractionRayOrig, refractionDirection, spheres, lights, depth + 1);
 			float kr;
-			fresnel(raydir, N, 1.5, kr);
+			fresnel(raydir, N, 3, kr);
 			 hitColor = refractionColor * (1 - kr);
 			break;
 		}
@@ -485,12 +485,15 @@ int main(int argc, char** argv)
 
 		std::vector<Triangle> triangles;
 
-
+		
 		Sphere light = Sphere(Vec3f(0, frame, -20), 4, Vec3f(1, 1, 1), 0, 0.0, Vec3f(2));
-		Sphere gray = Sphere(Vec3f(-5.5, 0, -20), 3, Vec3f(0.1, 0.4, 0.6), 1, 0.0);
-		gray.materialType = REFLECTION;
+		Sphere gray = Sphere(Vec3f(-5.5, 0, -20), 2, Vec3f(0.1, 0.4, 0.6), 1, 0.0);
+		Sphere gray_1 = Sphere(Vec3f(-6.1, 0, -23), 0.5, Vec3f(0, 0, 0), 1, 0.0);
+
+		gray.materialType = REFLECTION_AND_REFRACTION;
 
 		spheres.push_back(gray); //gray left
+		spheres.push_back(gray_1); //gray left
 		spheres.push_back(Sphere(Vec3f(0.0, -100, -20), 98, Vec3f(0.20, 0.20, 0.20), 0, 0.0)); // ground
 		spheres.push_back(Sphere(Vec3f(5, 0, -20), 2, Vec3f(0.1, 0.77, 0.97), 1, 0.0)); //yellow right
 		lights.push_back(light);
