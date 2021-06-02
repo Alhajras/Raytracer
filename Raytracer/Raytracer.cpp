@@ -58,7 +58,30 @@ float clamp(const float& lo, const float& hi, const float& v)
 	return std::max(lo, std::min(hi, v));
 }
 
+enum MaterialType { DIFFUSE_AND_GLOSSY, REFLECTION_AND_REFRACTION, REFLECTION };
 
+
+void fresnel(const Vec3f& I, const Vec3f& N, const float& ior, float& kr)
+{
+	float cosi = clamp(-1, 1, I.dotProduct(N));
+	float etai = 1, etat = ior;
+	if (cosi > 0) { std::swap(etai, etat); }
+	// Compute sini using Snell's law
+	float sint = etai / etat * sqrtf(std::max(0.f, 1 - cosi * cosi));
+	// Total internal reflection
+	if (sint >= 1) {
+		kr = 1;
+	}
+	else {
+		float cost = sqrtf(std::max(0.f, 1 - sint * sint));
+		cosi = fabsf(cosi);
+		float Rs = ((etat * cosi) - (etai * cost)) / ((etat * cosi) + (etai * cost));
+		float Rp = ((etai * cosi) - (etat * cost)) / ((etai * cosi) + (etat * cost));
+		kr = (Rs * Rs + Rp * Rp) / 2;
+	}
+	// As a consequence of the conservation of energy, transmittance is given by:
+	// kt = 1 - kr;
+}
 
 class Triangle
 {
@@ -68,7 +91,7 @@ public:
 	Vec3f v2;                           /// position of the sphere
 	Vec3f surfaceColor, emissionColor;      /// surface color and emission (light)
 	float transparency, reflection;         /// surface transparency and reflectivity
-
+	MaterialType materialType;
 	Triangle(
 		const Vec3f& v_0,
 		const Vec3f& v_1,
@@ -78,7 +101,7 @@ public:
 		const float& transp = 0,
 		const Vec3f& ec = 0) :
 		v0(v_0), v1(v_1), v2(v_2), surfaceColor(sc), emissionColor(ec),
-		transparency(transp), reflection(refl)
+		transparency(transp), reflection(refl), materialType(DIFFUSE_AND_GLOSSY)
 	{ /* empty */
 	}
 	//[comment]
@@ -183,6 +206,8 @@ public:
 	float radius, radius2;                  /// sphere radius and radius^2
 	Vec3f surfaceColor, emissionColor;      /// surface color and emission (light)
 	float transparency, reflection;         /// surface transparency and reflectivity
+	MaterialType materialType;
+
 	Sphere(
 		const Vec3f& c,
 		const float& r,
@@ -191,7 +216,7 @@ public:
 		const float& transp = 0,
 		const Vec3f& ec = 0) :
 		center(c), radius(r), radius2(r* r), surfaceColor(sc), emissionColor(ec),
-		transparency(transp), reflection(refl)
+		transparency(transp), reflection(refl), materialType(DIFFUSE_AND_GLOSSY)
 	{ /* empty */
 	}
 	//[comment]
@@ -228,6 +253,18 @@ Vec3f reflect(const Vec3f& I, const Vec3f& N)
 	return I - 2 * I.dotProduct(N) * N;
 }
 
+Vec3f refract(const Vec3f& I, const Vec3f& N, const float& ior)
+{
+	float cosi = clamp(-1, 1, I.dotProduct(N));
+	float etai = 1, etat = ior;
+	Vec3f n = N;
+	if (cosi < 0) { cosi = -cosi; }
+	else { std::swap(etai, etat); n = -N; }
+	float eta = etai / etat;
+	float k = 1 - eta * eta * (1 - cosi * cosi);
+	return k < 0 ? 0 : eta * I + (eta * cosi - sqrtf(k)) * n;
+}
+
 
 bool trace_more(
 	const Vec3f& orig, const Vec3f& dir,
@@ -249,6 +286,21 @@ bool trace_more(
 			uv = uvK;
 		}
 	}
+
+	for (uint32_t k = 0; k < spheres.size(); ++k) {
+		float tNearK = kInfinity;
+		uint32_t indexK;
+		Vec2f uvK;
+		float t1;
+		if (spheres[k].raySphereIntersect(orig, dir, tNearK, t1) && tNearK < tNear) {
+			hitObject = &spheres[k];
+			hit = true;
+			tNear = tNearK;
+			index = 0;
+			uv = uvK;
+		}
+	}
+
 	return hit;
 	//return (*hitObject != nullptr);
 }
@@ -259,41 +311,31 @@ bool trace_more(
 // when you compile.
 // [/comment]
 
-Vec3f trace(
+Vec3f castRay(
 	const Vec3f& rayorig,
 	const Vec3f& raydir,
-	std::vector<Sphere>& spheres, std::vector<Triangle> triangles,
+	std::vector<Sphere>& spheres,
+	std::vector<Sphere>& lights,
 	const int& depth)
 {
+
+	if (depth > 5) {
+		return Vec3f(0.6, 0.8, 1);
+	}
+
 	Vec2f uv;
 	uint32_t index = 0;
 
-	//Vec3f v0(-1, -1, -20);
-	//Vec3f v1(1, -1, -20);
-	//Vec3f v2(0, 1, -20);
 	Vec3f  hitColor = Vec3f(0.6, 0.8, 1);
 
 	Vec3f color(0, 0, 0);
 	//if (raydir.length() != 1) std::cerr << "Error " << raydir << std::endl;
 	float tnear = INFINITY;
 	Sphere* sphere = NULL;
-	Triangle* triangle_hit = NULL;
 	float t0, t1;
 	int type = 0;
 	t0 = INFINITY;
 
-	//find intersection of this ray with the sphere in the scene
-	for (unsigned i = 0; i < triangles.size(); ++i) {
-		t0 = INFINITY, t1 = INFINITY;
-		if (triangles[i].rayTriangleIntersect(rayorig, raydir, t0)) {
-			if (t0 < tnear) {
-				tnear = t0;
-				type = 1;
-				triangle_hit = &triangles[i];
-				hitColor = triangle_hit->surfaceColor;
-			}
-		}
-	}
 
 	//find intersection of this ray with the sphere in the scene
 	for (unsigned i = 0; i < spheres.size(); ++i) {
@@ -308,29 +350,14 @@ Vec3f trace(
 		}
 	}
 
-	t0 = 500;
+	t0 = 500000;
 
 	// if there's no intersection return black or background color
 	if (!type && !sphere) return hitColor;
 	Vec3f surfaceColor = 0; // color of the ray/surfaceof the object intersected by the ray
-	Vec3f phit = rayorig + raydir * tnear; // point of intersection
+	Vec3f hitPoint = rayorig + raydir * tnear; // point of intersection
 	Vec3f nhit = NULL;
-	if (type) {
-		Vec3f center(0, 0, 0);
-		//center.x = (v0.x + v1.x + v2.x) / 3;
-		//center.y = (v0.y + v1.y + v2.y) / 3;
-		//center.z = (v0.z + v1.z + v2.z) / 3;
-		Vec3f v0v1 = triangle_hit->v1 - triangle_hit->v0;
-		Vec3f v0v2 = triangle_hit->v2 - triangle_hit->v0;
-		// no need to normalize
-		Vec3f N = v0v1.crossProduct(v0v2); // N
-
-		nhit = phit - N;
-		// normal at the intersection point
-	}
-	if (!type) {
-		nhit = phit - sphere->center;
-	}
+	nhit = hitPoint - sphere->center;
 	nhit.normalize(); // normalize normal direction
 	// If the normal and the view direction are not opposite to each other
 	// reverse the normal direction. That also means we are inside the sphere so set
@@ -340,84 +367,83 @@ Vec3f trace(
 	bool inside = false;
 	if (raydir.dotProduct(nhit) > 0) nhit = -nhit, inside = true;
 
-	Vec3f hitPoint = rayorig + raydir * tnear;
-	Vec3f N; // normal
+
+	Vec3f N = nhit; // normal
 	Vec2f st; // st coordinates
+	//hitObject->getSurfaceProperties(hitPoint, dir, index, uv, N, st);
 	Vec3f tmp = hitPoint;
+
 	// it's a diffuse object, no need to raytrace any further
-	for (unsigned i = 0; i < spheres.size(); ++i) {
 
-		if (spheres[i].emissionColor.x > 0) {
+	if (!type) {
+		switch (sphere->materialType) {
+		case REFLECTION_AND_REFRACTION:
+		{
+			//Vec3f reflectionDirection = reflect(raydir, N).normalize();
+			Vec3f refractionDirection = refract(raydir, N, 1.5).normalize();
+			//Vec3f reflectionRayOrig = (reflectionDirection.dotProduct(N) < 0) ?
+			//	hitPoint - N * bias :
+			//	hitPoint + N * bias;
+			Vec3f refractionRayOrig = (refractionDirection.dotProduct(N) < 0) ?
+				hitPoint - N * bias :
+				hitPoint + N * bias;
+			//Vec3f reflectionColor = castRay(reflectionRayOrig, reflectionDirection, spheres, depth + 1);
+			Vec3f refractionColor = castRay(refractionRayOrig, refractionDirection, spheres, lights, depth + 1);
+			float kr;
+			fresnel(raydir, N, 1.5, kr);
+			 hitColor = refractionColor * (1 - kr);
+			break;
+		}
+		case REFLECTION:
+		{
+			
+			Vec3f R = reflect(raydir, N);
+			R.normalize();
+			break;
+		}            default:
+		{
+			for (unsigned i = 0; i < lights.size(); ++i) {
 
 
-			// this is a light
-			float bias = 0.00001;
-			Vec3f lightAmt = 0, specularColor = 0;
-			Vec3f shadowPointOrig = (raydir.dotProduct(N) < 0) ?
-				hitPoint + N * bias :
-				hitPoint - N * bias;
-			// [comment]
-			// Loop over all lights in the scene and sum their contribution up
-			// We also apply the lambert cosine law here though we haven't explained yet what this means.
-			// [/comment]
-			//for (uint32_t i = 0; i < lights.size(); ++i) {
-			Vec3f lightDir = spheres[i].center - hitPoint;
-			// square of the distance between hitPoint and the light
-			float lightDistance2 = lightDir.dotProduct(lightDir);
-			lightDir = lightDir.normalize();
-			float LdotN = std::max(0.f, lightDir.dotProduct(N));
-			Sphere* shadowHitObject = nullptr;
-			float tNearShadow = kInfinity;
-			// is the point in shadow, and is the nearest occluding object closer to the object than the light itself?
-			bool inShadow = trace_more(shadowPointOrig, lightDir, spheres, tNearShadow, index, uv, shadowHitObject) &&
-				tNearShadow * tNearShadow < lightDistance2;
-			lightAmt += (1 - inShadow) * spheres[i].emissionColor * LdotN;
-			Vec3f reflectionDirection = reflect(-lightDir, N);
-			specularColor += powf(std::max(0.f, -reflectionDirection.dotProduct(raydir)), 25) * spheres[i].emissionColor;
-			//}
-			Vec2f st(0.2);
-			hitColor = lightAmt * spheres[i].evalDiffuseColor(st) * 0.8 + specularColor * 0.1;
-
-			/*Vec3f transmission = 1;
-			Vec3f lightDirection = Vec3f(0.0, 20, -30) - phit;
-			lightDirection.normalize();
-			for (unsigned j = 0; j < spheres.size(); ++j) {
-				if (i != j) {
-					float t0, t1;
-					if (triangle.rayTriangleIntersect(phit + nhit * bias, lightDirection, t0)) {
-						transmission = 0;
-						break;
-					}
-					if (spheres[j].raySphereIntersect(phit + nhit * bias, lightDirection, t0, t1)) {
-						transmission = 0;
-						break;
-					}
-				}
+					// this is a light
+					Vec3f lightAmt = 0, specularColor = 0;
+					Vec3f shadowPointOrig = (raydir.dotProduct(N) < 0) ?
+						hitPoint + N * bias :
+						hitPoint - N * bias;
+					// [comment]
+					// Loop over all lights in the scene and sum their contribution up
+					// We also apply the lambert cosine law here though we haven't explained yet what this means.
+					// [/comment]
+					//for (uint32_t i = 0; i < lights.size(); ++i) {
+					Vec3f lightDir = lights[i].center - hitPoint;
+					// square of the distance between hitPoint and the light
+					float lightDistance2 = lightDir.dotProduct(lightDir);
+					lightDir = lightDir.normalize();
+					float LdotN = std::max(0.f, lightDir.dotProduct(N));
+					Sphere* shadowHitObject = nullptr;
+					float tNearShadow = kInfinity;
+					// is the point in shadow, and is the nearest occluding object closer to the object than the light itself?
+					bool inShadow = trace_more(shadowPointOrig, lightDir, spheres, tNearShadow, index, uv, shadowHitObject) &&
+						tNearShadow * tNearShadow < lightDistance2;
+					lightAmt += (1 - inShadow) * lights[i].emissionColor * LdotN;
+					Vec3f reflectionDirection = reflect(-lightDir, N);
+					specularColor += powf(std::max(0.f, -reflectionDirection.dotProduct(raydir)), 25) * lights[i].emissionColor;
+					//}
+					Vec2f st(0.2);
+					hitColor = lightAmt * lights[i].evalDiffuseColor(st) * 0.8 + specularColor * 0.1;
+					hitColor += sphere->surfaceColor;
+				
 			}
-			if (sphere) {
-				surfaceColor += sphere->surfaceColor * transmission *
-					std::max(float(0), nhit.dotProduct(lightDirection)) * spheres[i].emissionColor;
-			}
-			else
-			{
-				surfaceColor += triangle.surfaceColor * transmission *
-					std::max(float(0), nhit.dotProduct(lightDirection)) * spheres[i].emissionColor;
-
-			}*/
 
 		}
+		}
 	}
-
-
-	if (type) {
-		return (hitColor + triangle_hit->surfaceColor);
-	}
-	return (hitColor + sphere->surfaceColor);
+	return (hitColor);
 
 	//return Vec3f(1, 1, 1);
 }
 
-void render(std::vector<Sphere>& spheres, std::vector<Triangle> triangles, int frame)
+void render(std::vector<Sphere>& spheres, std::vector<Sphere>& lights, std::vector<Triangle> triangles, int frame)
 {
 	unsigned width = 640, height = 480;
 	Vec3f* image = new Vec3f[width * height], * pixel = image;
@@ -431,7 +457,7 @@ void render(std::vector<Sphere>& spheres, std::vector<Triangle> triangles, int f
 			float yy = (1 - 2 * ((y + 0.5) * invHeight)) * angle;
 			Vec3f raydir(xx, yy, -1);
 			raydir.normalize();
-			*pixel = trace(Vec3f(0), raydir, spheres, triangles, 0);
+			*pixel = castRay(Vec3f(0), raydir, spheres, lights, 0);
 		}
 	}
 
@@ -451,52 +477,26 @@ void render(std::vector<Sphere>& spheres, std::vector<Triangle> triangles, int f
 int main(int argc, char** argv)
 {
 
-	for (int frame = 15; frame >=14; frame-- ){
-	int shift = 20;
-	int sh_y = 4;
-	std::vector<Sphere> spheres;
-	std::vector<Triangle> triangles;
+	for (int frame = 15; frame > 14; frame--) {
+		int shift = 20;
+		int sh_y = 4;
+		std::vector<Sphere> spheres;
+		std::vector<Sphere> lights;
+
+		std::vector<Triangle> triangles;
 
 
-	// This is a cube
-	triangles.push_back(Triangle(Vec3f(-1, -1 - sh_y, 1 - shift), Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, 1 - shift), Vec3f(0.1, 0.3, 0.46), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(-1, -1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, 1 - shift), Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(0.90, 0.1, 0.46), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(1, -1 - sh_y, -1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(1, 1 - sh_y, 1 - shift), Vec3f(0.1, 0.3, 0.46), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, -1 - shift), Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(-1, 1 - sh_y, -1 - shift), Vec3f(0.90, 1, 0.46), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, -1 - shift), Vec3f(-1, 1 - sh_y, -1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(-1, -1 - sh_y, 1 - shift), Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(0.1, 0.3, 0.46), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(-1, 1 - sh_y, -1 - shift), Vec3f(0.90, 0.1, 0.46), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(-1, 1 - sh_y, 1 - shift), Vec3f(1, 1 - sh_y, -1 - shift), Vec3f(-1, 1 - sh_y, -1 - shift), Vec3f(0.1, 0.3, 0.46), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(1, -1 - sh_y, -1 - shift), Vec3f(0.90, 0.1, 0.46), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(1, -1 - sh_y, 1 - shift), Vec3f(-1, -1 - sh_y, 1 - shift), Vec3f(-1, -1 - sh_y, -1 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
+		Sphere light = Sphere(Vec3f(0, frame, -20), 4, Vec3f(1, 1, 1), 0, 0.0, Vec3f(2));
+		Sphere gray = Sphere(Vec3f(-5.5, 0, -20), 3, Vec3f(0.1, 0.4, 0.6), 1, 0.0);
+		gray.materialType = REFLECTION;
+
+		spheres.push_back(gray); //gray left
+		spheres.push_back(Sphere(Vec3f(0.0, -100, -20), 98, Vec3f(0.20, 0.20, 0.20), 0, 0.0)); // ground
+		spheres.push_back(Sphere(Vec3f(5, 0, -20), 2, Vec3f(0.1, 0.77, 0.97), 1, 0.0)); //yellow right
+		lights.push_back(light);
 
 
-	// This is a tetrahidron
-	triangles.push_back(Triangle(Vec3f(-1.0 - sh_y, 1.0, -1.0 + 2 - shift), Vec3f(1.0 - sh_y, -1.0, -1.0 + 2 - shift), Vec3f(-1.0 - sh_y, -1.0, 1.0 + 2 - shift), Vec3f(0.2, 0.3, 0.1), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(1.0 - sh_y, 1.0, 1.0 + 2 - shift), Vec3f(-1.0 - sh_y, -1.0, 1.0 + 2 - shift), Vec3f(1.0 - sh_y, -1.0, -1.0 + 2 - shift), Vec3f(0.90, 0.3, 0.1), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(1.0 - sh_y, 1.0 , 1.0 + 2 - shift), Vec3f(-1.0 - sh_y, 1.0, -1.0 + 2 - shift), Vec3f(-1.0 - sh_y, -1.0, 1.0 + 2 - shift), Vec3f(0.90, 0.3, 0.6), 1, 0.0));
-	triangles.push_back(Triangle(Vec3f(1.0 - sh_y, 1.0, 1.0 + 2 - shift), Vec3f(1.0 - sh_y, -1.0, -1.0 + 2 - shift), Vec3f(-1.0 - sh_y, 1.0, -1.0 + 2 - shift), Vec3f(0.90, 0.7, 0.1), 1, 0.0));
-
-
-	//Sphere ground = Sphere(Vec3f( 0.0,-10.3, -1), 10, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
-	//Sphere sphere = Sphere(Vec3f(0.0, 0, -20), 4, Vec3f(0.20, 0.20, 0.20), 0, 0.0);
-	Sphere light = Sphere(Vec3f(0, frame, -50), 4, Vec3f(1, 1, 1), 0, 0.0, Vec3f(80));
-
-	spheres.push_back(Sphere(Vec3f(0.0, -100, -20), 98, Vec3f(0.20, 0.20, 0.20), 0, 0.0)); // ground
-	//spheres.push_back(Sphere(Vec3f(0.0, 0, -24), 4, Vec3f(0.65, 0.77, 0.97), 1, 0.5)); //red center
-	spheres.push_back(Sphere(Vec3f(5, 0, -20), 2, Vec3f(0.1, 0.77, 0.97), 1, 0.0)); //yellow right
-	//spheres.push_back(Sphere(Vec3f(5.0, -1, -40), 2, Vec3f(0.90, 0.76, 0.46), 1, 0.0)); //yellow right
-
-	//spheres.push_back(Sphere(Vec3f(5.0, 0, -29), 3, Vec3f(0.65, 0.77, 0.97), 1, 0.0)); // blue behind
-	//spheres.push_back(Sphere(Vec3f(-5.5, 0, -19), 3, Vec3f(0.90, 0.90, 0.90), 1, 0.0)); //gray left
-	//spheres.push_back(ground);
-	//spheres.push_back(sphere);
-	spheres.push_back(light);
-
-
-	render(spheres, triangles,frame);
+		render(spheres, lights, triangles, frame);
 	}
 	return 0;
 }
