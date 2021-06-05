@@ -40,6 +40,7 @@
 #include <random>
 #include "geometry.h"
 #include <string>
+#include <random>
 
 const float kInfinity = std::numeric_limits<float>::max();
 
@@ -443,8 +444,16 @@ Vec3f castRay(
 	//return Vec3f(1, 1, 1);
 }
 
+
+inline double random_double()
+{
+	static std::uniform_real_distribution<double > distribution (0.0,1.0);
+	static std::mt19937 generator;
+	return distribution(generator);
+}
 void render(std::vector<Sphere>& spheres, std::vector<Sphere>& lights, std::vector<Triangle> triangles, int frame)
 {
+	int aa_samplees = 50; 
 	unsigned width = 640, height = 480;
 	Vec3f* image = new Vec3f[width * height], * pixel = image;
 	float invWidth = 1 / float(width), invHeight = 1 / float(height);
@@ -453,11 +462,16 @@ void render(std::vector<Sphere>& spheres, std::vector<Sphere>& lights, std::vect
 	// Trace rays
 	for (unsigned y = 0; y < height; ++y) {
 		for (unsigned x = 0; x < width; ++x, ++pixel) {
-			float xx = (2 * ((x + 0.5) * invWidth) - 1) * angle * aspectratio;
-			float yy = (1 - 2 * ((y + 0.5) * invHeight)) * angle;
+			Vec3f sampled_pixel(0, 0, 0);
+
+			for (unsigned sample = 0; sample  < aa_samplees; ++sample) {
+			float xx = (2 * ((x + random_double()) * invWidth) - 1) * angle * aspectratio;
+			float yy = (1 - 2 * ((y + random_double()) * invHeight)) * angle;
 			Vec3f raydir(xx, yy, -1);
 			raydir.normalize();
-			*pixel = castRay(Vec3f(0), raydir, spheres, lights, 0);
+			sampled_pixel += castRay(Vec3f(0), raydir, spheres, lights, 0);
+			}
+			*pixel = sampled_pixel; 
 		}
 	}
 
@@ -465,9 +479,9 @@ void render(std::vector<Sphere>& spheres, std::vector<Sphere>& lights, std::vect
 	std::ofstream ofs("./" + std::to_string(frame) + "out.ppm", std::ios::out | std::ios::binary);
 	ofs << "P6\n" << width << " " << height << "\n255\n";
 	for (unsigned i = 0; i < width * height; ++i) {
-		ofs << (unsigned char)(std::min(float(1), image[i].x) * 255) <<
-			(unsigned char)(std::min(float(1), image[i].y) * 255) <<
-			(unsigned char)(std::min(float(1), image[i].z) * 255);
+		ofs << (unsigned char)(std::min(float(1), image[i].x/ aa_samplees) * 255) <<
+			(unsigned char)(std::min(float(1), image[i].y/ aa_samplees) * 255) <<
+			(unsigned char)(std::min(float(1), image[i].z/ aa_samplees) * 255);
 	}
 	ofs.close();
 
