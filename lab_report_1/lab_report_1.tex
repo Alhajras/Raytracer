@@ -1,0 +1,460 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University/School Laboratory Report
+% LaTeX Template
+% Version 3.1 (25/3/14)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Linux and Unix Users Group at Virginia Tech Wiki 
+% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage[final]{graphicx}
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{pythonhighlight}
+\usepackage{commath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{gensymb}
+
+\lstset { %
+	language=C++,
+	backgroundcolor=\color{black!5}, % set backgroundcolor
+	basicstyle=\footnotesize,% basic font setting
+}
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\usepackage{hyperref}
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Implementation of a Raytracer \\ in C++ \\ Computer Graphics Project (Rendering Track)} % Title
+
+\author{Alhajras Algdairy \\alhajras.algdairy@gmail.com, 4963555, aa382} % Author name
+
+\date{\today} % Date for the report
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+
+\begin{center}
+\begin{tabular}{l r}
+University: & University of Freiburg \\ % Date the experiment was performed
+Instructor: &Dr.-Ing. Matthias Teschner % Instructor/supervisor
+\end{tabular}
+\end{center}
+\clearpage
+% If you wish to include an abstract, uncomment the lines below
+% \begin{abstract}
+% Abstract text
+% \end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+\tableofcontents
+\clearpage
+\section{Objective}
+
+The aim of this report is to document the steps which are important to implement a basic Raytracer in C++ language.  As a beginner myself into the Computer graphics world, I will be explaining the tools, concept, equations, algorithms and sources that have been used during this small project.  
+
+
+% If you have more than one objective, uncomment the below:
+%\begin{description}
+%\item[First Objective] \hfill \\
+%Objective 1 text
+%\item[Second Objective] \hfill \\
+%Objective 2 text
+%\end{description}
+
+\subsection{Milestones}
+\label{definitions}
+\begin{itemize}
+	\item Create PPM file and show an image, this includes understanding how images are generated.
+	\item Show a sphere because it is a trivial object.
+	\item Show a Triangle and implement an object array so it can be used in the future for rendering more than one object.
+	\item Show a cube and a complex object by using the triangle array or mesh renderer.
+	\item Create a benchmark tests in order to compare the basic functionality of the raytracer and after adding more features to it in the future.
+	\item Add transformations: Translation, Rotation, Scaling, Reflection
+	and Shearing.
+	\item Phong model, and benchmark tests.
+	\item Transparency and reflection
+\end{itemize}
+
+ \clearpage
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Creating an image}
+\subsection{Concept}
+There are so many formats, ppm file, PPM stands for Portable Pixmap Format, which was developed in the 1980s to allow image files to be transferred between different computer platforms.
+
+\begin{figure}[h]
+	
+	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/1.png}
+	
+	\caption{PPM format example.}
+	\label{fig:boat1}
+\end{figure}
+
+\subsection{Pseudo code}
+Below is pseudo code for writing out a ppm file.
+
+\begin{verbatim}
+
+\end{verbatim}
+\begin{lstlisting}
+FILE *fp;
+
+fp = fopen("out.ppm","w");  // file name is out.ppm
+int height = ImageHeight; //  assume ImageHeight is defined and initialized
+int width = ImageWidth;  //   same for width
+int max_ccv = 255;
+fprintf(fp,"P3 %d %d %d\n", width, height, max_ccv);  // write the header
+
+for (i=height-1; i>=0; i--)
+
+for (j=0; j<width; j++) {
+	
+write the pixel [i,j] ‘s red, green, and blue value;
+	
+}
+fclose(fp);
+\end{lstlisting}
+\href{https://web.cse.ohio-state.edu/~shen.94/681/Site/ppm_help.html}{LaTeX-Tutorial}
+
+ \clearpage
+\subsection{Output}
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/2.png}
+	
+	\caption{Hello world image in PPM format}
+	\label{fig:boat1}
+	\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/2.png}
+		
+		\caption{Hello world image in PPM format}
+		\label{fig:boat1}
+	\end{center}
+\end{figure}
+ \clearpage
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+\section{Rays}
+\subsection{Concept}
+Optical ray tracing describes a method for producing visual images constructed in 3D computer graphics environments, with more photorealism than either ray casting or scanline rendering techniques. It works by tracing a path from an imaginary eye through each pixel in a virtual screen, and calculating the color of the object visible through it.
+All raytracers are using something called rays. Let’s think of a ray as a function \[p (t) = A + tB\] Here p is a 3D position along a line
+in 3D. A is the ray origin and B is the ray direction.
+
+\begin{figure}[h]
+	
+	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/3.png}
+	
+	\caption{The ray-tracing algorithm builds an image by extending rays into a scene and bouncing them off surfaces and towards sources of light to approximate the color value of pixels. \href{https://en.wikipedia.org/wiki/Ray_tracing_(graphics)}{LaTeX-Tutorial}.}
+	\label{fig:boat1}
+\end{figure}
+
+\subsection{Pseudo code}
+\begin{lstlisting}
+#ifndef RAY_H
+#define RAY_H
+
+#include "vec3.h"
+
+
+class ray {
+	public:
+	ray() {}
+	ray(const point3& origin, const vec3& direction)
+	: orig(origin), dir(direction), tm(0)
+	{}
+	
+	ray(const point3& origin, const vec3& direction, double time)
+	: orig(origin), dir(direction), tm(time)
+	{}
+	
+	point3 origin() const  { return orig; }
+	vec3 direction() const { return dir; }
+	double time() const    { return tm; }
+	
+	point3 at(double t) const {
+		return orig + t*dir;
+	}
+	
+	public:
+	point3 orig;
+	vec3 dir;
+	double tm;
+};
+
+#endif
+\end{lstlisting}
+
+\subsection{Output}
+\begin{figure}[h]
+	
+	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/4.png}
+	
+	\caption{Output of the blank background without an object by using rays}
+	\label{fig:boat1}
+\end{figure}
+
+\section{Adding a sphere}
+\subsection{Concept}
+People often use spheres in ray tracers because
+calculating whether a ray hits a sphere is pretty straightforward.
+
+The general equation of a sphere is: \[ \abs{(x - c)^2} = r^2\] 
+Subsituting ray formula in spher we get: 
+\[ (A + tB - c)^2.(A + tB - c)^2 = r^2\] 
+
+The form of a quadratic formula is now observable. (This quadratic equation is an instance of Joachimsthal's equation.[2])
+
+By solving the equation we get three different cases as shown in figure below.
+\begin{figure}[h]
+	
+	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/5.png}
+	
+	\caption{The three possible line-sphere intersections:
+		1. No intersection.
+		2. Point intersection.
+		3. Two point intersection.}
+	\label{fig:boat1}
+\end{figure}
+\href{https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection}{LaTeX-Tutorial}.
+\subsection{Pseudo code}
+\begin{lstlisting}
+bool hit_sphere(const vec3& center, float radius, const ray& r) {
+	vec3 oc = r.origin() - center;
+	float a = dot(r.direction(), r.direction());
+	float b = 2.0 * dot(oc, r.direction());
+	float c = dot(oc, oc) - radius * radius;
+	float discrimnant = b * b - 4 * a * c;
+	return (discrimnant > 0);
+}
+\end{lstlisting}
+
+
+\subsection{Output}
+\begin{figure}[h]
+		\begin{center}
+	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6.png}
+	
+	\caption{Rendering a simple Sphere}
+	\label{fig:boat1}
+		\end{center}
+\end{figure}
+
+
+
+\section{Adding a Triangle}
+\subsection{Concept}
+Computing the intersection of a ray with a primitive such as a sphere, is not difficult. However, since it is difficult to model most 3D objects with spheres alone, it is necessary to use some other types of primitive to represent more complex objects (objects of arbitrary shape).
+Instead of working with complex primitives such as NURBS or Bezier patches, we can convert every object into a triangle mesh and compute the intersection of a ray with every triangle in this mesh. 
+By solving the equation we get three different cases as shown in figure below.
+\begin{figure}[h]
+	
+	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/8.png}
+	\label{fig:boat1}
+\end{figure}
+\href{https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection}{LaTeX-Tutorial}
+	
+		\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/9.png}
+			
+			\caption{Rendering a simple Sphere}
+			\label{fig:boat1}
+		\end{center}
+	\end{figure}
+	\subsection{Pseudo code}
+	\begin{lstlisting}
+Vec3f edge0 = v1 - v0; 
+Vec3f edge1 = v2 - v1; 
+Vec3f edge2 = v0 - v2; 
+Vec3f C0 = P - v0; 
+Vec3f C1 = P - v1; 
+Vec3f C2 = P - v2; 
+if (dotProduct(N, crossProduct(edge0, C0)) > 0 && 
+dotProduct(N, crossProduct(edge1, C1)) > 0 && 
+dotProduct(N, crossProduct(edge2, C2)) > 0) return true; // P is inside the triangle 
+		}
+	\end{lstlisting}
+	
+	
+	\subsection{Output}
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7.png}
+			
+			\caption{Rendering a simple Triangle}
+			\label{fig:boat1}
+		\end{center}
+	\end{figure}
+
+\clearpage
+
+
+\section{Shading}
+\subsection{Concept}
+
+Rendering a scene needs two steps the first step is solving the visibility issue, this means which object is visible to the camera and what its shape, second step is Shading, this deals with the color of the object and its intensity. Shading include also how objects color affect each other, for example having light hits the object will make its color look brighter, on the other hand regions which light doesn't hit or reach will have dark color or shadow. In this chapter shading concepts will be discussed and implemented.  The main key to shading is calculating the amount of light that hits a point lets call it P. 
+
+The computed light at a point P depends on the following: 
+
+\begin{itemize}
+	\item Light illuminated by source source  $L^{source}$  in real life usually lamp, fire or the sun, it can have any color and intensity but here we will use white color. 
+	\item Light illimunated on the surface $L^{surface}$ is the surface illumination caused by
+	\item Light reflected from the surface $L^{reflected}$
+	\item The observation angle / looking at angle / camera. 
+\end{itemize}
+
+
+
+
+\subsubsection{Lambert’s Cosine Law}
+Lambert's cosine law says that the amount of light energy arriving at a surface is proportional to the cosine of the angle between the light direction and the surface normal. − Illumination strength at a surface is proportional to the cosine of the angle between $l$ and $n$, the angel will be denoted as $\theta$, the next three cases illustrate the relationship between the  $L^{source}$ and  $L^{surface}$:
+
+The  $L^{surface}$,$ L^{source}$ relation is: $L^{surface} = L^{source}.\cos \theta $
+\begin{itemize}
+	\item $L^{surface} = L^{source}$, if $\theta = 0\degree$.
+	\item $L^{surface} = 0$, if $\theta = 90\degree$.
+    \item $0 < L^{surface} < L^{source}$, if $0\degree < \theta  < 90\degree$.
+\end{itemize}
+
+\subsubsection{Phong reflection model }
+Phong reflection is an empirical model of local illumination. It describes the way a surface reflects light as a combination of the diffuse reflection of rough surfaces with the specular reflection of shiny surfaces. It is based on Phong's informal observation that shiny surfaces have small intense specular highlights, while dull surfaces have large highlights that fall off more gradually. The model also includes an ambient term to account for the small amount of light that is scattered about the entire scene.
+\\
+
+	\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/phong_model.png}
+		
+		\caption{Visual illustration of the Phong equation: here the light is white, the ambient and diffuse colors are both blue, and the specular color is white, reflecting a small part of the light hitting the surface, but only in very narrow highlights. The intensity of the diffuse component varies with the direction of the surface, and the ambient component is uniform (independent of direction).}
+		\label{fig:boat1}
+	\end{center}
+\end{figure}
+
+
+
+\begin{itemize}
+	\item \textbf{Ambient reflection}
+	\begin{itemize}
+		\item $L^{amb} = \rho \otimes L^{indirect}$
+		\item $\rho$, is the surface color
+		\item $L^{indirect}$ , is the light reflected from other surfaces and objects, excluded the direct light ($L^{surface}$)
+	\end{itemize}
+	\item \textbf{Diffuse reflection} 
+		\begin{itemize}
+		\item $L^{diff} =  L^{source}.(n.l) \otimes \rho $
+		\item $L^{source}$, is the light source color and intensity which usually white. 
+		\item $n$ and $l$ , are the representation of the Lambert's cosine law, where n is the normal surface vector  and l is the indecent light coming from the light source.
+	\end{itemize}
+	\item \textbf{Specular reflection} 
+		\begin{itemize}
+		\item $L^{spec} =  L^{source}.(n.l).(r.v)^m \otimes \rho^{white} $
+		\item $r$, which is the direction that a perfectly reflected ray of light would take from this point on the surface. 
+		\item $v$, which is the direction pointing towards the viewer (such as a virtual camera).
+		\item $m$, which is a shininess constant for this material, which is larger for surfaces that are smoother and more mirror-like. When this constant is large the specular highlight is small.
+	\end{itemize}
+\end{itemize}
+
+The overall illumination on the surface can be computed by summing up the three components that make up Phong model:
+
+	                \[ $L^{surface}= L^{amb} + \sum_{n=1}^{lights} (L_n^{diff} + L_n^{spec})\]
+
+\begin{figure}
+	\includegraphics[width=.24\textwidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb_reflection.png}\hfill
+	\includegraphics[width=.24\textwidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff_reflection.png}\hfill
+	\includegraphics[width=.24\textwidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec_reflection.png}\hfill
+	\\[\smallskipamount]
+	\caption{Some images}\label{fig:foobar}
+\end{figure}
+
+	                
+	                	                \[ pd <=1 \]
+	                	\begin{figure}[h]
+	                	\begin{center}
+	                		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/no_light.png}
+	                		
+	                		\caption{No light}
+	                		\label{fig:boat1}
+	                	\end{center}
+	                \end{figure}
+
+
+	                	\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/dark.png}
+		
+		\caption{Dark}
+		\label{fig:boat1}
+	\end{center}
+\end{figure}
+
+
+	\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/shade_ball.png}
+	
+	\caption{Dark}
+	\label{fig:boat1}
+\end{center}
+\end{figure}
+
+	\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/full.png}
+		
+		\caption{Full}
+		\label{fig:boat1}
+	\end{center}
+\end{figure}
+
+\section{Software architecture}
+\subsection{Concept}
+\begin{tabular}{ll}
+	In this chapter I will explain the software architecture aspect. 
+\end{tabular}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\bibliographystyle{apalike}
+
+\bibliography{sample}
+
+%----------------------------------------------------------------------------------------
+
+
+\end{document}

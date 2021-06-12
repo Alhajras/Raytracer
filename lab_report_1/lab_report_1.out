@@ -1,0 +1,24 @@
+\BOOKMARK [1][-]{section.1}{Objective}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Milestones}{section.1}% 2
+\BOOKMARK [1][-]{section.2}{Creating an image}{}% 3
+\BOOKMARK [2][-]{subsection.2.1}{Concept}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.2}{Pseudo code}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.3}{Output}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Rays}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Concept}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Pseudo code}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Output}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{Adding a sphere}{}% 11
+\BOOKMARK [2][-]{subsection.4.1}{Concept}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.2}{Pseudo code}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.3}{Output}{section.4}% 14
+\BOOKMARK [1][-]{section.5}{Adding a Triangle}{}% 15
+\BOOKMARK [2][-]{subsection.5.1}{Concept}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.2}{Pseudo code}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.3}{Output}{section.5}% 18
+\BOOKMARK [1][-]{section.6}{Shading}{}% 19
+\BOOKMARK [2][-]{subsection.6.1}{Concept}{section.6}% 20
+\BOOKMARK [3][-]{subsubsection.6.1.1}{Lambert\220s Cosine Law}{subsection.6.1}% 21
+\BOOKMARK [3][-]{subsubsection.6.1.2}{Phong reflection model }{subsection.6.1}% 22
+\BOOKMARK [1][-]{section.7}{Software architecture}{}% 23
+\BOOKMARK [2][-]{subsection.7.1}{Concept}{section.7}% 24
