@@ -30,6 +30,9 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{gensymb}
+\usepackage{subcaption}
+\captionsetup[figure]{font=small,labelfont=small}
+\usepackage{float}
 
 \lstset { %
 	language=C++,
@@ -110,7 +113,7 @@ The aim of this report is to document the steps which are important to implement
 \subsection{Concept}
 There are so many formats, ppm file, PPM stands for Portable Pixmap Format, which was developed in the 1980s to allow image files to be transferred between different computer platforms.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	
 	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/1.png}
 	
@@ -118,45 +121,10 @@ There are so many formats, ppm file, PPM stands for Portable Pixmap Format, whic
 	\label{fig:boat1}
 \end{figure}
 
-\subsection{Pseudo code}
-Below is pseudo code for writing out a ppm file.
 
-\begin{verbatim}
+\subsection{Results}
 
-\end{verbatim}
-\begin{lstlisting}
-FILE *fp;
-
-fp = fopen("out.ppm","w");  // file name is out.ppm
-int height = ImageHeight; //  assume ImageHeight is defined and initialized
-int width = ImageWidth;  //   same for width
-int max_ccv = 255;
-fprintf(fp,"P3 %d %d %d\n", width, height, max_ccv);  // write the header
-
-for (i=height-1; i>=0; i--)
-
-for (j=0; j<width; j++) {
-	
-write the pixel [i,j] ‘s red, green, and blue value;
-	
-}
-fclose(fp);
-\end{lstlisting}
-\href{https://web.cse.ohio-state.edu/~shen.94/681/Site/ppm_help.html}{LaTeX-Tutorial}
-
- \clearpage
-\subsection{Output}
-\begin{figure}[h]
-	\begin{center}
-	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/2.png}
-	
-	\caption{Hello world image in PPM format}
-	\label{fig:boat1}
-	\end{center}
-\end{figure}
-
-
-\begin{figure}[h]
+\begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/2.png}
 		
@@ -175,7 +143,7 @@ Optical ray tracing describes a method for producing visual images constructed i
 All raytracers are using something called rays. Let’s think of a ray as a function \[p (t) = A + tB\] Here p is a 3D position along a line
 in 3D. A is the ray origin and B is the ray direction.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	
 	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/3.png}
 	
@@ -219,8 +187,8 @@ class ray {
 #endif
 \end{lstlisting}
 
-\subsection{Output}
-\begin{figure}[h]
+\subsection{Results}
+\begin{figure}[H]
 	
 	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/4.png}
 	
@@ -240,7 +208,7 @@ Subsituting ray formula in spher we get:
 The form of a quadratic formula is now observable. (This quadratic equation is an instance of Joachimsthal's equation.[2])
 
 By solving the equation we get three different cases as shown in figure below.
-\begin{figure}[h]
+\begin{figure}[H]
 	
 	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/5.png}
 	
@@ -264,8 +232,8 @@ bool hit_sphere(const vec3& center, float radius, const ray& r) {
 \end{lstlisting}
 
 
-\subsection{Output}
-\begin{figure}[h]
+\subsection{Results}
+\begin{figure}[H]
 		\begin{center}
 	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6.png}
 	
@@ -281,14 +249,14 @@ bool hit_sphere(const vec3& center, float radius, const ray& r) {
 Computing the intersection of a ray with a primitive such as a sphere, is not difficult. However, since it is difficult to model most 3D objects with spheres alone, it is necessary to use some other types of primitive to represent more complex objects (objects of arbitrary shape).
 Instead of working with complex primitives such as NURBS or Bezier patches, we can convert every object into a triangle mesh and compute the intersection of a ray with every triangle in this mesh. 
 By solving the equation we get three different cases as shown in figure below.
-\begin{figure}[h]
+\begin{figure}[H]
 	
 	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/8.png}
 	\label{fig:boat1}
 \end{figure}
 \href{https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection}{LaTeX-Tutorial}
 	
-		\begin{figure}[h]
+		\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/9.png}
 			
@@ -311,8 +279,8 @@ dotProduct(N, crossProduct(edge2, C2)) > 0) return true; // P is inside the tria
 	\end{lstlisting}
 	
 	
-	\subsection{Output}
-	\begin{figure}[h]
+	\subsection{Results}
+	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7.png}
 			
@@ -342,7 +310,7 @@ The computed light at a point P depends on the following:
 
 
 \subsubsection{Lambert’s Cosine Law}
-Lambert's cosine law says that the amount of light energy arriving at a surface is proportional to the cosine of the angle between the light direction and the surface normal. − Illumination strength at a surface is proportional to the cosine of the angle between $l$ and $n$, the angel will be denoted as $\theta$, the next three cases illustrate the relationship between the  $L^{source}$ and  $L^{surface}$:
+Lambert's cosine law says that the amount of light energy arriving at a surface is proportional to the cosine of the angle between the light direction and the surface normal. Illumination strength at a surface is proportional to the cosine of the angle between $l$ and $n$, the angel will be denoted as $\theta$, the next three cases illustrate the relationship between the  $L^{source}$ and  $L^{surface}$:
 
 The  $L^{surface}$,$ L^{source}$ relation is: $L^{surface} = L^{source}.\cos \theta $
 \begin{itemize}
@@ -355,11 +323,12 @@ The  $L^{surface}$,$ L^{source}$ relation is: $L^{surface} = L^{source}.\cos \th
 Phong reflection is an empirical model of local illumination. It describes the way a surface reflects light as a combination of the diffuse reflection of rough surfaces with the specular reflection of shiny surfaces. It is based on Phong's informal observation that shiny surfaces have small intense specular highlights, while dull surfaces have large highlights that fall off more gradually. The model also includes an ambient term to account for the small amount of light that is scattered about the entire scene.
 \\
 
-	\begin{figure}[h]
+	\begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/phong_model.png}
 		
-		\caption{Visual illustration of the Phong equation: here the light is white, the ambient and diffuse colors are both blue, and the specular color is white, reflecting a small part of the light hitting the surface, but only in very narrow highlights. The intensity of the diffuse component varies with the direction of the surface, and the ambient component is uniform (independent of direction).}
+		\caption{Visual illustration of the Phong equation: here the light is white, the ambient and diffuse colors are both blue, and the specular color is white, reflecting a small part of the light hitting the surface, but only in very narrow highlights. The intensity of the diffuse component varies with the direction of the surface, and the ambient component is uniform (independent of direction).[ Resource: \href{https://en.wikipedia.org/wiki/Phong_reflection_model}{Wiki}.
+			]}
 		\label{fig:boat1}
 	\end{center}
 \end{figure}
@@ -368,20 +337,29 @@ Phong reflection is an empirical model of local illumination. It describes the w
 
 \begin{itemize}
 	\item \textbf{Ambient reflection}
+		\begin{equation}
+L^{amb} = \rho \otimes L^{indirect}
+		\end{equation}
+	
 	\begin{itemize}
-		\item $L^{amb} = \rho \otimes L^{indirect}$
 		\item $\rho$, is the surface color
 		\item $L^{indirect}$ , is the light reflected from other surfaces and objects, excluded the direct light ($L^{surface}$)
 	\end{itemize}
 	\item \textbf{Diffuse reflection} 
-		\begin{itemize}
-		\item $L^{diff} =  L^{source}.(n.l) \otimes \rho $
+
+					\begin{equation}
+L^{diff} =  L^{source}.(n.l) \otimes \rho 
+			\end{equation}
+				\begin{itemize}
 		\item $L^{source}$, is the light source color and intensity which usually white. 
 		\item $n$ and $l$ , are the representation of the Lambert's cosine law, where n is the normal surface vector  and l is the indecent light coming from the light source.
 	\end{itemize}
 	\item \textbf{Specular reflection} 
-		\begin{itemize}
-		\item $L^{spec} =  L^{source}.(n.l).(r.v)^m \otimes \rho^{white} $
+
+								\begin{equation}
+L^{spec} =  L^{source}.(n.l).(r.v)^m \otimes \rho^{white} 
+			\end{equation}
+				\begin{itemize}
 		\item $r$, which is the direction that a perfectly reflected ray of light would take from this point on the surface. 
 		\item $v$, which is the direction pointing towards the viewer (such as a virtual camera).
 		\item $m$, which is a shininess constant for this material, which is larger for surfaces that are smoother and more mirror-like. When this constant is large the specular highlight is small.
@@ -390,61 +368,111 @@ Phong reflection is an empirical model of local illumination. It describes the w
 
 The overall illumination on the surface can be computed by summing up the three components that make up Phong model:
 
-	                \[ $L^{surface}= L^{amb} + \sum_{n=1}^{lights} (L_n^{diff} + L_n^{spec})\]
-
-\begin{figure}
-	\includegraphics[width=.24\textwidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb_reflection.png}\hfill
-	\includegraphics[width=.24\textwidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff_reflection.png}\hfill
-	\includegraphics[width=.24\textwidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec_reflection.png}\hfill
-	\\[\smallskipamount]
-	\caption{Some images}\label{fig:foobar}
-\end{figure}
-
-	                
-	                	                \[ pd <=1 \]
-	                	\begin{figure}[h]
-	                	\begin{center}
-	                		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/no_light.png}
-	                		
-	                		\caption{No light}
-	                		\label{fig:boat1}
-	                	\end{center}
-	                \end{figure}
+\begin{equation}
+	L^{surface}= L^{amb} + \sum_{n=1}^{lights} (L_n^{diff} + L_n^{spec})
+\end{equation}
 
 
-	                	\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/dark.png}
-		
-		\caption{Dark}
-		\label{fig:boat1}
-	\end{center}
-\end{figure}
 
-
-	\begin{figure}[h]
-	\begin{center}
-	\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/shade_ball.png}
+\begin{figure}[ht]
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		% include first image
+		\includegraphics[width=.8\linewidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb_reflection.png}  
+		\caption{}
+		\label{fig:sub-first}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		% include second image
+		\includegraphics[width=.8\linewidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff_reflection.png}  
+		\caption{}
+		\label{fig:sub-second}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		% include second image
+		\includegraphics[width=.8\linewidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec_reflection.png}  
+		\caption{}
+		\label{fig:sub-third}
+	\end{subfigure}
 	
-	\caption{Dark}
-	\label{fig:boat1}
-\end{center}
+	\caption{(a). Ambient .(b). Diffuse + Ambient. (c). Diffuse + Ambient + Specular (Glossy)}
+	\label{fig:fig}
 \end{figure}
 
-	\begin{figure}[h]
+\bigbreak
+
+\section{Materials}
+	      \subsection{Concept}
+	      In raytracing one of the important topics is to give the object a material type, this can be: Glossy, Diffuse, Transparent and Subsurface
+	      scattering, each material has different surface reflection and refraction properties, some surfaces reflect the light equally such as diffuse surfaces, some are reflecting light into a dominant direction as Glossy surfaces, some material such as water will reflect some light but also refract some.
+	      \\ 
+	      In the previous chapter we discussed diffuse and specular (Glossy) surfaces, in this chapter we will implement a refraction surface because it has an interesting properties. 
+	      
+	      \subsection{Refraction}
+	      Refraction phenomenon happens when the light pass from one medium to a different medium.
+	      Figure 12 illustrates this phenomenon, $I$ is the incident light ray, $R$ is the reflected light where $N$ is the normal vector to the surface which is water (in blue), the reflected angle  $\theta2$ is equal to the incident angle $\theta1$, in addition to the reflected light there is a refracted light $T$, the direction of $T$ depends on the $\theta1$ and \textit{refractive index, $\eta$} ( Describes how fast light travels through the material).
+	      
+	      Refraction is described by the \textit{Snell's law}, which states that for a given pair of media, the ratio of the sines of the angle of incidence $\theta1$ and angle of refraction $\theta2$ is equivalent to the opposite ratio of the indices of refraction: 
+	      
+	      \begin{equation}
+\frac{sin(\theta_1)}{sin(\theta_2)} = \frac{\eta_2}{\eta_1} 
+	      \end{equation}
+      
+	      
+	\begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/full.png}
+		\includegraphics[width=150pt,height=150pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refraction.png}
 		
-		\caption{Full}
-		\label{fig:boat1}
+		\caption{Incident light $I$ in the air hitting water surface, $R$ is reflected light and $T$ is the transmitted and refracted light, $n$ is \textit{refractive index, $\eta$  } Resource: \href{https://www.scratchapixel.com/images/upload/shading-intro/shad-refraction6.png?}{scratchapixel.com}.
+			]}
 	\end{center}
 \end{figure}
 
-\section{Software architecture}
-\subsection{Concept}
-\begin{tabular}{ll}
-	In this chapter I will explain the software architecture aspect. 
-\end{tabular}
+\subsection{Fresnel}
+The amount of reflected vs. refracted light can be computed using what we call the \textit{Fresnel equations}, where $F_R$ is reflected light portion and $F_T$ is the portion transmitted through the material. 
+
+\begin{equation}
+ F_R = \dfrac{1}{2}(\left( \dfrac{\eta_2 \cos\theta_1 - \eta_1 \cos \theta_2}{\eta_2 \cos\theta_1 + \eta_1 \cos \theta_2} \right)^2 + \left( \dfrac{\eta_1 \cos\theta_2 - \eta_2 \cos \theta_1}{\eta_1 \cos\theta_2 + \eta_2 \cos \theta_1} \right)^2)
+\end{equation}
+
+
+
+\begin{equation}
+F_T= 1 - F_R 
+\end{equation}
+
+
+\subsection{Results}
+Figure 13 shows the refraction phenomenon where the settings had a red glossy sphere passing behind a transparent sphere with an refractive index, $\eta$ not equal to the air we are assuming it is any kind of liqued with big $\eta$ that it refract the light with a big angle. As it can be noticed the red sphere looks larger than it should be and also inverted, moreover the ground is inverted as well, 
+\begin{figure}[H]
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		% include first image
+		\includegraphics[width=.8\linewidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refraction_3.png}  
+		\caption{}
+		\label{fig:sub-first}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		% include second image
+		\includegraphics[width=.8\linewidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refraction_0.png}  
+		\caption{}
+		\label{fig:sub-second}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+	\centering
+	% include second image
+	\includegraphics[width=.8\linewidth]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refraction__0_5.png}  
+	\caption{}
+	\label{fig:sub-third}
+\end{subfigure}
+
+	\caption{(a). Glass sphere refract the ground inverted upside down. (b). Glass sphere refract the ground and red sphere directly behind it inverted. (c). Glass sphere refract the ground and red sphere behind it inverted with an angle}
+	\label{fig:fig}
+\end{figure}
+\clearpage
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
