@@ -21,6 +21,7 @@
 #include <chrono>
 #include "geometry.h"
 
+#include <iostream>
 const float kInfinity = std::numeric_limits<float>::max();
 template <> const Matrix44f Matrix44f::kIdentity = Matrix44f();
 
@@ -53,25 +54,6 @@ struct Settings
 };
 
 
-class Object
-{
-public:
-	// [comment]
-	// Setting up the object-to-world and world-to-object matrix
-	// [/comment]
-	Object(const Matrix44f& o2w) : objectToWorld(o2w), worldToObject(o2w.inverse()) {}
-	virtual ~Object() {}
-	virtual bool intersect(const Vec3f&, const Vec3f&, float&, uint32_t&, Vec2f&) const = 0;
-	virtual void getSurfaceProperties(const Vec3f&, const Vec3f&, const uint32_t&, const Vec2f&, Vec3f&, Vec2f&) const = 0;
-	virtual void displayInfo() const = 0;
-	Matrix44f objectToWorld, worldToObject;
-	MaterialType type = DIFFUSE_AND_GLOSSY;
-	Vec3f albedo = 0.18;
-	float Kd = 0.8; // phong model diffuse weight
-	float Ks = 0.2; // phong model specular weight
-	float n = 10;   // phong specular exponent
-	Vec3f BBox[2] = { kInfinity, -kInfinity };
-};
 
 
 void fresnel(const Vec3f& I, const Vec3f& N, const float& ior, float& kr)
@@ -318,6 +300,10 @@ bool trace_more(
 	//return (*hitObject != nullptr);
 }
 
+inline float modulo(const float& f)
+{
+	return f - std::floor(f);
+}
 
 Vec3f castRay(
 	const Vec3f& rayorig,
@@ -445,7 +431,17 @@ Vec3f castRay(
 				specularColor += powf(std::max(0.f, -reflectionDirection.dotProduct(raydir)), 25) * lights[i].emissionColor;
 				//}
 				Vec2f st(0.2);
-				hitColor += lightAmt * (lights[i].evalDiffuseColor(st) * 0.8) / (2) + specularColor * 0.5;
+				float angle = deg2rad(45);
+
+				float s = ((1 + atan2(N.z, N.x) / M_PI) * 0.5) * cos(angle) - (acosf(N.y) / M_PI) * sin(angle);
+				float t = (acosf(N.y) / M_PI) * cos(angle) + ((1 + atan2(N.z, N.x) / M_PI) * 0.5) * sin(angle);
+				float scaleS = 20, scaleT = 20;
+				float pattern = (cos((acosf(N.y) / M_PI) * 2 * M_PI * scaleT) * sin(((1 + atan2(N.z, N.x) / M_PI) * 0.5) * 2 * M_PI * scaleS) + 1) * 0.5; // isect.hitObject->albedo
+				//float pattern = (modulo(s * scaleS) < 0.5) ^ (modulo(t * scaleT) < 0.5);
+				//float pattern = (modulo(s * scaleS) < 0.5);
+				//hitColor += vis * pattern * lightIntensity * std::max(0.f, hitNormal.dotProduct(-lightDir));
+				// Remove the pattern to git rid of the texture
+				hitColor += pattern *  lightAmt * (lights[i].evalDiffuseColor(st) * 0.8) / (2) + specularColor * 0.5;
 				hitColor += sphere->surfaceColor;
 
 			}
