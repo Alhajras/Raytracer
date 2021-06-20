@@ -1,0 +1,33 @@
+﻿  BVH_new.cpp
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(52,35): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(65,20): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(81,21): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(100,21): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(100,21): warning C4305:         with
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(100,21): warning C4305:         [
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(100,21): warning C4305:             T=float
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(100,21): warning C4305:         ]
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(101,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(102,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(345,34): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(345,34): warning C4305:         with
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(345,34): warning C4305:         [
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(345,34): warning C4305:             T=float
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(345,34): warning C4305:         ]
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(362,40): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(370,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(371,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(475,1): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(475,1): warning C4305:         with
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(475,1): warning C4305:         [
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(475,1): warning C4305:             T=float
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(475,1): warning C4305:         ]
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(531,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(534,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(598,21): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(604,164): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(604,164): warning C4305:         with
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(604,164): warning C4305:         [
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(604,164): warning C4305:             T=float
+C:\Users\alhaj\source\repos\BVH_new\BVH_new\BVH_new.cpp(604,164): warning C4305:         ]
+  BVH_new.vcxproj -> C:\Users\alhaj\source\repos\BVH_new\Debug\BVH_new.exe
