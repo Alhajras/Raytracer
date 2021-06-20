@@ -52,14 +52,6 @@ struct Settings
 	uint32_t aa_samples = 5; // Anti aliasing samples
 };
 
-//struct IsectInfo
-//{
-//	const Object* hitObject = nullptr;
-//	float tNear = kInfinity;
-//	Vec2f uv;
-//	uint32_t index = 0;
-//};
-
 
 class Object
 {
@@ -81,376 +73,6 @@ public:
 	Vec3f BBox[2] = { kInfinity, -kInfinity };
 };
 
-bool rayTriangleIntersect(
-	const Vec3f& orig, const Vec3f& dir,
-	const Vec3f& v0, const Vec3f& v1, const Vec3f& v2,
-	float& t, float& u, float& v)
-{
-	Vec3f v0v1 = v1 - v0;
-	Vec3f v0v2 = v2 - v0;
-	Vec3f pvec = dir.crossProduct(v0v2);
-	float det = v0v1.dotProduct(pvec);
-
-	// ray and triangle are parallel if det is close to 0
-	if (fabs(det) < kEpsilon) return false;
-
-	float invDet = 1 / det;
-
-	Vec3f tvec = orig - v0;
-	u = tvec.dotProduct(pvec) * invDet;
-	if (u < 0 || u > 1) return false;
-
-	Vec3f qvec = tvec.crossProduct(v0v1);
-	v = dir.dotProduct(qvec) * invDet;
-	if (v < 0 || u + v > 1) return false;
-
-	t = v0v2.dotProduct(qvec) * invDet;
-
-	return (t > 0) ? true : false;
-}
-
-
-class TriangleMesh : public Object
-{
-public:
-	// Build a triangle mesh from a face index array and a vertex index array
-	TriangleMesh(
-		const Matrix44f& o2w,
-		const uint32_t nfaces,
-		const std::unique_ptr<uint32_t[]>& faceIndex,
-		const std::unique_ptr<uint32_t[]>& vertsIndex,
-		const std::unique_ptr<Vec3f[]>& verts,
-		std::unique_ptr<Vec3f[]>& normals,
-		std::unique_ptr<Vec2f[]>& st,
-		bool singleVertAttr = true) :
-		Object(o2w),
-		numTris(0),
-		isSingleVertAttr(singleVertAttr)
-	{
-		uint32_t k = 0, maxVertIndex = 0;
-		// find out how many triangles we need to create for this mesh
-		for (uint32_t i = 0; i < nfaces; ++i) {
-			numTris += faceIndex[i] - 2;
-			for (uint32_t j = 0; j < faceIndex[i]; ++j)
-				if (vertsIndex[k + j] > maxVertIndex)
-					maxVertIndex = vertsIndex[k + j];
-			k += faceIndex[i];
-		}
-		maxVertIndex += 1;
-
-		// allocate memory to store the position of the mesh vertices
-		P = std::unique_ptr<Vec3f[]>(new Vec3f[maxVertIndex]);
-		for (uint32_t i = 0; i < maxVertIndex; ++i) {
-			objectToWorld.multVecMatrix(verts[i], P[i]);
-		}
-
-		// allocate memory to store triangle indices
-		trisIndex = std::unique_ptr<uint32_t[]>(new uint32_t[numTris * 3]);
-		Matrix44f transformNormals = worldToObject.transpose();
-		// [comment]
-		// Sometimes we have 1 vertex attribute per vertex per face. So for example of you have 2
-		// quads this would be defefined by 6 vertices but 2 * 4 vertex attribute values for
-		// each vertex attribute (normal, tex. coordinates, etc.). But in some cases you may
-		// want to have 1 single value per vertex. So in the quad example this would be 6 vertices
-		// and 6 vertex attributes values per attribute. We need to provide both option to users.
-		// [/comment]
-		if (isSingleVertAttr) {
-			N = std::unique_ptr<Vec3f[]>(new Vec3f[maxVertIndex]);
-			texCoordinates = std::unique_ptr<Vec2f[]>(new Vec2f[maxVertIndex]);
-			for (uint32_t i = 0; i < maxVertIndex; ++i) {
-				texCoordinates[i] = st[i];
-				transformNormals.multDirMatrix(normals[i], N[i]);
-			}
-		}
-		else {
-			N = std::unique_ptr<Vec3f[]>(new Vec3f[numTris * 3]);
-			texCoordinates = std::unique_ptr<Vec2f[]>(new Vec2f[numTris * 3]);
-			for (uint32_t i = 0, k = 0, l = 0; i < nfaces; ++i) { // for each  face
-				for (uint32_t j = 0; j < faceIndex[i] - 2; ++j) {
-					transformNormals.multDirMatrix(normals[k], N[l]);
-					transformNormals.multDirMatrix(normals[k + j + 1], N[l + 1]);
-					transformNormals.multDirMatrix(normals[k + j + 2], N[l + 2]);
-					N[l].normalize();
-					N[l + 1].normalize();
-					N[l + 2].normalize();
-					texCoordinates[l] = st[k];
-					texCoordinates[l + 1] = st[k + j + 1];
-					texCoordinates[l + 2] = st[k + j + 2];
-				}
-				k += faceIndex[i];
-			}
-		}
-
-		// generate the triangle index array and set normals and st coordinates
-		for (uint32_t i = 0, k = 0, l = 0; i < nfaces; ++i) { // for each  face
-			for (uint32_t j = 0; j < faceIndex[i] - 2; ++j) { // for each triangle in the face
-				trisIndex[l] = vertsIndex[k];
-				trisIndex[l + 1] = vertsIndex[k + j + 1];
-				trisIndex[l + 2] = vertsIndex[k + j + 2];
-				l += 3;
-			}
-			k += faceIndex[i];
-		}
-	}
-	// Test if the ray interesests this triangle mesh
-	bool intersect(const Vec3f& orig, const Vec3f& dir, float& tNear, uint32_t& triIndex, Vec2f& uv) const
-	{
-		uint32_t j = 0;
-		bool isect = false;
-		for (uint32_t i = 0; i < numTris; ++i) {
-			const Vec3f& v0 = P[trisIndex[j]];
-			const Vec3f& v1 = P[trisIndex[j + 1]];
-			const Vec3f& v2 = P[trisIndex[j + 2]];
-			float t = kInfinity, u, v;
-			if (rayTriangleIntersect(orig, dir, v0, v1, v2, t, u, v) && t < tNear) {
-				tNear = t;
-				uv.x = u;
-				uv.y = v;
-				triIndex = i;
-				isect = true;
-			}
-			j += 3;
-		}
-
-		return isect;
-	}
-	void getSurfaceProperties(
-		const Vec3f& hitPoint,
-		const Vec3f& viewDirection,
-		const uint32_t& triIndex,
-		const Vec2f& uv,
-		Vec3f& hitNormal,
-		Vec2f& hitTextureCoordinates) const
-	{
-		uint32_t vai[3]; // vertex attr index
-		if (isSingleVertAttr) {
-			vai[0] = trisIndex[triIndex * 3];
-			vai[1] = trisIndex[triIndex * 3 + 1];
-			vai[2] = trisIndex[triIndex * 3 + 2];
-		}
-		else {
-			vai[0] = triIndex * 3;
-			vai[1] = triIndex * 3 + 1;
-			vai[2] = triIndex * 3 + 2;
-		}
-		if (smoothShading) {
-			// vertex normal
-			const Vec3f& n0 = N[vai[0]];
-			const Vec3f& n1 = N[vai[1]];
-			const Vec3f& n2 = N[vai[2]];
-			hitNormal = (1 - uv.x - uv.y) * n0 + uv.x * n1 + uv.y * n2;
-		}
-		else {
-			// face normal
-			const Vec3f& v0 = P[trisIndex[triIndex * 3]];
-			const Vec3f& v1 = P[trisIndex[triIndex * 3 + 1]];
-			const Vec3f& v2 = P[trisIndex[triIndex * 3 + 2]];
-			hitNormal = (v1 - v0).crossProduct(v2 - v0);
-		}
-
-		// doesn't need to be normalized as the N's are normalized but just for safety
-		hitNormal.normalize();
-
-		// texture coordinates
-		const Vec2f& st0 = texCoordinates[vai[0]];
-		const Vec2f& st1 = texCoordinates[vai[1]];
-		const Vec2f& st2 = texCoordinates[vai[2]];
-		hitTextureCoordinates = (1 - uv.x - uv.y) * st0 + uv.x * st1 + uv.y * st2;
-	}
-	void displayInfo() const
-	{
-		std::cerr << "Number of triangles in this mesh: " << numTris << std::endl;
-		std::cerr << BBox[0] << ", " << BBox[1] << std::endl;
-	}
-	// member variables
-	uint32_t numTris;                         // number of triangles
-	std::unique_ptr<Vec3f[]> P;              // triangles vertex position
-	std::unique_ptr<uint32_t[]> trisIndex;   // vertex index array
-	std::unique_ptr<Vec3f[]> N;              // triangles vertex normals
-	std::unique_ptr<Vec2f[]> texCoordinates; // triangles texture coordinates
-	bool smoothShading = true;                // smooth shading by default
-	bool isSingleVertAttr = true;
-};
-
-
-Vec3f evalBezierCurve(const Vec3f* P, const float& t)
-{
-
-	// n = 4
-//   float b0 = (1 - t) * (1 - t) * (1 - t) * (1 - t);
-   //float b1 = 4 * t * (1 - t) * (1 - t) * (1 - t);
-   //float b2 = 6 * t * t * (1 - t) * (1 - t);
-   //float b3 = 4 * t * t * t * (1 - t);
-   //float b4 = t * t * t * t;
-
-   // n = 3
-   //float b0 = (1 - t) * (1 - t) * (1 - t);
-   //float b1 = 3 * t * (1 - t) * (1 - t);
-   //float b2 = 3 * t * t * (1 - t);
-   //float b3 = t * t * t;
-
-   // n = 2
-   //float b0 = (1 - t) * (1 - t);
-   //float b1 = 2 * t * (1 - t);
-   //float b2 = t * t;
-
-   // n = 1
-	float b0 = (1 - t);
-	float b1 = t;
-
-
-	return P[0] * b0 + P[1] * b1;
-}
-
-
-Vec3f derivBezier(const Vec3f* P, const float& t)
-{
-	return -3 * (1 - t) * (1 - t) * P[0] +
-		(3 * (1 - t) * (1 - t) - 6 * t * (1 - t)) * P[1] +
-		(6 * t * (1 - t) - 3 * t * t) * P[2] +
-		3 * t * t * P[3];
-}
-
-
-// [comment]
-// Bezier curve control points
-// [/comment]
-constexpr uint32_t curveNumPts = 30;
-Vec3f curveData[curveNumPts] = {
-	{-0.001370324, 0.0097554422, 0},
-	{-0.0556627219, 0.0293327560, 0},
-	{-0.0029370324, 0.0297554422, 0},
-	{-0.1556627219, 0.3293327560, 0},
-	{-0.2613958914, 0.9578577085, 0},
-	{-0.2555218265, 1.3044275420, 0},
-	{-0.2496477615, 1.6509973760, 0},
-	{-0.1262923970, 2.0445597290, 0},
-	{ 0.1791589818, 2.2853963930, 0},
-	{ 0.4846103605, 2.5262330570, 0},
-	{ 0.9427874287, 2.2560260680, 0},
-	{ 1.0132762080, 1.9212043650, 0},
-	{ 1.0837649880, 1.5863826610, 0},
-	{ 0.9369133637, 1.2750572170, 0},
-	{ 0.6667063748, 1.2691831520, 0},
-	{ 0.3964993859, 1.2633090870, 0},
-	{ 0.2320255666, 1.3514200620, 0},
-	{ 0.1850330468, 1.5276420110, 0},
-	{ 0.1380405269, 1.7038639600, 0},
-	{ 0.2026552417, 1.8918340400, 0},
-	{ 0.4082475158, 1.9564487540, 0},
-	{ 0.6138397900, 2.0210634690, 0},
-	{ 0.7606914144, 1.8800859100, 0},
-	{ 0.7606914144, 1.7038639600, 0},
-	{ 0.4082475158, 2.9564487540, 0},
-	{ 0.6138397900, 3.0210634690, 0},
-	{ 0.7606914144, 2.8800859100, 0},
-	{ 0.7606914144, 4.7038639600, 0},
-	{ 0.7606914144, 4.8800859100, 0},
-	{ 0.7606914144, 4.7038639600, 0}
-};
-
-// [comment]
-// Generate a thin cylinder centred around a Bezier curve
-// [/comment]
-void createCurveGeometry(std::vector<std::unique_ptr<Object>>& objects)
-{
-	uint32_t ndivs = 2;
-	uint32_t ncurves = 1 + (curveNumPts - 4) / 3;
-	Vec3f pts[4];
-	std::unique_ptr<Vec3f[]> P(new Vec3f[(ndivs + 1) * ndivs * ncurves + 1]);
-	std::unique_ptr<Vec3f[]> N(new Vec3f[(ndivs + 1) * ndivs * ncurves + 1]);
-	std::unique_ptr<Vec2f[]> st(new Vec2f[(ndivs + 1) * ndivs * ncurves + 1]);
-	for (uint32_t i = 0; i < ncurves; ++i) {
-		for (uint32_t j = 0; j < ndivs; ++j) {
-			pts[0] = 2 * curveData[i * 3];
-			pts[1] = 2 * curveData[i * 3 + 1];
-			pts[2] = 2 * curveData[i * 3 + 2];
-			pts[3] = 2 * curveData[i * 3 + 3];
-			float s = j / (float)ndivs;
-			Vec3f pt = evalBezierCurve(pts, s);
-			Vec3f tangent = derivBezier(pts, s).normalize();
-			bool swap = false;
-
-			uint8_t maxAxis;
-			if (std::abs(tangent.x) > std::abs(tangent.y))
-				if (std::abs(tangent.x) > std::abs(tangent.z))
-					maxAxis = 0;
-				else
-					maxAxis = 2;
-			else if (std::abs(tangent.y) > std::abs(tangent.z))
-				maxAxis = 1;
-			else
-				maxAxis = 2;
-
-			Vec3f up, forward, right;
-
-			switch (maxAxis) {
-			case 0:
-			case 1:
-				up = tangent;
-				forward = Vec3f(0, 0, 1);
-				right = up.crossProduct(forward);
-				forward = right.crossProduct(up);
-				break;
-			case 2:
-				up = tangent;
-				right = Vec3f(0, 0, 1);
-				forward = right.crossProduct(up);
-				right = up.crossProduct(forward);
-				break;
-			default:
-				break;
-			};
-
-			float sNormalized = (i * ndivs + j) / float(ndivs * ncurves);
-			float rad = 0.1 * (1 - sNormalized);
-			for (uint32_t k = 0; k <= ndivs; ++k) {
-				float t = k / (float)ndivs;
-				float theta = t * 2 * M_PI;
-				Vec3f pc(cos(theta) * rad, 0, sin(theta) * rad);
-				float x = pc.x * right.x + pc.y * up.x + pc.z * forward.x;
-				float y = pc.x * right.y + pc.y * up.y + pc.z * forward.y;
-				float z = pc.x * right.z + pc.y * up.z + pc.z * forward.z;
-				P[i * (ndivs + 1) * ndivs + j * (ndivs + 1) + k] = Vec3f(pt.x + x, pt.y + y, pt.z + z);
-				N[i * (ndivs + 1) * ndivs + j * (ndivs + 1) + k] = Vec3f(x, y, z).normalize();
-				st[i * (ndivs + 1) * ndivs + j * (ndivs + 1) + k] = Vec2f(sNormalized, t);
-			}
-		}
-	}
-	P[(ndivs + 1) * ndivs * ncurves] = curveData[curveNumPts - 1];
-	N[(ndivs + 1) * ndivs * ncurves] = (curveData[curveNumPts - 2] - curveData[curveNumPts - 1]).normalize();
-	st[(ndivs + 1) * ndivs * ncurves] = Vec2f(1, 0.5);
-	uint32_t numFaces = ndivs * ndivs * ncurves;
-	std::unique_ptr<uint32_t[]> verts(new uint32_t[numFaces]);
-	for (uint32_t i = 0; i < numFaces; ++i)
-		verts[i] = (i < (numFaces - ndivs)) ? 4 : 3;
-	std::unique_ptr<uint32_t[]> vertIndices(new uint32_t[ndivs * ndivs * ncurves * 4 + ndivs * 3]);
-	uint32_t nf = 0, ix = 0;
-	for (uint32_t k = 0; k < ncurves; ++k) {
-		for (uint32_t j = 0; j < ndivs; ++j) {
-			if (k == (ncurves - 1) && j == (ndivs - 1)) { break; }
-			for (uint32_t i = 0; i < ndivs; ++i) {
-				vertIndices[ix] = nf;
-				vertIndices[ix + 1] = nf + (ndivs + 1);
-				vertIndices[ix + 2] = nf + (ndivs + 1) + 1;
-				vertIndices[ix + 3] = nf + 1;
-				ix += 4;
-				++nf;
-			}
-			nf++;
-		}
-	}
-
-	for (uint32_t i = 0; i < ndivs; ++i) {
-		vertIndices[ix] = nf;
-		vertIndices[ix + 1] = (ndivs + 1) * ndivs * ncurves;
-		vertIndices[ix + 2] = nf + 1;
-		ix += 3;
-		nf++;
-	}
-
-	objects.push_back(std::unique_ptr<TriangleMesh>(new TriangleMesh(Matrix44f::kIdentity, numFaces, verts, vertIndices, P, N, st)));
-}
 
 void fresnel(const Vec3f& I, const Vec3f& N, const float& ior, float& kr)
 {
@@ -794,8 +416,9 @@ Vec3f castRay(
 			break;
 		}            default:
 		{
-			for (unsigned i = 0; i < lights.size(); ++i) {
+			hitColor = Vec3f(0, 0, 0);
 
+			for (unsigned i = 0; i < lights.size(); ++i) {
 
 				// this is a light
 				Vec3f lightAmt = 0, specularColor = 0;
@@ -822,7 +445,7 @@ Vec3f castRay(
 				specularColor += powf(std::max(0.f, -reflectionDirection.dotProduct(raydir)), 25) * lights[i].emissionColor;
 				//}
 				Vec2f st(0.2);
-				hitColor = lightAmt * lights[i].evalDiffuseColor(st) * 0.8  +specularColor * 0.2;
+				hitColor += lightAmt * (lights[i].evalDiffuseColor(st) * 0.8) / (2) + specularColor * 0.5;
 				hitColor += sphere->surfaceColor;
 
 			}
@@ -873,7 +496,7 @@ void render(const Settings& settings, std::vector<Sphere>& spheres, std::vector<
 				float yy = (1 - 2 * ((y + random_double()) * invHeight)) * angle;
 				Vec3f raydir(xx, yy, -1);
 				raydir.normalize();
-				sampled_pixel += castRay(Vec3f(0), raydir, spheres, lights, 0);
+				sampled_pixel += castRay(Vec3f(0), raydir, spheres, lights, 5);
 			}
 			*pixel = sampled_pixel;
 		}
@@ -897,17 +520,20 @@ int main(int argc, char** argv)
 		std::vector<Triangle> triangles;
 
 
-		Sphere light = Sphere(Vec3f(0, 30, -10), 1, Vec3f(1, 1, 1), 0, 0.0, Vec3f(1));
+		Sphere light = Sphere(Vec3f(0, 10, -10), 1, Vec3f(1, 1, 1), 0, 0.0, Vec3f(1));
+		Sphere light2 = Sphere(Vec3f(10, 10, -20), 0.2, Vec3f(1, 1, 1), 0, 0.0, Vec3f(1));
+
 		Sphere gray = Sphere(Vec3f(0, 0, -20), 2, Vec3f(0.1, 0.4, 0.6), 1, 0.0);
 		Sphere gray_1 = Sphere(Vec3f(-0.5, 0, -23), 0.5, Vec3f(0, 0, 0), 1, 0.0);
 
 		gray.materialType = REFLECTION_AND_REFRACTION;
 
-		spheres.push_back(gray); //gray left
-		spheres.push_back(gray_1); //gray left
+		//spheres.push_back(gray); //gray left
+		//spheres.push_back(gray_1); //gray left
 		spheres.push_back(Sphere(Vec3f(0.0, -100, -20), 98, Vec3f(0.20, 0.20, 0.20), 0, 0.0)); // ground
-		//spheres.push_back(Sphere(Vec3f(0, 0, -20), 2, Vec3f(0.1, 0.77, 0.97), 1, 0.0)); //yellow right
+		spheres.push_back(Sphere(Vec3f(0, 0, -20), 2, Vec3f(0.1, 0.77, 0.97), 1, 0.0)); //yellow right
 		lights.push_back(light);
+		lights.push_back(light2);
 
 
 		render(settings, spheres, lights, triangles, frame);
