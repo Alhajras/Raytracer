@@ -1,31 +1,9 @@
-//[header]
-// A simple program that uses ray-tracing to render a single triangle
-//[/header]
-//[compile]
-// Download the raytri.cpp and geometry.h files to a folder.
-// Open a shell/terminal, and run the following command where the files is saved:
-//
-// c++ -o raytri raytri.cpp -O3 -std=c++11 -DMOLLER_TRUMBORE
-//
-// Run with: ./raytri. Open the file ./out.png in Photoshop or any program
-// reading PPM files.
-//[/compile]
-//[ignore]
+// Author Alhajras Algdairy, 1.7.2021, Uni-Freiburg
+// A simple program that uses ray-tracing to render triangles and spheres
+// 
+
 // Copyright (C) 2012  www.scratchapixel.com
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//[/ignore]
+
 
 #include <cstdio>
 #include <cstdlib>
@@ -61,6 +39,16 @@ float clamp(const float& lo, const float& hi, const float& v)
 
 enum MaterialType { DIFFUSE_AND_GLOSSY, REFLECTION_AND_REFRACTION, REFLECTION };
 
+struct Settings
+{
+	uint32_t width = 640;
+	uint32_t height = 480;
+	float fov = 90;
+	Vec3f backgroundColor = Vec3f(1, 1, 1); // Standard bg color is white
+	float bias = 0.0001; // Error allowed
+	uint32_t maxDepth = 0; // Max number of ray trating into the scene
+	uint32_t aa_samples = 5; // Anti aliasing samples
+};
 
 void fresnel(const Vec3f& I, const Vec3f& N, const float& ior, float& kr)
 {
@@ -306,11 +294,6 @@ bool trace_more(
 	//return (*hitObject != nullptr);
 }
 
-// [comment]
-// The main ray-triangle intersection routine. You can test both methoods: the
-// geometric method and the Moller-Trumbore algorithm (use the flag -DMOLLER_TRUMBORE
-// when you compile.
-// [/comment]
 
 Vec3f castRay(
 	const Vec3f& rayorig,
@@ -391,49 +374,55 @@ Vec3f castRay(
 			Vec3f reflectionColor = castRay(reflectionRayOrig, reflectionDirection, spheres, lights, depth + 1);
 			Vec3f refractionColor = castRay(refractionRayOrig, refractionDirection, spheres, lights, depth + 1);
 			float kr;
-			fresnel(raydir, N, 3, kr);
-			 hitColor = refractionColor * (1 - kr);
+			fresnel(raydir, N, 2, kr);
+			hitColor = refractionColor * (1 - kr);
 			break;
 		}
 		case REFLECTION:
 		{
-			
-			Vec3f R = reflect(raydir, N);
-			R.normalize();
+
+			Vec3f reflectionDirection = reflect(raydir, N).normalize();
+			Vec3f reflectionRayOrig = (reflectionDirection.dotProduct(N) < 0) ?
+				hitPoint - N * bias :
+				hitPoint + N * bias;
+			Vec3f reflectionColor = castRay(reflectionRayOrig, reflectionDirection, spheres, lights, depth + 1);
+			float kr;
+			fresnel(raydir, N, 2, kr);
+			hitColor = (1 - kr);
 			break;
 		}            default:
 		{
 			for (unsigned i = 0; i < lights.size(); ++i) {
 
 
-					// this is a light
-					Vec3f lightAmt = 0, specularColor = 0;
-					Vec3f shadowPointOrig = (raydir.dotProduct(N) < 0) ?
-						hitPoint + N * bias :
-						hitPoint - N * bias;
-					// [comment]
-					// Loop over all lights in the scene and sum their contribution up
-					// We also apply the lambert cosine law here though we haven't explained yet what this means.
-					// [/comment]
-					//for (uint32_t i = 0; i < lights.size(); ++i) {
-					Vec3f lightDir = lights[i].center - hitPoint;
-					// square of the distance between hitPoint and the light
-					float lightDistance2 = lightDir.dotProduct(lightDir);
-					lightDir = lightDir.normalize();
-					float LdotN = std::max(0.f, lightDir.dotProduct(N));
-					Sphere* shadowHitObject = nullptr;
-					float tNearShadow = kInfinity;
-					// is the point in shadow, and is the nearest occluding object closer to the object than the light itself?
-					bool inShadow = trace_more(shadowPointOrig, lightDir, spheres, tNearShadow, index, uv, shadowHitObject) &&
-						tNearShadow * tNearShadow < lightDistance2;
-					lightAmt += (1 - inShadow) * lights[i].emissionColor * LdotN;
-					Vec3f reflectionDirection = reflect(-lightDir, N);
-					specularColor += powf(std::max(0.f, -reflectionDirection.dotProduct(raydir)), 25) * lights[i].emissionColor;
-					//}
-					Vec2f st(0.2);
-					hitColor = lightAmt * lights[i].evalDiffuseColor(st) * 0.8 + specularColor * 0.1;
-					hitColor += sphere->surfaceColor;
-				
+				// this is a light
+				Vec3f lightAmt = 0, specularColor = 0;
+				Vec3f shadowPointOrig = (raydir.dotProduct(N) < 0) ?
+					hitPoint + N * bias :
+					hitPoint - N * bias;
+				// [comment]
+				// Loop over all lights in the scene and sum their contribution up
+				// We also apply the lambert cosine law here though we haven't explained yet what this means.
+				// [/comment]
+				//for (uint32_t i = 0; i < lights.size(); ++i) {
+				Vec3f lightDir = lights[i].center - hitPoint;
+				// square of the distance between hitPoint and the light
+				float lightDistance2 = lightDir.dotProduct(lightDir);
+				lightDir = lightDir.normalize();
+				float LdotN = std::max(0.f, lightDir.dotProduct(N));
+				Sphere* shadowHitObject = nullptr;
+				float tNearShadow = kInfinity;
+				// is the point in shadow, and is the nearest occluding object closer to the object than the light itself?
+				bool inShadow = trace_more(shadowPointOrig, lightDir, spheres, tNearShadow, index, uv, shadowHitObject) &&
+					tNearShadow * tNearShadow < lightDistance2;
+				lightAmt += (1 - inShadow) * lights[i].emissionColor * LdotN;
+				Vec3f reflectionDirection = reflect(-lightDir, N);
+				specularColor += powf(std::max(0.f, -reflectionDirection.dotProduct(raydir)), 25) * lights[i].emissionColor;
+				//}
+				Vec2f st(0.2);
+				hitColor = lightAmt * lights[i].evalDiffuseColor(st) * 0.8  +specularColor * 0.2;
+				hitColor += sphere->surfaceColor;
+
 			}
 
 		}
@@ -444,52 +433,58 @@ Vec3f castRay(
 	//return Vec3f(1, 1, 1);
 }
 
-
+// This will generate a random number to be used for the anti alisaing to generate radndom scatterd rays.
 inline double random_double()
 {
-	static std::uniform_real_distribution<double > distribution (0.0,1.0);
+	static std::uniform_real_distribution<double > distribution(0.0, 1.0);
 	static std::mt19937 generator;
 	return distribution(generator);
 }
-void render(std::vector<Sphere>& spheres, std::vector<Sphere>& lights, std::vector<Triangle> triangles, int frame)
-{
-	int aa_samplees = 50; 
-	unsigned width = 640, height = 480;
-	Vec3f* image = new Vec3f[width * height], * pixel = image;
-	float invWidth = 1 / float(width), invHeight = 1 / float(height);
-	float fov = 30, aspectratio = width / float(height);
-	float angle = tan(M_PI * 0.5 * fov / 180.);
-	// Trace rays
-	for (unsigned y = 0; y < height; ++y) {
-		for (unsigned x = 0; x < width; ++x, ++pixel) {
-			Vec3f sampled_pixel(0, 0, 0);
 
-			for (unsigned sample = 0; sample  < aa_samplees; ++sample) {
-			float xx = (2 * ((x + random_double()) * invWidth) - 1) * angle * aspectratio;
-			float yy = (1 - 2 * ((y + random_double()) * invHeight)) * angle;
-			Vec3f raydir(xx, yy, -1);
-			raydir.normalize();
-			sampled_pixel += castRay(Vec3f(0), raydir, spheres, lights, 0);
-			}
-			*pixel = sampled_pixel; 
-		}
-	}
-
+//  This will write pixels into a file
+void write_into_file(const Settings& settings, int frame, Vec3f* image) {
 	// Save result to a PPM image (keep these flags if you compile under Windows)
 	std::ofstream ofs("./" + std::to_string(frame) + "out.ppm", std::ios::out | std::ios::binary);
-	ofs << "P6\n" << width << " " << height << "\n255\n";
-	for (unsigned i = 0; i < width * height; ++i) {
-		ofs << (unsigned char)(std::min(float(1), image[i].x/ aa_samplees) * 255) <<
-			(unsigned char)(std::min(float(1), image[i].y/ aa_samplees) * 255) <<
-			(unsigned char)(std::min(float(1), image[i].z/ aa_samplees) * 255);
+	ofs << "P6\n" << settings.width << " " << settings.height << "\n255\n";
+	for (unsigned i = 0; i < settings.width * settings.height; ++i) {
+		ofs << (unsigned char)(std::min(float(1), image[i].x / settings.aa_samples) * 255) <<
+			(unsigned char)(std::min(float(1), image[i].y / settings.aa_samples) * 255) <<
+			(unsigned char)(std::min(float(1), image[i].z / settings.aa_samples) * 255);
 	}
 	ofs.close();
 
 	delete[] image;
 }
+void render(const Settings& settings, std::vector<Sphere>& spheres, std::vector<Sphere>& lights, std::vector<Triangle> triangles, int frame)
+{
+	Vec3f* image = new Vec3f[settings.width * settings.height], * pixel = image;
+	float invWidth = 1 / float(settings.width), invHeight = 1 / float(settings.height);
+	float fov = 30, aspectratio = settings.width / float(settings.height);
+	float angle = tan(M_PI * 0.5 * fov / 180.);
+	// Trace rays
+	for (unsigned y = 0; y < settings.height; ++y) {
+		for (unsigned x = 0; x < settings.width; ++x, ++pixel) {
+			Vec3f sampled_pixel(0, 0, 0);
+
+			for (unsigned sample = 0; sample < settings.aa_samples; ++sample) {
+				float xx = (2 * ((x + random_double()) * invWidth) - 1) * angle * aspectratio;
+				float yy = (1 - 2 * ((y + random_double()) * invHeight)) * angle;
+				Vec3f raydir(xx, yy, -1);
+				raydir.normalize();
+				sampled_pixel += castRay(Vec3f(0), raydir, spheres, lights, 0);
+			}
+			*pixel = sampled_pixel;
+		}
+	}
+	write_into_file(settings, frame, image);
+}
+
+
+
 
 int main(int argc, char** argv)
 {
+	Settings settings;
 
 	for (int frame = 15; frame > 14; frame--) {
 		int shift = 20;
@@ -499,21 +494,21 @@ int main(int argc, char** argv)
 
 		std::vector<Triangle> triangles;
 
-		
-		Sphere light = Sphere(Vec3f(0, frame, -20), 4, Vec3f(1, 1, 1), 0, 0.0, Vec3f(2));
-		Sphere gray = Sphere(Vec3f(-5.5, 0, -20), 2, Vec3f(0.1, 0.4, 0.6), 1, 0.0);
-		Sphere gray_1 = Sphere(Vec3f(-6.1, 0, -23), 0.5, Vec3f(0, 0, 0), 1, 0.0);
+
+		Sphere light = Sphere(Vec3f(0, 30, -10), 1, Vec3f(1, 1, 1), 0, 0.0, Vec3f(1));
+		Sphere gray = Sphere(Vec3f(0, 0, -20), 2, Vec3f(0.1, 0.4, 0.6), 1, 0.0);
+		Sphere gray_1 = Sphere(Vec3f(-0.5, 0, -23), 0.5, Vec3f(0, 0, 0), 1, 0.0);
 
 		gray.materialType = REFLECTION_AND_REFRACTION;
 
 		spheres.push_back(gray); //gray left
 		spheres.push_back(gray_1); //gray left
 		spheres.push_back(Sphere(Vec3f(0.0, -100, -20), 98, Vec3f(0.20, 0.20, 0.20), 0, 0.0)); // ground
-		spheres.push_back(Sphere(Vec3f(5, 0, -20), 2, Vec3f(0.1, 0.77, 0.97), 1, 0.0)); //yellow right
+		//spheres.push_back(Sphere(Vec3f(0, 0, -20), 2, Vec3f(0.1, 0.77, 0.97), 1, 0.0)); //yellow right
 		lights.push_back(light);
 
 
-		render(spheres, lights, triangles, frame);
+		render(settings, spheres, lights, triangles, frame);
 	}
 	return 0;
 }

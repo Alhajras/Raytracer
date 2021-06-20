@@ -301,8 +301,8 @@ The computed light at a point P depends on the following:
 
 \begin{itemize}
 	\item Light illuminated by source source  $L^{source}$  in real life usually lamp, fire or the sun, it can have any color and intensity but here we will use white color. 
-	\item Light illimunated on the surface $L^{surface}$ is the surface illumination caused by
-	\item Light reflected from the surface $L^{reflected}$
+	\item Surface illumination $L^{surface}$.
+	\item Light reflected from the surface $L^{reflected}$.
 	\item The observation angle / looking at angle / camera. 
 \end{itemize}
 
@@ -343,7 +343,7 @@ L^{amb} = \rho \otimes L^{indirect}
 	
 	\begin{itemize}
 		\item $\rho$, is the surface color
-		\item $L^{indirect}$ , is the light reflected from other surfaces and objects, excluded the direct light ($L^{surface}$)
+		\item $L^{indirect}$ , is the light reflected from other surfaces and objects, excluded the direct light ($L^{source}$)
 	\end{itemize}
 	\item \textbf{Diffuse reflection} 
 
@@ -366,7 +366,7 @@ L^{spec} =  L^{source}.(n.l).(r.v)^m \otimes \rho^{white}
 	\end{itemize}
 \end{itemize}
 
-The overall illumination on the surface can be computed by summing up the three components that make up Phong model:
+The overall illumination on the surface can be computed by summing up the three components that make up \textit{Phong model}:
 
 \begin{equation}
 	L^{surface}= L^{amb} + \sum_{n=1}^{lights} (L_n^{diff} + L_n^{spec})
@@ -401,7 +401,6 @@ The overall illumination on the surface can be computed by summing up the three 
 	\label{fig:fig}
 \end{figure}
 
-\bigbreak
 
 \section{Materials}
 	      \subsection{Concept}
