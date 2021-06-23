@@ -19,10 +19,10 @@
 \contentsline {subsection}{\numberline {6.1}Concept}{9}{subsection.6.1}% 
 \contentsline {subsubsection}{\numberline {6.1.1}Lambert\IeC {\textquoteright }s Cosine Law}{9}{subsubsection.6.1.1}% 
 \contentsline {subsubsection}{\numberline {6.1.2}Phong reflection model }{9}{subsubsection.6.1.2}% 
-\contentsline {section}{\numberline {7}Materials}{10}{section.7}% 
-\contentsline {subsection}{\numberline {7.1}Concept}{10}{subsection.7.1}% 
+\contentsline {section}{\numberline {7}Materials}{11}{section.7}% 
+\contentsline {subsection}{\numberline {7.1}Concept}{11}{subsection.7.1}% 
 \contentsline {subsection}{\numberline {7.2}Refraction}{11}{subsection.7.2}% 
 \contentsline {subsection}{\numberline {7.3}Fresnel}{11}{subsection.7.3}% 
-\contentsline {subsection}{\numberline {7.4}Results}{11}{subsection.7.4}% 
+\contentsline {subsection}{\numberline {7.4}Results}{12}{subsection.7.4}% 
 \contentsline {section}{\numberline {8}Texture}{13}{section.8}% 
 \contentsline {subsection}{\numberline {8.1}Anti-aliasing}{13}{subsection.8.1}% 
