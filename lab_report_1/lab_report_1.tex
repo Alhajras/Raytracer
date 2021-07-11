@@ -65,7 +65,7 @@
 	\tableofcontents
 	\clearpage
 	\section{Introduction}
-	Computer graphics has three main pillars: Modelling, Rendering, and Simulation. The focus of this report is Rendering. Rendering cares about solving issues like the model's visibility towards sensors; this is done by two methods: Rasterization or Raytracing. In this report, we will be using Raytracing. Rendering also focuses on which color and intensity does a model has. How light interacts with surfaces and how it propagates throw the media.
+	Computer graphics has three main pillars: \textit{Modelling}, \textit{Rendering}, and \textit{Simulation}. The focus of this report is Rendering. Rendering cares about solving issues like the model's visibility towards sensors; this is done by two methods: \textit{Rasterization} or \textit{Raytracing}. Rendering focuses on which color and intensity does a model has. How light interacts with surfaces and how it propagates throw the media.
 	
 	The report summarizes the implementation of a simple Raytracer; this includes solving the Visibility challenge, coloring or shading the models and introducing some more features that enhance the Raytracer usability and performance.
 	
@@ -74,16 +74,20 @@
 	%----------------------------------------------------------------------------------------
 	\section{Visibility}
 	\subsection{Introduction}
-	The goal of rendering in computer graphics is to simulate light propagation to create images of virtual scenes. Visibility is a critical phenomenon that occurs as a result of light's interaction with the environment.
+	The goal of rendering in computer graphics is to simulate light propagation to create images of virtual scenes. \textit{Visibility} is a critical phenomenon that occurs as a result of light's interaction with the environment.
 	
-	A fundamental graphics problem is determining the visible areas of surfaces. It naturally occurs in rendering because depicting invisible objects is both inefficient and wrong. This challenge is referred to as visible surface determination or concealed surface removal, depending on how it is approached. The primary two operations in the Raytracer are Rays casting and Path tracing. 
+	A fundamental graphics problem is determining the visible areas of surfaces and which object is closer to the camera. This challenge is referred to as visible surface determination or concealed surface removal, depending on how it is approached. The primary two operations in the Raytracer are Rays casting, which shoots rays toward the scene, and Path tracing that traces the path of the shooted rays.
 	
 	\subsection{Rays}
 	To generate an image using Raytracing, we must first cast a ray for each pixel in the image to the scene.
 	Raytracing is a computer approach for simulating the behavior of light in a three-dimensional scene. It works by replicating genuine light rays and tracing the path that a beam of light would travel in the real environment using an algorithm. 
-	All raytracers use rays as a way to simuate photons. Let’s think of a ray as a function \[\pmb{r} (t) = \pmb{o} + t\pmb{d} ,  \quad  0 < t < \infty \] Here $\pmb{} $ is a 3D position along a line
+	For this, all raytracers use rays as a way to simulate photons. Let us think of a ray as a function, here $\pmb{r} $ is a 3D position along a line
 	in 3D. $\pmb{o} $ is the ray origin and $\pmb{d} $ is the ray direction.
+		\begin{equation}
+\pmb{r} (t) = \pmb{o} + t\pmb{d} ,  \quad  0 < t < \infty
+	\end{equation}
 	
+	Figure ~\ref{fig:1} shows the basic idea of raytracing, where several rays are shooted toward the scene, and then a path tracer algorithm is used to shade the object and detect which parts are visible to the camera.
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=250pt]{C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/3.png}

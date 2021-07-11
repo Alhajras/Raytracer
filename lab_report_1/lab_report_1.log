@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.11.11)  12 JUL 2021 00:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.11.11)  12 JUL 2021 00:38
 entering extended mode
 **./lab_report_1.tex
 (lab_report_1.tex
@@ -1090,100 +1090,100 @@ _1.toc)
 
 ]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/3.png, i
-d=168, 1284.8pt x 854.19125pt>
+d=169, 1284.8pt x 854.19125pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/3.p
 ng Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/3.pn
 g>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/3.png  used on input line 89.
+gnment_2/images/3.png  used on input line 93.
 (pdftex.def)             Requested size: 250.0pt x 166.20819pt.
  [3
 
  <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/3.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 122.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 126.
 
 
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 122.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 126.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/5.png, i
-d=180, 582.67688pt x 465.99094pt>
+d=183, 582.67688pt x 465.99094pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/5.p
 ng Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/5.pn
 g>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/5.png  used on input line 130.
+gnment_2/images/5.png  used on input line 134.
 (pdftex.def)             Requested size: 250.0pt x 199.93134pt.
 
 [4 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/5.png
 >]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/9.png, i
-d=193, 353.82187pt x 325.96782pt>
+d=196, 353.82187pt x 325.96782pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/9.p
 ng Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/9.pn
 g>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/9.png  used on input line 164.
+gnment_2/images/9.png  used on input line 168.
 (pdftex.def)             Requested size: 250.0pt x 230.32462pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/without_
-aa.png, id=194, 1117.17375pt x 690.32906pt>
+aa.png, id=197, 1117.17375pt x 690.32906pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/wit
 hout_aa.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/with
 out_aa.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/without_aa.png  used on input line 182.
+gnment_2/images/without_aa.png  used on input line 186.
 (pdftex.def)             Requested size: 112.74277pt x 69.65842pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/with_aa_
-100.png, id=195, 1060.71281pt x 644.4075pt>
+100.png, id=198, 1060.71281pt x 644.4075pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/wit
 h_aa_100.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/with
 _aa_100.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/with_aa_100.png  used on input line 189.
+gnment_2/images/with_aa_100.png  used on input line 193.
 (pdftex.def)             Requested size: 112.74277pt x 68.48582pt.
  [5 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/9.pn
 g> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/witho
 ut_aa.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/imag
 es/with_aa_100.png>]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2.png,
- id=207, 147.55125pt x 170.88844pt>
+ id=210, 147.55125pt x 170.88844pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2
 .png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2.
 png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/6_2.png  used on input line 214.
+gnment_2/images/6_2.png  used on input line 218.
 (pdftex.def)             Requested size: 112.74277pt x 130.57799pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2.png,
- id=208, 385.44pt x 322.95656pt>
+ id=211, 385.44pt x 322.95656pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2
 .png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2.
 png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/7_2.png  used on input line 221.
+gnment_2/images/7_2.png  used on input line 225.
 (pdftex.def)             Requested size: 112.74277pt x 94.46318pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cube.png
-, id=209, 123.46124pt x 124.21407pt>
+, id=212, 123.46124pt x 124.21407pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cub
 e.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cube
 .png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/cube.png  used on input line 228.
+gnment_2/images/cube.png  used on input line 232.
 (pdftex.def)             Requested size: 112.74277pt x 113.43677pt.
  [6 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2.
 png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2
 .png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cu
 be.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 275--277
+Underfull \hbox (badness 10000) in paragraph at lines 279--281
 
  []
 
@@ -1191,68 +1191,68 @@ Underfull \hbox (badness 10000) in paragraph at lines 275--277
 
 ]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb_refl
-ection.png, id=227, 574.39594pt x 433.62pt>
+ection.png, id=230, 574.39594pt x 433.62pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb
 _reflection.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb_
 reflection.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/amb_reflection.png  used on input line 321.
+gnment_2/images/amb_reflection.png  used on input line 325.
 (pdftex.def)             Requested size: 112.74277pt x 85.10803pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff_ref
-lection_2.png, id=228, 719.68875pt x 540.51938pt>
+lection_2.png, id=231, 719.68875pt x 540.51938pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/dif
 f_reflection_2.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff
 _reflection_2.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/diff_reflection_2.png  used on input line 328.
+gnment_2/images/diff_reflection_2.png  used on input line 332.
 (pdftex.def)             Requested size: 112.74277pt x 84.67038pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec_ref
-lection_2.png, id=229, 502.87875pt x 377.15906pt>
+lection_2.png, id=232, 502.87875pt x 377.15906pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spe
 c_reflection_2.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec
 _reflection_2.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/spec_reflection_2.png  used on input line 335.
+gnment_2/images/spec_reflection_2.png  used on input line 339.
 (pdftex.def)             Requested size: 112.74277pt x 84.55211pt.
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb
 _reflection.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb_
 reflection.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/amb_reflection.png  used on input line 353.
+gnment_2/images/amb_reflection.png  used on input line 357.
 (pdftex.def)             Requested size: 112.74277pt x 85.10803pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff_ref
-lection.png, id=231, 516.42938pt x 390.70969pt>
+lection.png, id=234, 516.42938pt x 390.70969pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/dif
 f_reflection.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff
 _reflection.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/diff_reflection.png  used on input line 360.
+gnment_2/images/diff_reflection.png  used on input line 364.
 (pdftex.def)             Requested size: 112.74277pt x 85.29463pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec_ref
-lection.png, id=232, 609.02531pt x 463.7325pt>
+lection.png, id=235, 609.02531pt x 463.7325pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spe
 c_reflection.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec
 _reflection.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/spec_reflection.png  used on input line 367.
+gnment_2/images/spec_reflection.png  used on input line 371.
 (pdftex.def)             Requested size: 112.74277pt x 85.84576pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/multi_sh
-adow_multi_spec.png, id=233, 661.72218pt x 493.845pt>
+adow_multi_spec.png, id=236, 661.72218pt x 493.845pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/mul
 ti_shadow_multi_spec.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/mult
 i_shadow_multi_spec.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/multi_shadow_multi_spec.png  used on input line 375.
+gnment_2/images/multi_shadow_multi_spec.png  used on input line 379.
 (pdftex.def)             Requested size: 112.74277pt x 84.13338pt.
 
-Underfull \hbox (badness 1874) in paragraph at lines 376--376
+Underfull \hbox (badness 1874) in paragraph at lines 380--380
 []\OT1/cmr/m/n/9 (d) |\OT1/cmr/m/n/8 Mul-ti-ple lights that gen-er-ates
  []
 
@@ -1261,71 +1261,71 @@ eflection.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/
 images/diff_reflection_2.png> <C:/D/University/Semester_4/Raytracer/lab_report_
 1/assignment_2/images/spec_reflection_2.png>]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refracti
-on.png, id=248, 228.855pt x 229.60782pt>
+on.png, id=250, 228.855pt x 229.60782pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/ref
 raction.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
 action.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/refraction.png  used on input line 406.
+gnment_2/images/refraction.png  used on input line 410.
 (pdftex.def)             Requested size: 150.00412pt x 150.00708pt.
  [9 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff
 _reflection.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_
 2/images/spec_reflection.png> <C:/D/University/Semester_4/Raytracer/lab_report_
 1/assignment_2/images/multi_shadow_multi_spec.png>]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/texture_
-1.png, id=260, 724.95844pt x 536.75531pt>
+1.png, id=262, 724.95844pt x 536.75531pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/tex
 ture_1.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/text
 ure_1.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/texture_1.png  used on input line 438.
+gnment_2/images/texture_1.png  used on input line 442.
 (pdftex.def)             Requested size: 112.74277pt x 83.46648pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/texture_
-2.png, id=261, 718.18312pt x 539.76656pt>
+2.png, id=263, 718.18312pt x 539.76656pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/tex
 ture_2.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/text
 ure_2.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/texture_2.png  used on input line 445.
+gnment_2/images/texture_2.png  used on input line 449.
 (pdftex.def)             Requested size: 112.74277pt x 84.73364pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/texture_
-3.png, id=262, 657.95813pt x 492.33937pt>
+3.png, id=264, 657.95813pt x 492.33937pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/tex
 ture_3.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/text
 ure_3.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/texture_3.png  used on input line 452.
+gnment_2/images/texture_3.png  used on input line 456.
 (pdftex.def)             Requested size: 112.74277pt x 84.35768pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refracti
-on_3.png, id=264, 503.63156pt x 395.97937pt>
+on_3.png, id=266, 503.63156pt x 395.97937pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/ref
 raction_3.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
 action_3.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/refraction_3.png  used on input line 470.
+gnment_2/images/refraction_3.png  used on input line 474.
 (pdftex.def)             Requested size: 112.74277pt x 88.6444pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refracti
-on_0.png, id=265, 501.37312pt x 382.42876pt>
+on_0.png, id=267, 501.37312pt x 382.42876pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/ref
 raction_0.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
 action_0.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/refraction_0.png  used on input line 477.
+gnment_2/images/refraction_0.png  used on input line 481.
 (pdftex.def)             Requested size: 112.74277pt x 85.99606pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refracti
-on__0_5.png, id=266, 499.11469pt x 381.67593pt>
+on__0_5.png, id=268, 499.11469pt x 381.67593pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/ref
 raction__0_5.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
 action__0_5.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/refraction__0_5.png  used on input line 484.
+gnment_2/images/refraction__0_5.png  used on input line 488.
 (pdftex.def)             Requested size: 112.74277pt x 86.21117pt.
  [10 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/ref
 raction.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/im
@@ -1336,31 +1336,31 @@ b_report_1/assignment_2/images/refraction_3.png> <C:/D/University/Semester_4/Ra
 ytracer/lab_report_1/assignment_2/images/refraction_0.png> <C:/D/University/Sem
 ester_4/Raytracer/lab_report_1/assignment_2/images/refraction__0_5.png>]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair_n_3
-_div_16.png, id=289, 480.29437pt x 649.67719pt>
+_div_16.png, id=291, 480.29437pt x 649.67719pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hai
 r_n_3_div_16.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_3_div_16.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_3_div_16.png  used on input line 537.
+gnment_2/images/hair_n_3_div_16.png  used on input line 541.
 (pdftex.def)             Requested size: 112.74277pt x 152.49571pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair_n_3
-_div_8.png, id=290, 445.665pt x 581.17125pt>
+_div_8.png, id=292, 445.665pt x 581.17125pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hai
 r_n_3_div_8.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_3_div_8.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_3_div_8.png  used on input line 544.
+gnment_2/images/hair_n_3_div_8.png  used on input line 548.
 (pdftex.def)             Requested size: 112.74277pt x 147.0217pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair_n_3
-_div_4.png, id=291, 415.5525pt x 505.89pt>
+_div_4.png, id=293, 415.5525pt x 505.89pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hai
 r_n_3_div_4.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_3_div_4.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_3_div_4.png  used on input line 551.
+gnment_2/images/hair_n_3_div_4.png  used on input line 555.
 (pdftex.def)             Requested size: 112.74277pt x 137.24825pt.
  [12
 
@@ -1370,16 +1370,16 @@ r_n_3_div_4.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_3_div_4.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_3_div_4.png  used on input line 567.
+gnment_2/images/hair_n_3_div_4.png  used on input line 571.
 (pdftex.def)             Requested size: 112.74277pt x 137.24825pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair_n_2
-_div_4.png, id=299, 471.26062pt x 593.21625pt>
+_div_4.png, id=301, 471.26062pt x 593.21625pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hai
 r_n_2_div_4.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_2_div_4.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_2_div_4.png  used on input line 574.
+gnment_2/images/hair_n_2_div_4.png  used on input line 578.
 (pdftex.def)             Requested size: 112.74277pt x 141.91316pt.
  [13 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hai
 r_n_3_div_16.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment
@@ -1389,40 +1389,40 @@ _2/images/hair_n_3_div_8.png> <C:/D/University/Semester_4/Raytracer/lab_report_
 
 ]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/l4.p
-ng, id=316, 499.11469pt x 372.64218pt>
+ng, id=318, 499.11469pt x 372.64218pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
 /l4.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
 l4.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/bvh/l4.png  used on input line 639.
+gnment_2/images/bvh/l4.png  used on input line 643.
 (pdftex.def)             Requested size: 112.74277pt x 84.17065pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/l3.p
-ng, id=317, 499.8675pt x 380.92313pt>
+ng, id=319, 499.8675pt x 380.92313pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
 /l3.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
 l3.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/bvh/l3.png  used on input line 646.
+gnment_2/images/bvh/l3.png  used on input line 650.
 (pdftex.def)             Requested size: 112.74277pt x 85.91324pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/l2.p
-ng, id=318, 505.13719pt x 380.92313pt>
+ng, id=320, 505.13719pt x 380.92313pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
 /l2.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
 l2.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/bvh/l2.png  used on input line 653.
+gnment_2/images/bvh/l2.png  used on input line 657.
 (pdftex.def)             Requested size: 112.74277pt x 85.01813pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/l1.p
-ng, id=319, 498.36188pt x 386.19281pt>
+ng, id=321, 498.36188pt x 386.19281pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
 /l1.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
 l1.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/bvh/l1.png  used on input line 660.
+gnment_2/images/bvh/l1.png  used on input line 664.
 (pdftex.def)             Requested size: 112.74277pt x 87.36694pt.
 
 [15 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
@@ -1433,7 +1433,7 @@ ges/bvh/l2.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2
 
 Package natbib Warning: There were multiply defined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 725.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 729.
 [16
 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.latexcom
@@ -1441,64 +1441,64 @@ panion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.725 \end{document}
+l.729 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.725 \end{document}
+l.729 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.725 \end{document}
+l.729 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.725 \end{document}
+l.729 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.725 \end{document}
+l.729 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.725 \end{document}
+l.729 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.725 \end{document}
+l.729 \end{document}
                     ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 725.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 729.
  (lab_report_1.aux
 
 Package natbib Warning: Citation(s) may have changed.
 (natbib)                Rerun to get citations correct.
 
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 725.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 725.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 729.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 729.
 Package rerunfilecheck Info: File `lab_report_1.out' has not changed.
 (rerunfilecheck)             Checksum: B9D0BB72E0F1C799A50B3A6ABB3EEF5E;1971.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 725.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 729.
  ) 
 Here is how much of TeX's memory you used:
- 22646 strings out of 492942
- 432387 string characters out of 3126214
+ 22647 strings out of 492942
+ 432400 string characters out of 3126214
  685136 words of memory out of 3000000
  26215 multiletter control sequences out of 15000+200000
  542843 words of font info for 63 fonts, out of 3000000 for 9000
@@ -1524,9 +1524,9 @@ cm/cmsy10.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/cm/cmsy7.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/alhaj/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on lab_report_1.pdf (16 pages, 2549553 bytes).
+Output written on lab_report_1.pdf (16 pages, 2550707 bytes).
 PDF statistics:
- 408 PDF objects out of 1000 (max. 8388607)
- 75 named destinations out of 1000 (max. 500000)
+ 410 PDF objects out of 1000 (max. 8388607)
+ 76 named destinations out of 1000 (max. 500000)
  386 words of extra memory for PDF output out of 10000 (max. 10000000)
 
