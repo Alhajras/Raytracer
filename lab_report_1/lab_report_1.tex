@@ -138,8 +138,8 @@
 	\end{figure}
 	
 	\subsection{Rendering Triangle}
-	It is computing the intersection of a ray with a primitive such as a sphere is not tricky. However, since it is challenging to model most 3D objects with spheres alone, it is necessary to use some other types of primitive to represent more complex objects (objects of arbitrary shape).
-	Instead of working with complex primitives such as NURBS or Bezier patches, we can convert every object into a triangle mesh and compute the intersection of a ray with every triangle in this mesh. 
+	It is computing the intersection of a ray with a primitive such as a sphere is not tricky. However, because modeling most 3D objects with spheres alone is difficult, other types of primitives must be used to represent more complicated objects (objects of arbitrary shape).
+	We may transform every object into a triangular mesh and compute the intersection of a ray with every triangle in this mesh instead of working with complex primitives like NURBS or Bezier patches.
 	We get three different cases by solving the equation as shown in Figure ~\ref{fig:3} below.
 	
 	Parametric representation:
