@@ -1,23 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% University/School Laboratory Report
-% LaTeX Template
-% Version 3.1 (25/3/14)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% Linux and Unix Users Group at Virginia Tech Wiki 
-% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
 
 \documentclass{article}
 \usepackage[version=3]{mhchem} % Package for chemical equation typesetting
@@ -99,9 +79,9 @@
 	A fundamental graphics problem is determining the visible areas of surfaces. It naturally occurs in rendering because depicting invisible objects is both inefficient and wrong. This challenge is referred to as visible surface determination or concealed surface removal, depending on how it is approached. The primary two operations in the Raytracer are Rays casting and Path tracing. 
 	
 	\subsection{Rays}
-	To generate an image using Raytracing, we must first cast a ray for each pixel in the image.
-	Optical ray tracing describes a method for producing visual images constructed in 3D computer graphics environments, with more photorealism than ray casting or scanline rendering techniques. It works by tracing a path from an imaginary eye through each pixel in a virtual screen and calculating the object's color visible through it.
-	All raytracers are using something called rays. Let’s think of a ray as a function \[\pmb{r} (t) = \pmb{o} + t\pmb{d} ,  \quad  0 < t < \infty \] Here $\pmb{} $ is a 3D position along a line
+	To generate an image using Raytracing, we must first cast a ray for each pixel in the image to the scene.
+	Raytracing is a computer approach for simulating the behavior of light in a three-dimensional scene. It works by replicating genuine light rays and tracing the path that a beam of light would travel in the real environment using an algorithm. 
+	All raytracers use rays as a way to simuate photons. Let’s think of a ray as a function \[\pmb{r} (t) = \pmb{o} + t\pmb{d} ,  \quad  0 < t < \infty \] Here $\pmb{} $ is a 3D position along a line
 	in 3D. $\pmb{o} $ is the ray origin and $\pmb{d} $ is the ray direction.
 	
 	\begin{figure}[H]
@@ -189,8 +169,8 @@
 	\end{figure}
 	
 	\subsection{Anti-aliasing}
-	The computer display is composed of pixels. Pixel is the smallest element of every digital image, and while modern computer monitors boast high resolutions that feature millions of pixels, these pixels are still rectangular. This means that when round shapes are shown on screen, you are almost guaranteed to see some jagged edges, that is, aliasing.
-	Here we will use a basic MSAA that stands for "multisample anti-aliasing," which is among the most common types of anti-aliasing. It generally strikes the best balance between visual fidelity and performance. This can be implemented by averaging a bunch of samples inside each pixel.
+	Pixels make up the display on a computer. The smallest component of any digital image is the pixel, and while modern computer monitors have great resolutions with millions of pixels, these pixels are still rectangular. This means that when spherical forms are displayed on screen, the user will almost certainly notice jagged edges, also known as aliasing.
+	We'll utilize a basic MSAA, which stands for "multisample anti-aliasing" and is one of the most prevalent anti-aliasing techniques. It achieves the finest blend of visual accuracy and performance in most cases. This is done by averaging a number of samples within each pixel.
 	
 	We have several samples within that pixel for a given pixel and send rays through each of the samples. The colors of these rays are then averaged.
 	
@@ -282,7 +262,7 @@
 	
 	
 	\subsubsection{Lambert's Cosine Law}
-	Lambert's cosine law says that the amount of light energy arriving at a surface is proportional to the cosine of the angle between the light direction and the surface normal. Illumination strength at a surface is proportional to the cosine of the angle between $\pmb{l}$ and $\pmb{n}$, the angel will be denoted as $\theta$, the following three cases illustrate the relationship between the  $\pmb{L}^{source}$ and  $\pmb{L}^{surface}$:
+	The amount of light energy arriving at a surface is proportional to the cosine of the angle between the light direction and the surface normal, according to Lambert's cosine law. Illumination strength at a surface is proportional to the cosine of the angle between $\pmb{l}$ and $\pmb{n}$, the angel will be denoted as $\theta$, the following three cases illustrate the relationship between the  $\pmb{L}^{source}$ and  $\pmb{L}^{surface}$:
 	
 	The  $\pmb{L}^{surface}$,$ \pmb{L}^{source}$ relation is: $\pmb{L}^{surface} = \pmb{L}^{source}.\cos \theta $
 	\begin{itemize}
@@ -292,7 +272,7 @@
 	\end{itemize}
 	
 	\subsubsection{Phong reflection model }
-	Phong reflection is an empirical model of local illumination. It describes how a surface reflects light as a combination of the diffuse reflection of rough surfaces with the specular reflection of shiny surfaces. It is based on Phong's informal observation that shiny surfaces have small intense specular highlights, while dull surfaces have significant highlights that fall off more gradually. The model also includes an ambient term to account for the small amount of light that is scattered about the entire scene.
+	Phong reflection is a model of local illumination. It defines how light reflects off a surface as a mixture of diffuse reflection from rough surfaces and specular reflection from polished surfaces. It's based on Phong's intuative observation that bright surfaces have small, strong specular highlights, and dull surfaces have larger, more gradual specular highlights. nThe model also includes an ambient term to account for the small amount of light that is scattered about the entire scene.
 	\\
 	
 	\begin{itemize}
@@ -413,7 +393,8 @@
 	The refraction phenomenon happens when the light passes from one medium to a different medium.
 	Figure ~\ref{fig:refraction} illustrates this phenomenon, $I$ is the incident light ray, $R$ is the reflected light where $N$ is the normal vector to the surface which is water (in blue), the reflected angle  $\theta2$ is equal to the incident angle $\theta1$, in addition to the reflected light there is a refracted light $T$, the direction of $T$ depends on the $\theta1$ and \textit{refractive index, $\eta$} ( Describes how fast light travels through the material).
 	
-	Refraction is described by the \textit{Snell's law}, which states that for a given pair of media, the ratio of the sines of the angle of incidence $\theta1$ and angle of refraction $\theta2$ is equivalent to the opposite ratio of the indices of refraction: 
+	The ratio of the sines of the angle of incidence  $\theta1$ and angle of refraction $\theta2$ is equivalent to the opposite ratio of the indices of refraction for a particular pair of media, according to \textit{Snell's law}:
+	
 	
 	\begin{equation}
 		\frac{sin(\theta_1)}{sin(\theta_2)} = \frac{\eta_2}{\eta_1} 
@@ -431,7 +412,7 @@
 	\end{figure}
 	
 	\subsubsection{Fresnel}
-	The amount of reflected vs. refracted light can be computed using what we call the \textit{Fresnel equations}, where $F_R$ is the reflected light portion, and $F_T$ is the portion transmitted through the material. 
+	The amount of light that is reflected vs. refracted can be calculated using what is known as the \textit{Fresnel equations}, where $F_R$ is the reflected light portion, and $F_T$ is the portion transmitted through the material. 
 	
 	\begin{equation}
 		F_R = \dfrac{1}{2}(\left( \dfrac{\eta_2 \cos\theta_1 - \eta_1 \cos \theta_2}{\eta_2 \cos\theta_1 + \eta_1 \cos \theta_2} \right)^2 + \left( \dfrac{\eta_1 \cos\theta_2 - \eta_2 \cos \theta_1}{\eta_1 \cos\theta_2 + \eta_2 \cos \theta_1} \right)^2)
@@ -444,12 +425,9 @@
 	\end{equation}
 	
 	\subsubsection{Texture}
-	A texture can be uniforms, such as a brick wall, or irregulars, such as wood grain or marble. The standard method is to create a 2D bitmapped image of the texture, called a "texture map," which is then "wrapped around" the 3D object. An alternate method is to compute the texture entirely via mathematics instead of bitmaps. Textures are so helpful; they reduce the geometric complexity of a scene by mapping a bit directly to an image or having a mathematical equation that can easily represent the surface color, they also reduce the number of vertices, and it reduces the modeling and rendering time. 
+	A texture can be uniforms, such as a brick wall, or irregulars, such as wood grain or marble. The conventional way is to build a "texture map," which is a 2D bitmapped picture of the texture that is then "wrapped around" the 3D object. Instead of using bitmaps, another option is to compute the texture entirely using mathematical models. Textures are so helpful; they reduce the geometric complexity of a scene by mapping a bit directly to an image or having a mathematical equation that can easily represent the surface color, they also reduce the number of vertices, and it reduces the modeling and rendering time. 
 	
-	We will only consider some mathematical patterns and not image mapping, procedural texturing
-	define how to use the texture value, e.g., replace the original surface color with the texture color
-	linearly combine the original surface color with the texture
-	multiply, add, subtract surface color and texture color.
+	Procedural texturing describes ways to employ texture values, such as replacing the original surface color with the texture color linearly combining the original surface color with the texture multiply, add, subtract surface color and texture color.
 	
 	
 	\begin{figure}[ht]
@@ -534,7 +512,7 @@
 		\end{split}		
 	\end{equation}
 	\subsection{Implementation}
-	As described in the RIS documentation, in this case, we render the curve as a thin cylinder (see the rendered image above) or as a long string (like spaghetti), as shown. 
+	In this scenario, the curve is represented by a thin cylinder or a long string (like spaghetti).
 	
 	Hair rendering:
 	\begin{itemize}
@@ -644,7 +622,7 @@
 	
 	\subsection{Implementation}
 	
-	In this Raytracer, a Sphere BV is used; the reason is simple as Sphere has fast intersection text and is easy to generate and fit into the model or primitives. 
+	In this Raytracer, a Sphere BV is used; the reason is simple as Sphere has fast intersection test and is easy to generate and fit into the model or primitives. 
 	On the other hand, Sphere is usually not so tight, resulting in non-optimal performance, but for this Raytracer, as the scene is not significant and complex, Spheres can be a good choice.
 	
 	For constructing the BVH tree, the Bottom-Up method is used. Moreover, a binary tree and minimum leaves = 2 are the settings.
@@ -735,7 +713,7 @@
 		
 		
 		\bibitem{latexcompanion} 
-		Stefan G.	\textit{"Collision queries using bounding box"}. University of north carolina.
+		Stefan G.	\textit{"Collision queries using bounding box"}. The University of North Carolina.
 		
 		
 		
