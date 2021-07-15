@@ -5,7 +5,8 @@
 \contentsline {subsection}{\numberline {2.3}Rendering a Sphere}{4}{subsection.2.3}% 
 \contentsline {subsection}{\numberline {2.4}Rendering Triangle}{5}{subsection.2.4}% 
 \contentsline {subsection}{\numberline {2.5}Anti-aliasing}{6}{subsection.2.5}% 
-\contentsline {subsection}{\numberline {2.6}Results and discussion}{7}{subsection.2.6}% 
+\contentsline {subsection}{\numberline {2.6}Implementation}{7}{subsection.2.6}% 
+\contentsline {subsection}{\numberline {2.7}Results and discussion}{7}{subsection.2.7}% 
 \contentsline {section}{\numberline {3}Shading}{8}{section.3}% 
 \contentsline {subsection}{\numberline {3.1}Introduction}{8}{subsection.3.1}% 
 \contentsline {subsubsection}{\numberline {3.1.1}Lambert's Cosine Law}{8}{subsubsection.3.1.1}% 
