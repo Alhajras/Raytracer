@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.11.11)  15 JUL 2021 21:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.11.11)  15 JUL 2021 21:20
 entering extended mode
 **./lab_report_1.tex
 (lab_report_1.tex
@@ -1157,7 +1157,7 @@ g> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/witho
 ut_aa.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/imag
 es/with_aa_100.png>]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2.png,
- id=224, 147.55125pt x 170.88844pt>
+ id=225, 147.55125pt x 170.88844pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2
 .png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2.
@@ -1166,7 +1166,7 @@ Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
 gnment_2/images/6_2.png  used on input line 242.
 (pdftex.def)             Requested size: 112.74277pt x 130.57799pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2.png,
- id=225, 385.44pt x 322.95656pt>
+ id=226, 385.44pt x 322.95656pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2
 .png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2.
@@ -1175,7 +1175,7 @@ Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
 gnment_2/images/7_2.png  used on input line 249.
 (pdftex.def)             Requested size: 112.74277pt x 94.46318pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cube.png
-, id=226, 123.46124pt x 124.21407pt>
+, id=227, 123.46124pt x 124.21407pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cub
 e.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cube
@@ -1322,6 +1322,11 @@ action_0.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
 gnment_2/images/refraction_0.png  used on input line 509.
 (pdftex.def)             Requested size: 112.74277pt x 85.99606pt.
+
+Underfull \hbox (badness 1776) in paragraph at lines 510--510
+[]\OT1/cmr/m/n/9 (b) |\OT1/cmr/m/n/8 The glass sphere re-fracts the
+ []
+
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refracti
 on__0_5.png, id=282, 499.11469pt x 381.67593pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/ref
@@ -1331,14 +1336,14 @@ action__0_5.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
 gnment_2/images/refraction__0_5.png  used on input line 516.
 (pdftex.def)             Requested size: 112.74277pt x 86.21117pt.
- [11 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/ref
-raction.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/im
-ages/texture_1.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignme
-nt_2/images/texture_2.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/a
-ssignment_2/images/texture_3.png>] [12 <C:/D/University/Semester_4/Raytracer/la
-b_report_1/assignment_2/images/refraction_3.png> <C:/D/University/Semester_4/Ra
-ytracer/lab_report_1/assignment_2/images/refraction_0.png> <C:/D/University/Sem
-ester_4/Raytracer/lab_report_1/assignment_2/images/refraction__0_5.png>]
+[11 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
+action.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/ima
+ges/texture_1.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignmen
+t_2/images/texture_2.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/as
+signment_2/images/texture_3.png>] [12 <C:/D/University/Semester_4/Raytracer/lab
+_report_1/assignment_2/images/refraction_3.png> <C:/D/University/Semester_4/Ray
+tracer/lab_report_1/assignment_2/images/refraction_0.png> <C:/D/University/Seme
+ster_4/Raytracer/lab_report_1/assignment_2/images/refraction__0_5.png>]
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair_n_3
 _div_16.png, id=305, 480.29437pt x 649.67719pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hai
@@ -1366,7 +1371,8 @@ _n_3_div_4.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
 gnment_2/images/hair_n_3_div_4.png  used on input line 599.
 (pdftex.def)             Requested size: 112.74277pt x 137.24825pt.
- [13
+
+[13
 
 ]
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hai
@@ -1428,12 +1434,11 @@ l1.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
 gnment_2/images/bvh/l1.png  used on input line 711.
 (pdftex.def)             Requested size: 112.74277pt x 87.36694pt.
-
-[16 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
-l4.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/
-bvh/l3.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/ima
-ges/bvh/l2.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2
-/images/bvh/l1.png>] [17
+ [16 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
+/l4.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images
+/bvh/l3.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/im
+ages/bvh/l2.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_
+2/images/bvh/l1.png>] [17
 
 ]
 
@@ -1536,7 +1541,7 @@ cm/cmsy10.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/cm/cmsy7.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/alhaj/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on lab_report_1.pdf (18 pages, 2560472 bytes).
+Output written on lab_report_1.pdf (18 pages, 2563547 bytes).
 PDF statistics:
  430 PDF objects out of 1000 (max. 8388607)
  81 named destinations out of 1000 (max. 500000)
