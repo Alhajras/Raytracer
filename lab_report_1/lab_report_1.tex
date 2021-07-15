@@ -69,6 +69,25 @@
 	
 	The report summarizes the implementation of a simple Raytracer; this includes solving the Visibility challenge, coloring or shading the models and introducing some more features that enhance the Raytracer usability and performance.
 	
+		\vspace*{5px}
+	Ray tracing is a rendering technique that may provide extremely lifelike lighting effects. In other words, an algorithm can track the course of light and then mimic how the light interacts with the virtual things it eventually encounters in the computer-generated environment. Ray tracing produces far more lifelike shadows and reflections, as well as significantly enhanced translucence and dispersion. The algorithm considers where the light falls and calculates the interaction and interplay in the same way as the human eye does with actual light, shadows, and reflections. The way light interacts with items in the world has an impact on the colors you perceive.
+	
+	\vspace*{5px}
+	Raytracer involves in different industries and applications. The media uses it because Ray tracing can be beneficial in theater and television lighting since it allows for visually accurate simulation of light. Engineers also use the technique to forecast light levels, brightness gradients, and visual performance requirements in the following fields: Simulations, Modelling tools, and architectures. 
+	
+	The real world is made of objects having a very wild variety of shapes, appearances, and structures. The rendering process tries to visualize a real-world scene on a computer, where different shapes can be approximated and rendered by using polygons. To render a scene by the raytracer, three crucial steps must be followed: 
+	Casting Rays: cast a ray for each pixel in the image.
+	Check if a ray crosses any of the scene's objects using the ray-geometry intersection.
+	Shading: determine how the object looks (color and brightness) at the point where the ray intersects the object.
+	
+	\vspace*{5px}
+	Raytracing has two main methods: 
+		\begin{itemize}
+		\item 	Forward Raytracing: The light particles (photons) are tracked from the light source to the object via forward ray tracing. While forward ray tracing is the most exact method for determining the color of each object, it is also the most inefficient.
+		\item 	Backward Raytracing: 
+		An eye ray is formed at the eye in backward ray tracing, and it travels through the viewplane and out into the scene. If it hits an object, it will return it to the viewplane immediately. This method is more efficient than Forward Raytracing but less accurate due to reducing the rays used.
+	\end{itemize}
+	
 	%----------------------------------------------------------------------------------------
 	%	SECTION 2
 	%----------------------------------------------------------------------------------------
@@ -502,6 +521,11 @@
 	
 	\section{Curves}
 	\subsection{Introduction}
+	We frequently need to draw different shapes and models of things onto the screen in computer graphics. Models are not always flat, and we must draw curves many times to draw a smooth model; for example, drawing the famous Utah teapot, this complex model is difficult to draw by only using triangles as the surface of the model needs a curved line than flat, straight lines. 
+	
+		\vspace*{5px}
+	Curves have three categories: \textit{Explicit}, \textit{Implicit}, and \textit{Parametric curves}. In practice, parametric curves are used; hence in this chapter, parametric curves are used.
+
 	It only requires 4 points to create a Bézier curve. These points are control points defined in 3D space. As with surfaces, the curve itself does not exist until these 4 points are combined and weighted with some coefficients. Curves defined by parametric equations have a parameter, which is a variable in this equation used to define the curve. To achieve a smoother result, increase the number of segments and points.
 	Font modeling, animation, and games use curves to smooth surfaces and make the scene looks natural rather than looking edgy. 
 	
@@ -511,10 +535,19 @@
 	
 	\begin{equation}
 		\begin{split}
-			\pmb{x}(t)=\sum_{i = 0}^{n} B_{i,n}(t) \pmb{P}_i, \; t \in [0,1] \\
-			B_{i,n}(t) = \frac{n!}{(n - i)!i!}(1-t)^{n-i}t^i , \;\; 0 \leq i \leq n
+			\pmb{x}(t)=\sum_{i = 0}^{n} B_{i,n}(t) \pmb{P}_i, \; t \in [0,1]
 		\end{split}		
 	\end{equation}
+
+Where $  \pmb{P}_i $ is the set of points and $ B_{i,n}(t) $ represents the Bernstein polynomials that shown in formula 13, Where $ n $ is the polynomial degree, $ i $ is the index, and $ t  $ is the variable.
+
+
+
+	\begin{equation}
+	\begin{split}
+		B_{i,n}(t) = \frac{n!}{(n - i)!i!}(1-t)^{n-i}t^i , \;\; 0 \leq i \leq n
+	\end{split}		
+\end{equation}
 	\subsection{Implementation}
 	In this scenario, the curve is represented by a thin cylinder or a long string (like spaghetti).
 	
@@ -690,6 +723,24 @@
 	
 	
 	\clearpage
+	
+		\section{Summary and conclusion}
+In the first chapter, Visibility, we introduced different shapes that can be represented in the 3D scene; it can be noticed that some are easier to be rendered than others depending on how complex the model is, but also the intersection test plays a considerable role for the performance. Also, some complex shapes like tetrahedra and cubes can be reconstructed by building up a trivial model as triangles.  
+
+Moreover, rendering pixels can lead to aliasing where the edges of the model look sharp and not realistic; this can be solved by using different antialiasing methods; however, this can reduce the performance of the Raytracer.
+
+The Shading chapter Phong model is used to approximate the light effect on Spheres where diffuse and glossy models are used; also, different materials such as transparent have been implemented and shown using snells law. Textures are a simple method to shade a model without using expensive operations, and a math model can give excellent results. 
+
+In Shading, the more Rays paths are followed for rendering, the more realistic the scene becomes; however, the deeper we trace the Rays, the more expensive the Raytracer becomes as it needs more paths to trace. 
+
+Curves are not trivial to be approximated in computer graphics because we approximate curves by lines; hence, the smoother the curve, the more lines are needed. As we introduced the polynomials, if we want a complex curve, we need a higher-order polynomial, which leads to higher memory consumption and reduces the Raytracer's performance. 
+
+As ray tracing operations are expensive and more paths to be traced, some data structures are used to increase the Raytracer performance and efficiency, some methods are space subdivisions as kd-trees, and others objects originated as BVH. BVH can reduce the number of intersection tests needed; however, it adds more steps to the workflow as tree construction, updates, and traversal.  BVH can be optimized by tweaking the BV types used, tree construction algorithms, and traversal algorithms.
+
+In this report, different resources are used for the implementation to search and test different approaches of Raytracer.  The report illustrates the basic approaches and challenges that can encounter the engineer to solve the rendering challenge. 
+	
+	
+		\clearpage
 	%----------------------------------------------------------------------------------------
 	%	BIBLIOGRAPHY
 	%----------------------------------------------------------------------------------------
