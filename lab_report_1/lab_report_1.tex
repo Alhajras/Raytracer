@@ -561,8 +561,8 @@
 	Font modeling, animation, and games use curves to smooth surfaces and make the scene looks natural rather than looking edgy. 
 	
 	\subsection{Bézier Curves}
-	They are a simple and intuitive representation of curves. They are polynomial curves represented by control points where n+1 control points are needed for a curve of degree n.
-	Interpolation is used for the first and last control points; other control points are approximated. The next equation represents the control points depending on the degree n: 
+	They are a simple and intuitive representation of curves. They are polynomial curves represented by control points where $ n+1 $ control points are needed for a curve of degree $ n $.
+	Interpolation is used for the first and last control points; other control points are approximated. The next equation represents the control points depending on the degree $ n $: 
 	
 	\begin{equation}
 		\begin{split}
@@ -570,7 +570,7 @@
 		\end{split}		
 	\end{equation}
 	
-	Where $  \pmb{P}_i $ is the set of points and $ B_{i,n}(t) $ represents the Bernstein polynomials that shown in formula 13, Where $ n $ is the polynomial degree, $ i $ is the index, and $ t  $ is the variable.
+	Where $  \pmb{P}_i $ is the set of points and $ B_{i,n}(t) $ represents the Bernstein polynomials that shown in equation 14, Where $ n $ is the polynomial degree, $ i $ is the index, and $ t  $ is the variable.
 	
 	
 	
@@ -580,9 +580,9 @@
 		\end{split}		
 	\end{equation}
 	\subsection{Implementation}
-	In this scenario, the curve is represented by a thin cylinder or a long string (like spaghetti).
+	In this scenario, the curve is represented by a thin cylinder or a long string (like spaghetti), let us take a challenging curved object to render like hair.
 	
-	Hair rendering:
+	Hair rendering steps:
 	\begin{itemize}
 		\item Create Position at Regular Intervals:
 		It is first necessary to create a loop of vertices along the curve and then connect these vertices together to form faces.
@@ -596,7 +596,7 @@
 	
 	\subsection{Results and discussion}
 	
-	Figure ~\ref{fig:10} shows the final result after following the four points mention in the implementation, where rendering a hair as a showcase to implement curves is successful. Using more surfaces to render to cylinder makes it smoother as shown in case (a) where 16 surfaces have been used, (b) is using fewer surfaces as it uses 8, however (c) is using only 4, that is why it looks edgy. Increasing the number of surfaces depending on the quality of application; for example, for more extensive scenes, maybe choosing fewer surfaces is better to increase the performance, but for a high-quality rendering, the more surfaces, the better.
+	Figure ~\ref{fig:10} shows the final result after following the four points mentioned in the implementation, where rendering a hair as a showcase to implement curves is successful. Using more surfaces to render a cylinder makes it smoother as shown in case (a) where 16 surfaces have been used, (b) is using fewer surfaces as it uses 8, however (c) is using only 4, that is why it looks edgy. Increasing the number of surfaces depending on the quality of application; for example, for more extensive scenes, maybe choosing fewer surfaces is better to increase the performance, but for a high-quality rendering, the more surfaces, the better.
 	\begin{figure}[H]
 		\begin{center}
 			\begin{subfigure}{.3\textwidth}
@@ -626,7 +626,7 @@
 	\end{figure}
 	
 	
-	As mentioned before, the higher the order of the polynomial used in the Bézier Curve, the smoother the curve can be. Figure ~\ref{fig:11} shows the differences between using a polynomial of order three and two. As it can be noticed, (a) has smoother curves than (b) because (a) is using a polynomial of order three, unlike (b) that uses only two.
+	As mentioned before, the higher the order of the polynomial used in the Bézier Curve, the smoother the curve can be. Figure ~\ref{fig:11} shows the differences between using a polynomial of order three and two. As it can be noticed, (a) has smoother curves than (b) because (a) is using a polynomial of order three, unlike (b) that uses only two, and the higher the order of the polynomial the more complex curves can be represented, however the more Bernstein parameters to be calculated and this will reduce the performance of the Raytracer. 
 	\begin{figure}[H]
 		\begin{center}
 			\begin{subfigure}{.3\textwidth}
