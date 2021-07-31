@@ -37,7 +37,7 @@
 %	DOCUMENT INFORMATION
 %----------------------------------------------------------------------------------------
 
-\title{Implementation of a Raytracer \\ in C++ \\ Computer Graphics Project (Rendering Track)} % Title
+\title{Implementation of a Raytracer \\ in C++ \\ Computer Graphics Lab (Rendering Track)} % Title
 
 \author{Alhajras Algdairy \\alhajras.algdairy@gmail.com, 4963555, aa382} % Author name
 
@@ -65,29 +65,31 @@
 	\tableofcontents
 	\clearpage
 	\section{Introduction}
-	Computer graphics has three main pillars: \textit{Modelling}, \textit{Rendering}, and \textit{Simulation}. The focus of this report is Rendering. Rendering cares about solving issues like the model's visibility towards sensors; this is done by two methods: \textit{Rasterization} or \textit{Raytracing}. Rendering focuses on which color and intensity does a model has. How light interacts with surfaces and how it propagates throw the media.
+	Computer graphics has three main pillars: \textit{Modelling}, \textit{Rendering}, and \textit{Simulation}. The focus of this report is Rendering. Rendering cares about solving issues like the model's visibility towards sensors; this is done by two methods: \textit{Rasterization} or \textit{Raytracing}, this report is about a Raytracer implementation. Rendering also focuses on which color and intensity does a model has. How light interacts with surfaces and how it propagates throw the media.
 	
 	The report summarizes the implementation of a simple Raytracer; this includes solving the Visibility challenge, coloring or shading the models and introducing some more features that enhance the Raytracer usability and performance.
 	
 	\vspace*{5px}
-	Ray tracing is a rendering technique that may provide extremely lifelike lighting effects. In other words, an algorithm can track the course of light and then mimic how the light interacts with the virtual things it eventually encounters in the computer-generated environment. Ray tracing produces far more lifelike shadows and reflections, as well as significantly enhanced translucence and dispersion. The algorithm considers where the light falls and calculates the interaction and interplay in the same way as the human eye does with actual light, shadows, and reflections. The way light interacts with items in the world has an impact on the colors you perceive.
+	Raytracing is a rendering technique that may provide extremely lifelike lighting effects. In other words, an algorithm can track the source of light and then mimic how the light interacts with the virtual objects it eventually encounters in the computer-generated environment. Raytracing produces far more lifelike shadows and reflections, as well as significantly enhanced translucence and dispersion. The algorithm considers where the light falls and calculates the interaction and interplay in the same way as the human eye does with actual light, shadows, and reflections. The way light interacts with items in the world has an impact on the colors you perceive.
 	
 	\vspace*{5px}
-	Raytracer involves in different industries and applications. The media uses it because Ray tracing can be beneficial in theater and television lighting since it allows for visually accurate simulation of light. Engineers also use the technique to forecast light levels, brightness gradients, and visual performance requirements in the following fields: Simulations, Modelling tools, and architectures. 
+	Raytracer involves in different industries and applications. The media uses it because Raytracing can be beneficial in theater and television lighting since it allows for visually accurate simulation of light. Engineers also use the technique to forecast light levels, brightness gradients, and visual performance requirements in the following fields: Simulations, Modelling tools, and architectures. 
 	
-	The real world is made of objects having a very wild variety of shapes, appearances, and structures. The rendering process tries to visualize a real-world scene on a computer, where different shapes can be approximated and rendered by using polygons. To render a scene by the Raytracer, three crucial steps must be followed: 
-	Casting Rays: cast a ray for each pixel in the image.
-	Check if a ray crosses any of the scene's objects using the ray-geometry intersection.
-	Shading: determine how the object looks (color and brightness) at the point where the ray intersects the object.
+	\vspace*{5px}
+    To render a scene by the Raytracer, three crucial steps must be followed: 
+	\textit{Casting Rays}: cast a ray for each pixel in the image.
+	\textit{Path tracing}: check if a ray crosses any of the scene's objects using the ray-geometry intersection, and trace the ray back to the source.
+	\textit{Shading}: determine how the object looks (color and brightness) at the point where the ray intersects the object.
 	
 	\vspace*{5px}
 	Raytracing has two main methods: 
 	\begin{itemize}
-		\item 	Forward Raytracing: The light particles (photons) are tracked from the light source to the object via Forward Raytracing. While forward ray tracing is the most exact method for determining the color of each object, it is also the most inefficient.
-		\item 	Backward Raytracing: 
-		An eye ray is formed at the eye in backward ray tracing, and it travels through the viewplane and out into the scene. If it hits an object, it will return it to the viewplane immediately. This method is more efficient than Forward Raytracing but less accurate due to reducing the rays used.
+		\item 		\textit{Forward Raytracing}: The light particles (photons) are tracked from the light source to the object via Forward Raytracing. While forward ray tracing is the most exact method for determining the color of each object, it is also the most inefficient.
+		\item 		\textit{Backward Raytracing}: 
+		An eye ray is formed at the eye in backward ray tracing, and it travels through the viewplane and out into the scene. If it hits an object, it will return it to the viewplane immediately. This method is more efficient than Forward Raytracing but less accurate due to reducing the rays used. In this implementation this method is used.
 	\end{itemize}
 	
+	\clearpage
 	%----------------------------------------------------------------------------------------
 	%	SECTION 2
 	%----------------------------------------------------------------------------------------
