@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.11.11)  31 JUL 2021 19:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.11.11)  31 JUL 2021 20:51
 entering extended mode
 **./lab_report_1.tex
 (lab_report_1.tex
@@ -485,6 +485,35 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks23
 \@floatcapt=\box59
 )
+("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/algorithms\algorit
+hm.sty"
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\@float@every@algorithm=\toks24
+\c@algorithm=\count295
+)
+("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/algorithmicx\algps
+eudocode.sty"
+Package: algpseudocode 
+
+("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/algorithmicx\algor
+ithmicx.sty"
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count296
+\c@ALG@rem=\count297
+\c@ALG@nested=\count298
+\ALG@tlm=\skip73
+\ALG@thistlm=\skip74
+\c@ALG@Lnr=\count299
+\c@ALG@blocknr=\count300
+\c@ALG@storecount=\count301
+\c@ALG@tmpcounter=\count302
+\ALG@tmplength=\skip75
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
 sty"
 Package: geometry 2018/04/16 v5.8 Page Geometry
@@ -502,9 +531,9 @@ Package ifvtex Info: VTeX not detected.
 sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count295
-\Gm@cntv=\count296
-\c@Gm@tempcnt=\count297
+\Gm@cnth=\count303
+\Gm@cntv=\count304
+\c@Gm@tempcnt=\count305
 \Gm@bindingoffset=\dimen177
 \Gm@wd@mp=\dimen178
 \Gm@odd@mp=\dimen179
@@ -513,7 +542,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutheight=\dimen182
 \Gm@layouthoffset=\dimen183
 \Gm@layoutvoffset=\dimen184
-\Gm@dimlist=\toks24
+\Gm@dimlist=\toks25
 
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
 cfg"))
@@ -590,8 +619,8 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
 \@linkdim=\dimen185
-\Hy@linkcounter=\count298
-\Hy@pagecounter=\count299
+\Hy@linkcounter=\count306
+\Hy@pagecounter=\count307
 
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\pd1enc.de
 f"
@@ -603,7 +632,7 @@ Now handling font encoding PD1 ...
 .sty"
 Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count300
+\Hy@SavedSpaceFactor=\count308
 
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/00miktex\hyperref.
 cfg"
@@ -616,7 +645,7 @@ Package hyperref Info: Plain pages OFF on input line 4534.
 Package hyperref Info: Backreferencing OFF on input line 4539.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4772.
-\c@Hy@tempcnt=\count301
+\c@Hy@tempcnt=\count309
  ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/url\url.sty"
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
@@ -633,7 +662,7 @@ alc.sty"
 Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count302
+\Fld@menulength=\count310
 \Field@Width=\dimen187
 \Fld@charsize=\dimen188
 Package hyperref Info: Hyper figures OFF on input line 6380.
@@ -650,9 +679,9 @@ LaTeX Info: Redefining \pageref on input line 6454.
 i.sty"
 Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 )
-\Hy@abspage=\count303
-\c@Item=\count304
-\c@Hfootnote=\count305
+\Hy@abspage=\count311
+\c@Item=\count312
+\c@Hfootnote=\count313
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
@@ -665,8 +694,8 @@ File: hpdftex.def 2018/11/30 v6.88e Hyperref driver for pdfTeX
 Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
 Package atveryend Info: \enddocument detected (standard20110627).
 )
-\Fld@listcount=\count306
-\c@bookmark@seq@number=\count307
+\Fld@listcount=\count314
+\c@bookmark@seq@number=\count315
 
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\rerunfile
 check.sty"
@@ -679,9 +708,9 @@ Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip73
+\Hy@SectionHShift=\skip76
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 23.
+Package hyperref Info: Option `colorlinks' set `true' on input line 25.
 
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.
 sty"
@@ -867,7 +896,7 @@ See the natbib package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.145 ...and\NAT@force@numbers{}\NAT@force@numbers
+l.147 ...and\NAT@force@numbers{}\NAT@force@numbers
                                                   
 Check the bibliography entries for non-compliant syntax,
 or select author-year BibTeX style, e.g. plainnat
@@ -875,38 +904,38 @@ or select author-year BibTeX style, e.g. plainnat
 )
 \openout1 = `lab_report_1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
 
-Package chemgreek Info: Activating mapping `default' on line 46.
+Package chemgreek Info: Activating mapping `default' on line 48.
 
 
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-p
 df.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count308
+\scratchcounter=\count316
 \scratchdimen=\dimen189
 \scratchbox=\box60
-\nofMPsegments=\count309
-\nofMParguments=\count310
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count311
+\nofMPsegments=\count317
+\nofMParguments=\count318
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count319
 \MPscratchDim=\dimen190
-\MPnumerator=\count312
-\makeMPintoPDFobject=\count313
-\everyMPtoPDFconversion=\toks26
+\MPnumerator=\count320
+\makeMPintoPDFobject=\count321
+\everyMPtoPDFconversion=\toks27
 )
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-
 base.sty"
@@ -1007,16 +1036,16 @@ Dictionary: translator-basic-dictionary, Language: English
 breviations.cfg"
 File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
 )
-\c@lstlisting=\count314
-LaTeX Info: Redefining \celsius on input line 46.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 46.
+\c@lstlisting=\count322
+LaTeX Info: Redefining \celsius on input line 48.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 48.
 
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 46.
-Package gensymb Info: Using \Omega for \ohm on input line 46.
+LaTeX Info: Redefining \ohm on input line 48.
+Package gensymb Info: Using \Omega for \ohm on input line 48.
 
 Package gensymb Warning: Not defining \micro.
 
@@ -1059,7 +1088,7 @@ Package caption Info: End \AtBeginDocument code.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box61
-Package hyperref Info: Link coloring ON on input line 46.
+Package hyperref Info: Link coloring ON on input line 48.
 
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.s
 ty"
@@ -1073,11 +1102,11 @@ Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 estring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count315
+\c@section@level=\count323
 )
-LaTeX Info: Redefining \ref on input line 46.
-LaTeX Info: Redefining \pageref on input line 46.
-LaTeX Info: Redefining \nameref on input line 46.
+LaTeX Info: Redefining \ref on input line 48.
+LaTeX Info: Redefining \pageref on input line 48.
+LaTeX Info: Redefining \nameref on input line 48.
  (lab_report_1.out) (lab_report_1.out)
 \@outlinefile=\write3
 \openout3 = `lab_report_1.out'.
@@ -1092,13 +1121,13 @@ _1.toc)
  [2
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 87.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 89.
 
 ("C:\Users\alhaj\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 87.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 89.
 
 [3
 
@@ -1110,7 +1139,7 @@ ng Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/3.pn
 g>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/3.png  used on input line 113.
+gnment_2/images/3.png  used on input line 115.
 (pdftex.def)             Requested size: 250.0pt x 166.20819pt.
  [4
 
@@ -1122,7 +1151,7 @@ ng Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/5.pn
 g>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/5.png  used on input line 154.
+gnment_2/images/5.png  used on input line 156.
 (pdftex.def)             Requested size: 250.0pt x 199.93134pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/9.png, i
 d=207, 353.82187pt x 325.96782pt>
@@ -1131,7 +1160,7 @@ ng Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/9.pn
 g>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/9.png  used on input line 188.
+gnment_2/images/9.png  used on input line 190.
 (pdftex.def)             Requested size: 250.0pt x 230.32462pt.
  [5 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/5.pn
 g>]
@@ -1142,7 +1171,7 @@ hout_aa.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/with
 out_aa.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/without_aa.png  used on input line 206.
+gnment_2/images/without_aa.png  used on input line 208.
 (pdftex.def)             Requested size: 112.74277pt x 69.65842pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/with_aa_
 100.png, id=217, 1060.71281pt x 644.4075pt>
@@ -1151,7 +1180,7 @@ h_aa_100.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/with
 _aa_100.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/with_aa_100.png  used on input line 213.
+gnment_2/images/with_aa_100.png  used on input line 215.
 (pdftex.def)             Requested size: 112.74277pt x 68.48582pt.
  [6 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/9.pn
 g> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/witho
@@ -1164,7 +1193,7 @@ File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2.
 png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/6_2.png  used on input line 244.
+gnment_2/images/6_2.png  used on input line 246.
 (pdftex.def)             Requested size: 112.74277pt x 130.57799pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2.png,
  id=230, 385.44pt x 322.95656pt>
@@ -1173,7 +1202,7 @@ File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2.
 png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/7_2.png  used on input line 251.
+gnment_2/images/7_2.png  used on input line 253.
 (pdftex.def)             Requested size: 112.74277pt x 94.46318pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cube.png
 , id=231, 123.46124pt x 124.21407pt>
@@ -1182,13 +1211,13 @@ e.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cube
 .png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/cube.png  used on input line 258.
+gnment_2/images/cube.png  used on input line 260.
 (pdftex.def)             Requested size: 112.74277pt x 113.43677pt.
  [7 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/6_2.
 png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/7_2
 .png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/cu
 be.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 315--317
+Underfull \hbox (badness 10000) in paragraph at lines 317--319
 
  []
 
@@ -1202,7 +1231,7 @@ _reflection.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb_
 reflection.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/amb_reflection.png  used on input line 361.
+gnment_2/images/amb_reflection.png  used on input line 363.
 (pdftex.def)             Requested size: 112.74277pt x 85.10803pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff_ref
 lection_2.png, id=250, 719.68875pt x 540.51938pt>
@@ -1211,7 +1240,7 @@ f_reflection_2.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff
 _reflection_2.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/diff_reflection_2.png  used on input line 368.
+gnment_2/images/diff_reflection_2.png  used on input line 370.
 (pdftex.def)             Requested size: 112.74277pt x 84.67038pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec_ref
 lection_2.png, id=251, 502.87875pt x 377.15906pt>
@@ -1220,14 +1249,14 @@ c_reflection_2.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec
 _reflection_2.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/spec_reflection_2.png  used on input line 375.
+gnment_2/images/spec_reflection_2.png  used on input line 377.
 (pdftex.def)             Requested size: 112.74277pt x 84.55211pt.
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb
 _reflection.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/amb_
 reflection.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/amb_reflection.png  used on input line 393.
+gnment_2/images/amb_reflection.png  used on input line 395.
 (pdftex.def)             Requested size: 112.74277pt x 85.10803pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff_ref
 lection.png, id=253, 516.42938pt x 390.70969pt>
@@ -1236,7 +1265,7 @@ f_reflection.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/diff
 _reflection.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/diff_reflection.png  used on input line 400.
+gnment_2/images/diff_reflection.png  used on input line 402.
 (pdftex.def)             Requested size: 112.74277pt x 85.29463pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec_ref
 lection.png, id=254, 609.02531pt x 463.7325pt>
@@ -1245,7 +1274,7 @@ c_reflection.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/spec
 _reflection.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/spec_reflection.png  used on input line 407.
+gnment_2/images/spec_reflection.png  used on input line 409.
 (pdftex.def)             Requested size: 112.74277pt x 85.84576pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/multi_sh
 adow_multi_spec.png, id=255, 661.72218pt x 493.845pt>
@@ -1254,10 +1283,10 @@ ti_shadow_multi_spec.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/mult
 i_shadow_multi_spec.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/multi_shadow_multi_spec.png  used on input line 415.
+gnment_2/images/multi_shadow_multi_spec.png  used on input line 417.
 (pdftex.def)             Requested size: 112.74277pt x 84.13338pt.
 
-Underfull \hbox (badness 1874) in paragraph at lines 416--416
+Underfull \hbox (badness 1874) in paragraph at lines 418--418
 []\OT1/cmr/m/n/9 (d) |\OT1/cmr/m/n/8 Mul-ti-ple lights that gen-er-ates
  []
 
@@ -1272,7 +1301,7 @@ raction.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
 action.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/refraction.png  used on input line 446.
+gnment_2/images/refraction.png  used on input line 448.
 (pdftex.def)             Requested size: 150.00412pt x 150.00708pt.
  [10 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/dif
 f_reflection.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment
@@ -1285,7 +1314,7 @@ ture_1.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/text
 ure_1.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/texture_1.png  used on input line 478.
+gnment_2/images/texture_1.png  used on input line 480.
 (pdftex.def)             Requested size: 112.74277pt x 83.46648pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/texture_
 2.png, id=284, 718.18312pt x 539.76656pt>
@@ -1294,7 +1323,7 @@ ture_2.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/text
 ure_2.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/texture_2.png  used on input line 485.
+gnment_2/images/texture_2.png  used on input line 487.
 (pdftex.def)             Requested size: 112.74277pt x 84.73364pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/texture_
 3.png, id=285, 657.95813pt x 492.33937pt>
@@ -1303,7 +1332,7 @@ ture_3.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/text
 ure_3.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/texture_3.png  used on input line 492.
+gnment_2/images/texture_3.png  used on input line 494.
 (pdftex.def)             Requested size: 112.74277pt x 84.35768pt.
  [11 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/ref
 raction.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/im
@@ -1317,7 +1346,7 @@ raction_3.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
 action_3.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/refraction_3.png  used on input line 518.
+gnment_2/images/refraction_3.png  used on input line 520.
 (pdftex.def)             Requested size: 112.74277pt x 88.6444pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refracti
 on_0.png, id=301, 501.37312pt x 382.42876pt>
@@ -1326,10 +1355,10 @@ raction_0.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
 action_0.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/refraction_0.png  used on input line 525.
+gnment_2/images/refraction_0.png  used on input line 527.
 (pdftex.def)             Requested size: 112.74277pt x 85.99606pt.
 
-Underfull \hbox (badness 1776) in paragraph at lines 526--526
+Underfull \hbox (badness 1776) in paragraph at lines 528--528
 []\OT1/cmr/m/n/9 (b) |\OT1/cmr/m/n/8 The glass sphere re-fracts the
  []
 
@@ -1340,7 +1369,7 @@ raction__0_5.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
 action__0_5.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/refraction__0_5.png  used on input line 532.
+gnment_2/images/refraction__0_5.png  used on input line 534.
 (pdftex.def)             Requested size: 112.74277pt x 86.21117pt.
 [12 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/refr
 action_3.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/i
@@ -1353,7 +1382,7 @@ r_n_3_div_16.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_3_div_16.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_3_div_16.png  used on input line 605.
+gnment_2/images/hair_n_3_div_16.png  used on input line 607.
 (pdftex.def)             Requested size: 112.74277pt x 152.49571pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair_n_3
 _div_8.png, id=313, 445.665pt x 581.17125pt>
@@ -1362,7 +1391,7 @@ r_n_3_div_8.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_3_div_8.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_3_div_8.png  used on input line 612.
+gnment_2/images/hair_n_3_div_8.png  used on input line 614.
 (pdftex.def)             Requested size: 112.74277pt x 147.0217pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair_n_3
 _div_4.png, id=314, 415.5525pt x 505.89pt>
@@ -1371,7 +1400,7 @@ r_n_3_div_4.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_3_div_4.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_3_div_4.png  used on input line 619.
+gnment_2/images/hair_n_3_div_4.png  used on input line 621.
 (pdftex.def)             Requested size: 112.74277pt x 137.24825pt.
  [13
 
@@ -1381,7 +1410,7 @@ r_n_3_div_4.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_3_div_4.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_3_div_4.png  used on input line 635.
+gnment_2/images/hair_n_3_div_4.png  used on input line 637.
 (pdftex.def)             Requested size: 112.74277pt x 137.24825pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair_n_2
 _div_4.png, id=324, 471.26062pt x 593.21625pt>
@@ -1390,7 +1419,7 @@ r_n_2_div_4.png Graphic file (type png)
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hair
 _n_2_div_4.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/hair_n_2_div_4.png  used on input line 642.
+gnment_2/images/hair_n_2_div_4.png  used on input line 644.
 (pdftex.def)             Requested size: 112.74277pt x 141.91316pt.
  [14 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/hai
 r_n_3_div_16.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment
@@ -1399,6 +1428,8 @@ _2/images/hair_n_3_div_8.png> <C:/D/University/Semester_4/Raytracer/lab_report_
 /lab_report_1/assignment_2/images/hair_n_2_div_4.png>] [15
 
 ]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 705.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/l4.p
 ng, id=339, 499.11469pt x 372.64218pt>
 File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
@@ -1406,7 +1437,7 @@ File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
 l4.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/bvh/l4.png  used on input line 710.
+gnment_2/images/bvh/l4.png  used on input line 735.
 (pdftex.def)             Requested size: 112.74277pt x 84.17065pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/l3.p
 ng, id=340, 499.8675pt x 380.92313pt>
@@ -1415,7 +1446,7 @@ File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
 l3.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/bvh/l3.png  used on input line 717.
+gnment_2/images/bvh/l3.png  used on input line 742.
 (pdftex.def)             Requested size: 112.74277pt x 85.91324pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/l2.p
 ng, id=341, 505.13719pt x 380.92313pt>
@@ -1424,7 +1455,7 @@ File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
 l2.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/bvh/l2.png  used on input line 724.
+gnment_2/images/bvh/l2.png  used on input line 749.
 (pdftex.def)             Requested size: 112.74277pt x 85.01813pt.
 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/l1.p
 ng, id=342, 498.36188pt x 386.19281pt>
@@ -1433,119 +1464,122 @@ File: C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
 <use C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh/
 l1.png>
 Package pdftex.def Info: C:/D/University/Semester_4/Raytracer/lab_report_1/assi
-gnment_2/images/bvh/l1.png  used on input line 731.
+gnment_2/images/bvh/l1.png  used on input line 756.
 (pdftex.def)             Requested size: 112.74277pt x 87.36694pt.
  [16 <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images/bvh
 /l4.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/images
 /bvh/l3.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_2/im
 ages/bvh/l2.png> <C:/D/University/Semester_4/Raytracer/lab_report_1/assignment_
-2/images/bvh/l1.png>] [17
+2/images/bvh/l1.png>] [17] [18
 
 ]
 
 Package natbib Warning: There were multiply defined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 818.
-[18
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 848.
+[19
 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.latexcom
 panion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.818 \end{document}
+l.848 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.818 \end{document}
+l.848 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.818 \end{document}
+l.848 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.818 \end{document}
+l.848 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.818 \end{document}
+l.848 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.818 \end{document}
+l.848 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.818 \end{document}
+l.848 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{cite.latexcompanion}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.818 \end{document}
+l.848 \end{document}
                     ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 818.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 848.
  (lab_report_1.aux
 
 Package natbib Warning: Citation(s) may have changed.
 (natbib)                Rerun to get citations correct.
 
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 818.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 818.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 848.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 848.
 Package rerunfilecheck Info: File `lab_report_1.out' has not changed.
 (rerunfilecheck)             Checksum: ADFAC2D2DFDBF9E14731008DDC75426E;2168.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 818.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 848.
  ) 
 Here is how much of TeX's memory you used:
- 22657 strings out of 492942
- 432530 string characters out of 3126214
- 685136 words of memory out of 3000000
- 26218 multiletter control sequences out of 15000+200000
- 542843 words of font info for 63 fonts, out of 3000000 for 9000
+ 23187 strings out of 492942
+ 440464 string characters out of 3126214
+ 692861 words of memory out of 3000000
+ 26733 multiletter control sequences out of 15000+200000
+ 543842 words of font info for 66 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,18n,63p,689b,791s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,18n,63p,728b,791s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmbx12.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/alhaj/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/alhaj/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/alh
-aj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><
-C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmmi8.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmmi9.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmr10.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/alhaj/AppData/Local/Pr
-ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/alhaj/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users
-/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pf
-b><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmr9.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/alhaj/AppData/Local/Programs/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/alhaj/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on lab_report_1.pdf (18 pages, 2576382 bytes).
+onts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/alhaj/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/alhaj/AppData/
+Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/a
+lhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb
+><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmmi7.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmmi8.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/alhaj/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/alhaj/AppData/Local/
+Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/alhaj/Ap
+pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Us
+ers/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5
+.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmr7.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb><C:/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/alhaj/AppData/Local/Programs/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/alhaj/AppData/Loca
+l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/alhaj/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:
+/Users/alhaj/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mti9.pfb>
+Output written on lab_report_1.pdf (19 pages, 2598091 bytes).
 PDF statistics:
- 439 PDF objects out of 1000 (max. 8388607)
- 83 named destinations out of 1000 (max. 500000)
+ 455 PDF objects out of 1000 (max. 8388607)
+ 85 named destinations out of 1000 (max. 500000)
  410 words of extra memory for PDF output out of 10000 (max. 10000000)
 

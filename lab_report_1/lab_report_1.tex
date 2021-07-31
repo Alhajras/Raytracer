@@ -13,6 +13,8 @@
 \usepackage{subcaption}
 \captionsetup[figure]{font=small,labelfont=small}
 \usepackage{float}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 \hypersetup{
@@ -682,25 +684,48 @@
 	Nodes in the BVH tree are BV, and leaves are primitives. 
 	There are three different ways to construct a BVH tree:
 	\begin{itemize}
-		\item Top Down:	Arguably the most popular technique in practice. It uses the 'fit and split' algorithm, where it starts with the whole model and encapsulates it with a BV and fits it, then tries to split it into n children, usually 2. It keeps recursively splitting and fitting until it reaches the leaves and assigns the primitives to them.
+		\item \textit{Top Down}:	Arguably the most popular technique in practice. It uses the '\textit{fit and split}' algorithm, where it starts with the whole model and encapsulates it with a BV and fits it, then tries to split it into n children, usually two. It keeps recursively splitting and fitting until it reaches the leaves and assigns the primitives to them.
 		
-		\item Bottom Up: Slower construction time than Top-Down but usually produces the best tree. It uses the 'knit and fit' algorithm, where it starts with primitives and tries to encapsulate them with the BV and merge each n, usually n=2; it keeps recursively doing this process until it reaches the root.
+		\item \textit{Bottom Up}: Slower construction time than \textit{Top-Down} but usually produces the best tree. It uses the '\textit{knit and fit}' algorithm, where it starts with primitives and tries to encapsulate them with the BV and merge each $ n $, usually $ n=2 $; it keeps recursively doing this process until it reaches the root.
 		
 		
-		\item Insertion: It uses 'incremental-insertion' algorithm, where it starts with a single leaf and merges another leaf by using a cost function, then creating a head node and searching for the next leaf to merge. The problem with this method is that it can become worst as it depends on the insertion order of the nodes, and it is challenging to find the best tree.
+		\item \textit{Insertion}: It uses '\textit{incremental-insertion}' algorithm, where it starts with a single leaf and merges another leaf by using a cost function, then creating a head node and searching for the next leaf to merge. The problem with this method is that it can become worst as it depends on the insertion order of the nodes, and it is challenging to find the best tree.
 		
 	\end{itemize} 
 	
 	\subsection{Implementation}
 	
-	In this Raytracer, a Sphere BV is used; the reason is simple as Sphere has a fast intersection test and is easy to generate and fit into the model or primitives. 
+	In this Raytracer, a Sphere BV is used; the reason is Sphere has a fast intersection test and is easy to generate and fit into the model or primitives. 
 	On the other hand, Sphere is usually not so tight, resulting in non-optimal performance, but for this Raytracer, as the scene is not significant and complex, Spheres can be a good choice.
 	
-	For constructing the BVH tree, the Bottom-Up method is used. Moreover, a binary tree and minimum leaves = 2 are the settings.
+	For constructing the BVH tree, the Bottom-Up method is used. Moreover, a binary tree and minimum leaves = 2 are the settings. Eight particles in the scene are generated for testing, these particles are the leaves, each particle is a leave node that don't have children, each two particles are merged into a Sphere BV parent node that has a centre of a middle point $ c_{1,2} = \frac{c_1 + c_2}{2} $ and radius of both particle radius combined $ r_{1,2} = r_1 + r_2 $ . We loop over this process until no object left and we reach the root of the scene, and we return the root reference.
+	For ray intersection test, the next algorithm explain the process: 
+	
+		\begin{algorithm}[H]
+		\caption{Raytracer intersection test by using BVH algorithm}\label{euclid}
+		\begin{algorithmic}[1]
+			\Procedure{MyProcedure}{}
+			\State $\textit{Beginning at the root node BV}$
+			\If {$ \textit{Ray dose not intersect the root BV} $} \Return No intersection
+			\Else
+			\State {$ \textit{check all children of the node} $}
+			\If {$ \textit{there is intersection between any child with Ray} $}
+			\If {$ \textit{leaf node} $} \Return  Intersection might happened
+			\EndIf
+			\Else		
+			\State \textbf{goto} \emph{4}.
+			\EndIf
+			\EndIf
+			
+			\If {$ \textit{No children left} $} \Return No intersection
+			\EndIf
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
 	
 	\subsection{Results and discussion}
 	
-	Figure ~\ref{fig:12} (a) shows eight particles that will be used as a test scene; these particles are the leaves in our tree that present layer 4. Because we are using a bottom-up strategy, every two particles are merged and encapsulated by one Sphere BV. This creates a higher level of the tree, layer 3. Recursivity we keep merging every two BVs until we hit the root, as shown in (d).
+	Figure ~\ref{fig:12} (a) shows eight particles that will be used as a test scene; these particles are the leaves in our tree that present layer 4. Because we are using a bottom-up strategy, every two particles are merged and encapsulated by one Sphere BV. This creates a higher level of the tree, layer 3. Recursivity we keep merging every two BVs until we hit the root, as shown in (d), note that in practice we do not render the BV spheres they are virtual bounding volume, but I am rendering them for illustration only..
 	
 	\begin{figure}[ht]
 		\begin{center}
@@ -737,7 +762,7 @@
 		\end{center}
 	\end{figure}
 	
-	In order to test the BVH performance, three main tests have been done. Table 1 illustrates the differences between using BVH or not. By looking into the table, we noticed that using the BVH spends double the time of not using BVH. The main reason is that BVH adds more steps to the Raytracer; it adds tree Construction cost and adds BV generation cost. BVH is useful when more extensive scenes are used; for example, by including 16 particles in the scene and excluding the other 16 particles from the camera vision, we can see that BVH boosts the Raytracer's performance.
+	In order to test the BVH performance, three main tests have been done. Table ~\ref{table:1} illustrates the differences between using BVH or not. By looking into the table, we noticed that using the BVH spends double the time of not using BVH. The main reason is that BVH adds more steps to the Raytracer; it adds tree Construction cost and adds BV generation cost. BVH is useful when more extensive scenes are used; for example, by including 16 particles in the scene and excluding the other 16 particles from the camera vision, we can see that BVH boosts the Raytracer's performance, because half of the objects are outside the camera vision therefore less intersection tests are made.
 	
 	\begin{table}[h!]
 		\centering
@@ -751,7 +776,7 @@
 			\hline
 			
 		\end{tabular}
-		\caption{The Raytracer performance comparison, where 16/32 means 32 particles are used in the sceen and only 16 are included in the image.}
+		\caption{The Raytracer performance comparison, where 16/32 means 32 particles are used in the scene and only 16 are visible to the camera.}
 		\label{table:1}
 	\end{table}
 	
@@ -759,19 +784,24 @@
 	\clearpage
 	
 	\section{Summary and conclusion}
-	In the first chapter, Visibility, we introduced different shapes that can be represented in the 3D scene; it can be noticed that some are easier to be rendered than others depending on how complex the model is, but also the intersection test plays a considerable role for the performance. Also, some complex shapes like tetrahedra and cubes can be reconstructed by building up a trivial model as triangles.  
+	In the first chapter, \textit{Visibility}, we introduced different shapes that can be represented in the 3D scene; it can be noticed that some are easier to be rendered than others depending on how complex the model is, but also the intersection test plays a considerable role for the performance. Also, some complex shapes like tetrahedra and cubes can be reconstructed by building up a trivial model as triangles.  
 	
 	Moreover, rendering pixels can lead to aliasing where the edges of the model look sharp and not realistic; this can be solved by using different anti-aliasing methods; however, this can reduce the performance of the Raytracer.
 	
-	The Shading chapter Phong model is used to approximate the light effect on Spheres where diffuse and glossy models are used; also, different materials such as transparent have been implemented and shown using snells law. Textures are a simple method to shade a model without using expensive operations, and a math model can give excellent results. 
+		\vspace*{5px}
+	The \textit{Shading} chapter Phong model is used to approximate the light effect on Spheres where diffuse and glossy models are used; also, different materials such as transparent have been implemented and shown using snells law. Textures are a simple method to shade a model without using expensive operations, and a math model can give excellent results. 
 	
-	In Shading, the more Rays paths are followed for rendering, the more realistic the scene becomes; however, the deeper we trace the Rays, the more expensive the Raytracer becomes as it needs more paths to trace. 
+		\vspace*{5px}
+	In Shading, the more Rays paths are traced for rendering, the more realistic the scene becomes; however, the deeper we trace the Rays, the more expensive the Raytracer becomes as it needs more paths to trace, this can be improved by \textit{ Monte carlo approximation}, however this is out of this lap scope. 
 	
-	Curves are not trivial to be approximated in computer graphics because we approximate curves by lines; hence, the smoother the curve, the more lines are needed. As we introduced the polynomials, if we want a complex curve, we need a higher-order polynomial, which leads to higher memory consumption and reduces the Raytracer's performance. 
+		\vspace*{5px}
+	\textit{Curves} are not trivial to be approximated in computer graphics because we approximate curves by lines; hence, the smoother the curve, the more lines are needed. As we introduced the polynomials, if we want a complex curve, we need a higher-order polynomial, which leads to higher memory consumption and reduces the Raytracer's performance. 
 	
-	As ray tracing operations are expensive and more paths to be traced, some data structures are used to increase the Raytracer performance and efficiency, some methods are space subdivisions as kd-trees, and others objects originated as BVH. BVH can reduce the number of intersection tests needed; however, it adds more steps to the workflow as tree construction, updates, and traversal.  BVH can be optimized by tweaking the BV types used, tree construction algorithms, and traversal algorithms.
+		\vspace*{5px}
+	As raytracing operations are expensive and more paths to be traced, some data structures are used to increase the Raytracer performance and efficiency, some methods are space subdivisions as kd-trees, and others objects oriented  as BVH. BVH can reduce the number of intersection tests needed; however, it adds more steps to the workflow as tree construction, tree updates, and tree traversal.  BVH can be optimized by tweaking the BV types used, tree construction algorithms, and traversal algorithms.
 	
-	In this report, different resources are used for the implementation to search and test different approaches of Raytracer.  The report illustrates the basic approaches and challenges that can encounter the engineer to solve the rendering challenge. 
+		\vspace*{5px}
+	In this report, different resources are used for the implementation to search and test different approaches of Raytracer.  The report illustrates the basic approaches and challenges that can encounter the engineer to solve the rendering challenges. 
 	
 	
 	\clearpage
