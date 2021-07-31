@@ -16,7 +16,8 @@
 \contentsline {subsubsection}{\numberline {3.2.1}Refraction}{10}{subsubsection.3.2.1}% 
 \contentsline {subsubsection}{\numberline {3.2.2}Fresnel}{11}{subsubsection.3.2.2}% 
 \contentsline {subsubsection}{\numberline {3.2.3}Texture}{11}{subsubsection.3.2.3}% 
-\contentsline {subsubsection}{\numberline {3.2.4}Results and discussion}{12}{subsubsection.3.2.4}% 
+\contentsline {subsubsection}{\numberline {3.2.4}Implementation}{12}{subsubsection.3.2.4}% 
+\contentsline {subsubsection}{\numberline {3.2.5}Results and discussion}{12}{subsubsection.3.2.5}% 
 \contentsline {section}{\numberline {4}Curves}{13}{section.4}% 
 \contentsline {subsection}{\numberline {4.1}Introduction}{13}{subsection.4.1}% 
 \contentsline {subsection}{\numberline {4.2}B\IeC {\'e}zier Curves}{13}{subsection.4.2}% 
