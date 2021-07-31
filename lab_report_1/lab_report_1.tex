@@ -97,7 +97,7 @@
 	\subsection{Introduction}
 	The goal of rendering in computer graphics is to simulate light propagation to create images of virtual scenes. \textit{Visibility} is a critical phenomenon that occurs as a result of light's interaction with the environment.
 	
-	A fundamental graphics problem is determining the visible areas of surfaces and which object is closer to the camera. This challenge is referred to as visible surface determination or concealed surface removal, depending on how it is approached. The primary two operations in the Raytracer are Rays casting, which shoots rays toward the scene, and Path tracing that traces the path of the shooted rays.
+	A fundamental graphics problem is determining the visible areas of surfaces and which object is closer to the camera. This challenge is referred to as visible surface determination or concealed surface removal, depending on how it is approached. The primary two operations to solve the Visibility challenge are: \textit{Rays casting}, which shoots rays toward the scene, and \textit{Path tracing} that traces the path of the shooted rays.
 	
 	\subsection{Rays}
 	To generate an image using Raytracing, we must first cast a ray for each pixel in the image to the scene.
@@ -118,7 +118,7 @@
 		\end{center}
 	\end{figure}
 	
-	\subsection{Rendering a Sphere}
+	\subsection{Rendering Sphere}
 	For testing, spheres are often used in ray tracers because
 	calculating whether a ray hits a sphere is pretty straightforward.
 	
@@ -127,7 +127,7 @@
 		(o_x + td_x )^2 + (o_y + td_y )^2+ (o_z + td_z )^2= 1
 	\end{equation}
 	
-	For solving the equation we need to use the Quadratic equation in t: 
+	For solving the equation we need to use the Quadratic equation in $ t $: 
 	
 	\begin{equation}
 		\begin{split}
@@ -155,16 +155,16 @@
 			
 			\caption{The three possible line-sphere intersections:
 				1. No intersection.
-				2. Point intersection.
+				2. Single point intersection.
 				3. Two point intersection.}
 			\label{fig:2}
 		\end{center}
 	\end{figure}
 	
 	\subsection{Rendering Triangle}
-	It is computing the intersection of a ray with a primitive such as a sphere is not tricky. However, because modeling most 3D objects with spheres alone is difficult, other types of primitives must be used to represent more complicated objects (objects of arbitrary shape).
+	Computing the intersection of a ray with a primitive such as a sphere is not tricky. However, because modeling most 3D objects with spheres alone is difficult, other types of primitives must be used to represent more complicated objects (objects of arbitrary shape).
 	We may transform every object into a triangular mesh and compute the intersection of a ray with every triangle in this mesh instead of working with complex primitives like NURBS or Bezier patches.
-	We get three different cases by solving the equation as shown in Figure ~\ref{fig:3} below.
+	To represent a triangle a Parametric representation can be used,
 	
 	Parametric representation:
 	\begin{equation}
@@ -175,7 +175,7 @@
 	Vertices $\pmb{p}_0$, $\pmb{p}_1$, $\pmb{p}_2$ form a triangle. $\pmb{p}$ is an arbitrary point in the plane
 	of the triangle.
 	
-	Figure ~\ref{fig:3} shows the three different cases that the ray can have with a triangle: Ray misses, Ray parallel and the one we are interested in is when the ray intersects, we get an intersection if: 
+	Figure ~\ref{fig:3} shows the three different cases that the ray can have with a triangle: Ray misses, Ray parallel and Ray intersects, we get an intersection if: 
 	\( b_0 \geq
 	0 \land b_1\geq
 	0 \land b_2 \geq
@@ -196,7 +196,7 @@
 	Pixels make up the display on a computer. The smallest component of any digital image is the pixel, and while modern computer monitors have great resolutions with millions of pixels, these pixels are still rectangular. This means that when spherical forms are displayed on a screen, the user will almost certainly notice jagged edges, also known as aliasing.
 	We'll utilize a basic MSAA, which stands for "multisample anti-aliasing" and is one of the most prevalent anti-aliasing techniques. It achieves the finest blend of visual accuracy and performance in most cases. This is done by averaging the number of samples within each pixel.
 	
-	We have several samples within that pixel for a given pixel and send rays through each of the samples. The colors of these rays are then averaged.
+	We have several random samples around each pixel, we send rays through each of the samples. The colors of these rays are then averaged.
 	
 	\begin{figure}[ht]
 		\begin{center}
@@ -215,19 +215,19 @@
 				\label{fig:sub-second}
 			\end{subfigure}
 			
-			\caption{he benefit of using Anti-aliasing improvement, where (b) looks smoother than (a)}
+			\caption{The benefit of using Anti-aliasing improvement, where (b) edges look smoother than (a)}
 			\label{fig:4}
 		\end{center}
 	\end{figure}
 	
 	
-	Figure ~\ref{fig:4} shows the refinement and how the object's edges are smoothed by using the anti-aliasing technique. The issue is performance because the more smoothed edges get, the more samples had to be taken around each pixel; for example, if the image size is 200 x 200, and the samples are used for anti-aliasing are equal to 100, then we will measure the color for 200 x 200 x 100 pixels rather than 200 x 200. 
-	A trade-off has to be done here in order to have a smoothed edges, but with no considerable performance cost; this depends on the application. 
+	Figure ~\ref{fig:4} shows the refinement and how the object's edges are smoothed by using the anti-aliasing technique. The issue is performance because the smoother edges get, the more samples had to be taken around each pixel; for example, if the image size is 200 x 200 pixels, and the samples are used for anti-aliasing are equal to 100 sample/pixel, then we will measure the color for 200 x 200 x 100 pixels rather than 200 x 200. 
+	A trade-off has to be done here in order to have a smoothed edges, but with no considerable performance cost; this depends on the application and how complex the scene is. 
 	
 	
 	\subsection{Implementation}
-	Two classes of Sphere and Triangle are created; each class or model contains parameters depending on its shape. Also, each model needs a different intersection test, as explained before. 
-	After casting rays toward the scene, it will loop over all the objects in the scene and test the intersection; if the ray intersects an object, it will save its position and color of the pixel if there is no object intersect closer to the previous object, we just return the color of the pixel. 
+	Two classes of Sphere and Triangle are created; each class or model contains parameters depending on its shape, for example the Sphere needs two parameters to represent it: \textit{Radius} and \textit{Center}. Also, each model needs a different intersection test, as explained before, this method will check if the ray intersect the object. 
+	After casting rays toward the scene, it will loop over all the objects in the scene and test the intersection; if the ray intersects an object, it will save its position and color of the pixel if there is no object intersect closer to the previous object, we just return the color of the last object pixel. 
 	For more complicated objects as a cube, an array or mesh of triangles is arranged in a specific position to compose a cube. This mesh is an object called a cube, but it is composed of triangles; hence the triangle intersection test is being used.
 	
 	For anti-aliasing, there is a configuration class that contains the global settings for the Raytracer, and one configuration is the number of samples used for the anti-aliasing.
